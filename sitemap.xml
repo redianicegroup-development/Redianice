@@ -1,13 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
-    <loc>https://redianice.example/</loc>
-    <lastmod>2026-11-08</lastmod>
-    <image:image><image:loc>https://redianice.example/assets/og-image.png</image:loc></image:image>
+    <loc>https://redianice.vercel.app/</loc>
+    <lastmod>2026-11-09</lastmod>
+    <image:image><image:loc>https://redianice.vercel.app/assets/og-image.png</image:loc></image:image>
   </url>
   <url>
-    <loc>https://redianice.example/portfolio/e-carnet/</loc>
-    <lastmod>2026-11-08</lastmod>
-    <image:image><image:loc>https://redianice.example/assets/og-e-carnet.png</image:loc></image:image>
+    <loc>https://redianice.vercel.app/produits/e-carnet/</loc>
+    <lastmod>2026-11-09</lastmod>
+    <image:image><image:loc>https://redianice.vercel.app/assets/og-e-carnet.png</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://redianice.vercel.app/investir/</loc>
+    <lastmod>2026-11-09</lastmod>
+    <image:image><image:loc>https://redianice.vercel.app/assets/og-e-carnet.png</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://redianice.vercel.app/mentions-legales/</loc>
+    <lastmod>2026-11-09</lastmod>
+    <image:image><image:loc>https://redianice.vercel.app/assets/og-e-carnet.png</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://redianice.vercel.app/confidentialite/</loc>
+    <lastmod>2026-11-09</lastmod>
+    <image:image><image:loc>https://redianice.vercel.app/assets/og-e-carnet.png</image:loc></image:image>
   </url>
 </urlset>

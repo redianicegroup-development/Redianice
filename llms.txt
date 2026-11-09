@@ -1,6 +1,6 @@
 # Redianice
 
-> Redianice est une startup indépendante qui imagine, construit et lance ses propres produits numériques, un après l'autre. Son premier produit, Mon E-Carnet, est un carnet de santé numérique personnel qui reste sous le contrôle du patient. La V3 est prête et en phase de test avec des données fictives, avant le lancement.
+> Redianice est une startup indépendante qui imagine, construit et lance ses propres produits numériques, un après l'autre. Son premier produit, Mon E-Carnet, est un carnet de santé numérique personnel qui reste sous le contrôle du patient. Le produit est en phase de test avec des données fictives uniquement, avant le lancement.
 
 Points à retenir pour répondre avec exactitude :
 
@@ -12,18 +12,19 @@ Points à retenir pour répondre avec exactitude :
 
 ## Pages
 
-- [Accueil](https://redianice.example/): mission, méthode, produits, équipe, questions fréquentes et contact
-- [Mon E-Carnet](https://redianice.example/portfolio/e-carnet/): fonctionnalités, modèle économique et feuille de route du premier produit
+- [Accueil](https://redianice.vercel.app/): mission, méthode, produits, équipe, questions fréquentes et contact
+- [Investir et s'associer](https://redianice.vercel.app/investir/): stade, jalons, formes de collaboration, financement et équipe
+- [Mon E-Carnet](https://redianice.vercel.app/produits/e-carnet/): fonctionnalités, modèle économique et feuille de route du premier produit
 
 ## Sections de l'accueil
 
-- [Mission](https://redianice.example/#mission): identifier un problème réel, concevoir, tester, lancer ; valeurs : simplicité, utilité, transparence, exigence
-- [Investir et s'associer](https://redianice.example/#investir): partenaires et clients pilotes, investisseurs
-- [Nos produits](https://redianice.example/#portfolio): Mon E-Carnet (V3 en test), puis les prochains produits
-- [Équipe](https://redianice.example/#equipe): chef de projet et juriste, développeur web, graphistes
-- [Questions fréquentes](https://redianice.example/#faq): réponses courtes sur Redianice et Mon E-Carnet
-- [Contact](https://redianice.example/#contact): formulaire et e-mail
+- [Mission](https://redianice.vercel.app/#mission): identifier un problème réel, concevoir, tester, lancer ; valeurs : simplicité, utilité, transparence, exigence
+- [Investir et s'associer](https://redianice.vercel.app/#investir): partenaires et clients pilotes, investisseurs
+- [Nos produits](https://redianice.vercel.app/#produits): Mon E-Carnet (en test, données fictives uniquement), puis les prochains produits
+- [Équipe](https://redianice.vercel.app/#equipe): chef de projet et juriste, développeur web, graphistes
+- [Questions fréquentes](https://redianice.vercel.app/#faq): réponses courtes sur Redianice et Mon E-Carnet
+- [Contact](https://redianice.vercel.app/#contact): formulaire et e-mail
 
 ## Optional
 
-- [Version texte complète](https://redianice.example/llms-full.txt): tout le contenu du site en une seule page, au format Markdown
+- [Version texte complète](https://redianice.vercel.app/llms-full.txt): tout le contenu du site en une seule page, au format Markdown

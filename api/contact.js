@@ -58,8 +58,23 @@ module.exports = async (req, res) => {
   b = b || {};
   if (b.website) return res.status(200).json({ ok: true }); // champ piège rempli : on ignore
 
+  // Vérification anti-spam Cloudflare Turnstile (active seulement si TURNSTILE_SECRET_KEY est définie)
+  const secret = process.env.TURNSTILE_SECRET_KEY;
+  if (secret) {
+    const token = String(b.token || "");
+    if (!token) return res.status(400).json({ error: "Vérification anti-spam requise. Rechargez la page et réessayez." });
+    try {
+      const v = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", { method: "POST", headers: { "Content-Type": "application/x-www-form-urlencoded" }, body: new URLSearchParams({ secret, response: token, remoteip: ip }) });
+      const vj = await v.json();
+      if (!vj.success) return res.status(403).json({ error: "Vérification anti-spam échouée. Réessayez." });
+    } catch (e) { return res.status(502).json({ error: "Vérification anti-spam indisponible. Réessayez." }); }
+  }
+
   const prenom = clean(b.prenom, 80), nom = clean(b.nom, 80), email = clean(b.email, 120);
   const message = String(b.message || "").trim().slice(0, 3000);
+  const MOTIFS = { general: "Demande générale", partenariat: "Partenariat ou pilote", investissement: "Investissement", presse: "Presse", autre: "Autre" };
+  const motif = Object.prototype.hasOwnProperty.call(MOTIFS, b.motif) ? b.motif : "general";
+  const organisation = clean(b.organisation, 120);
   if (!prenom || !nom) return res.status(400).json({ error: "Merci d'indiquer votre prénom et votre nom." });
   if (!EMAIL.test(email)) return res.status(400).json({ error: "Adresse e-mail invalide." });
   if (message.length < 10) return res.status(400).json({ error: "Votre message est trop court." });
@@ -72,8 +87,8 @@ module.exports = async (req, res) => {
         from: process.env.RESEND_FROM || "Redianice <onboarding@resend.dev>",
         to: [process.env.CONTACT_TO || "redianicegroup@gmail.com"],
         reply_to: email,
-        subject: "Nouveau message de " + prenom + " " + nom,
-        text: prenom + " " + nom + " (" + email + ")\n\n" + message,
+        subject: "[" + MOTIFS[motif] + "] Nouveau message de " + prenom + " " + nom,
+        text: "Motif : " + MOTIFS[motif] + (organisation ? "\nOrganisation : " + organisation : "") + "\n" + prenom + " " + nom + " (" + email + ")\n\n" + message,
         html: buildHtml(prenom, nom, email, message),
       }),
     });

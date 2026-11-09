@@ -34,7 +34,7 @@
 
   // Langue : traduction du navigateur (Google Translate), chargée seulement si le visiteur la choisit.
   // Le français reste la langue du site : les moteurs de recherche lisent toujours le texte d'origine.
-  var LANG_SHORT = { fr: "FR", en: "EN", es: "ES", ar: "AR", "zh-CN": "ZH", pt: "PT", de: "DE", it: "IT", ru: "RU", ja: "JA" };
+  var LANG_SHORT = { fr: "FR", en: "EN", ar: "AR", "zh-CN": "ZH", pt: "PT" };
   var cookieLang = function () {
     var m = document.cookie.match(/(?:^|;\s*)googtrans=\/[^\/;]+\/([^;]+)/);
     var l = m ? decodeURIComponent(m[1]) : "fr";
@@ -164,17 +164,19 @@
   });
 
   // Formulaire : envoi vers /api/contact (Resend côté serveur)
-  var form = $("#form");
+  var form = $("#form"), tsId = null, tsKey = (document.querySelector('meta[name="turnstile-sitekey"]') || {}).content;
+  function payload() { var d = Object.fromEntries(new FormData(form).entries()); if (tsId !== null && window.turnstile) d.token = window.turnstile.getResponse(tsId); return d; }
+  if (form && tsKey) { var sc = document.createElement("script"); sc.src = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit"; sc.async = true; sc.onload = function () { tsId = window.turnstile.render("#ts", { sitekey: tsKey }); }; document.head.appendChild(sc); }
   if (form) form.addEventListener("submit", function (e) {
     e.preventDefault();
     var st = $("#formstatus"), btn = $("button[type=submit]", form), fallback = "Envoi impossible. Écrivez-nous à redianicegroup@gmail.com.";
     if (!form.checkValidity()) { form.reportValidity(); return; }
     st.textContent = "Envoi en cours…"; btn.disabled = true;
-    fetch("/api/contact", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(Object.fromEntries(new FormData(form).entries())) })
+    fetch("/api/contact", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload()) })
       .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { return { ok: r.ok, j: j }; }); })
       .then(function (x) { if (x.ok) { form.reset(); st.textContent = "Merci, votre message est bien parti. Nous vous répondons rapidement."; } else { st.textContent = (x.j && x.j.error) || fallback; } })
       .catch(function () { st.textContent = fallback; })
-      .then(function () { btn.disabled = false; });
+      .then(function () { btn.disabled = false; if (tsId !== null && window.turnstile) window.turnstile.reset(tsId); });
   });
 
   // Animations : valeur finale visible sans JS ni animation
@@ -273,4 +275,14 @@
   });
   window.addEventListener("load", function () { ScrollTrigger.refresh(); });
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { ScrollTrigger.refresh(); });
+})();
+
+(function () {
+  var sel = document.getElementById("motif");
+  if (!sel) return;
+  var q = (location.search.match(/[?&]motif=([a-z]+)/) || [])[1];
+  if (q && sel.querySelector('option[value="' + q + '"]')) sel.value = q;
+  Array.prototype.forEach.call(document.querySelectorAll("[data-motif]"), function (a) {
+    a.addEventListener("click", function () { sel.value = a.getAttribute("data-motif"); });
+  });
 })();

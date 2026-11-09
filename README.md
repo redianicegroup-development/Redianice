@@ -7,19 +7,23 @@ Site vitrine de Redianice, startup indépendante qui conçoit et lance ses propr
 - Site responsive en HTML, CSS et JavaScript, sans étape de compilation.
 - Animations et défilement enrichis avec GSAP, ScrollTrigger et Lenis.
 - Formulaire de contact traité par une fonction serverless dans `api/contact.js`, avec envoi via Resend.
-- Page dédiée à Mon E-Carnet dans `portfolio/e-carnet/`.
+- Page dédiée à Mon E-Carnet dans `produits/e-carnet/`.
 
 ## Structure
 
 | Chemin | Contenu |
 | --- | --- |
 | `index.html` | Page d’accueil et formulaire de contact |
-| `portfolio/e-carnet/` | Présentation de Mon E-Carnet |
+| `produits/e-carnet/` | Présentation de Mon E-Carnet |
+| `mentions-legales/`, `confidentialite/`, `404.html` | Pages légales et page d’erreur |
+| `vercel.json` | Redirection `/portfolio/e-carnet/` et en-têtes de sécurité |
+| `scripts/changer-domaine.mjs` | Remplace le domaine et l’adresse de contact dans tout le site |
 | `css/style.css` | Styles du site |
 | `js/main.js` | Interactions et formulaire |
 | `js/vendor/` | Bibliothèques JavaScript utilisées |
 | `api/contact.js` | API serverless du formulaire |
 | `assets/` | Images, logos et polices |
+| `assets/captures/` | Captures réelles de Mon E-Carnet (WebP, données fictives uniquement ; nom et date de naissance masqués par des x). Chaque capture existe en taille d'origine et en version `-640` pour mobile |
 
 ## Développement local
 
@@ -45,3 +49,10 @@ Sans l’environnement Vercel, les pages peuvent être ouvertes avec un serveur 
 ## Déploiement
 
 Importez le dépôt dans Vercel et déployez-le depuis la branche `main`. Vercel sert les fichiers statiques et déploie automatiquement `api/contact.js` comme fonction serverless. Configurez les variables d’environnement dans Vercel avant de tester le formulaire. L’expéditeur `RESEND_FROM` doit utiliser un domaine vérifié auprès de Resend.
+
+## Passer à un domaine propre
+
+1. Ajouter le domaine dans Vercel (Settings > Domains).
+2. Lancer `node scripts/changer-domaine.mjs ton-domaine.com contact@ton-domaine.com`.
+3. Vérifier le domaine dans Resend, puis mettre à jour `RESEND_FROM` et `CONTACT_TO` dans Vercel.
+4. Anti-spam : activer Cloudflare Turnstile (`TURNSTILE_SECRET_KEY` + clé publique dans `index.html`) et/ou une règle de limitation sur `/api/contact` dans le pare-feu Vercel.

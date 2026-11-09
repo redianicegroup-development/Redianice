@@ -17,4 +17,4 @@ User-agent: CCBot
 Allow: /
 Disallow: /api/
 
-Sitemap: https://redianice.example/sitemap.xml
+Sitemap: https://redianice.vercel.app/sitemap.xml

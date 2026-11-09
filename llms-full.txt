@@ -2,7 +2,7 @@
 
 > Redianice est une startup indépendante qui imagine, construit et lance ses propres produits numériques, un après l'autre. Premier produit : Mon E-Carnet, un carnet de santé numérique personnel, en phase de test.
 
-Site : https://redianice.example/
+Site : https://redianice.vercel.app/
 Contact : redianicegroup@gmail.com
 Langue du site : français (traduction automatique disponible dans le navigateur)
 
@@ -21,11 +21,11 @@ Redianice est une startup indépendante. Elle conçoit des produits numériques 
 
 Simplicité, utilité, transparence, exigence.
 
-## Mon E-Carnet (https://redianice.example/portfolio/e-carnet/)
+## Mon E-Carnet (https://redianice.vercel.app/produits/e-carnet/)
 
-Statut : V3 prête, en phase de test avec des données fictives, avant le lancement.
+Statut : en phase de test, avec des données fictives uniquement.
 
-Mon E-Carnet est un carnet de santé personnel, simple, qui reste sous le contrôle du patient. Il rassemble au même endroit les informations de santé d'une personne : allergies, traitements, vaccinations, ordonnances et rendez-vous. Le patient choisit qui peut les consulter, et pour combien de temps. Le médecin retrouve l'essentiel en quelques secondes, avec l'accord du patient. Trois espaces : un pour le patient, un pour le professionnel de santé, un pour l'établissement.
+Mon E-Carnet est un carnet de santé personnel, simple, qui reste sous le contrôle du patient. Il rassemble au même endroit les informations de santé d'une personne : allergies, traitements, vaccinations, ordonnances et rendez-vous. Le patient choisit qui peut les consulter, et pour combien de temps. Le professionnel autorisé retrouve l'essentiel, avec l'accord du patient. Trois espaces : un pour le patient, un pour le professionnel de santé, un pour l'établissement.
 
 ### Fonctionnalités
 
@@ -34,7 +34,7 @@ Mon E-Carnet est un carnet de santé personnel, simple, qui reste sous le contr�
 - Documents et ordonnances : analyses, ordonnances et vaccinations rangées au même endroit, exportables en PDF.
 - Rappels et rendez-vous : prise de médicaments, rendez-vous et plans de suivi, avec des notifications.
 - Accès contrôlé : le professionnel demande, le patient accepte, refuse, prolonge ou retire l'accès. Chaque consultation est tracée.
-- Pensé pour le téléphone : léger, adapté aux connexions faibles, consultable même sans réseau.
+- Pensé pour le téléphone : les informations déjà consultées restent lisibles hors connexion, en lecture seule.
 
 ### Ce qui le distingue
 
@@ -46,7 +46,7 @@ Le patient garde la main sur ses données. Les revenus sont prévus du côté de
 
 ### Feuille de route
 
-1. Maintenant : un carnet fiable, avec un accès toujours soumis au consentement du patient. La V3 est prête et en phase de test avec des données fictives.
+1. Maintenant : un carnet fiable, avec un accès toujours soumis au consentement du patient. Le produit est en phase de test avec des données fictives uniquement.
 2. Ensuite : prévention et suivi au quotidien (rappels, rendez-vous, proches).
 3. Puis : suivi d'un patient entre deux établissements, avec son accord.
 4. Enfin : un écosystème d'établissements partenaires et les abonnements.
@@ -79,7 +79,7 @@ Redianice est une startup indépendante. Elle imagine, construit et lance ses pr
 Mon E-Carnet est le premier produit de Redianice : un carnet de santé numérique personnel, simple, qui reste sous le contrôle du patient. Il rassemble allergies, traitements, vaccinations, ordonnances et rendez-vous, avec trois espaces : un pour le patient, un pour le professionnel de santé et un pour l'établissement.
 
 ### Mon E-Carnet est-il déjà disponible ?
-Pas encore en lancement public. La V3 est prête et en phase de test avec des données fictives, avant le lancement. Nous la testons avec de premiers utilisateurs et des partenaires pilotes.
+Pas encore en lancement public. Le produit est en phase de test avec des données fictives uniquement, avant le lancement. Nous le testons avec de premiers utilisateurs et des partenaires pilotes.
 
 ### Qui contrôle les données de santé dans Mon E-Carnet ?
 Le patient. Il choisit qui peut consulter ses informations et pour combien de temps. Le professionnel de santé demande l'accès, le patient l'accepte, le refuse, le prolonge ou le retire, et chaque consultation est tracée. Les données de santé ne servent pas à des fins commerciales.
