@@ -1,6 +1,6 @@
 
 git add .
-git commit -m "v6"
+git commit -m "v7"
 git branch -M main
 git remote add origin https://github.com/redianicegroup-development/Redianice.git
 git push -u origin main 

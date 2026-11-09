@@ -1,6 +1,6 @@
 # Redianice : contenu complet du site
 
-> Redianice est une startup indépendante qui imagine, construit et lance ses propres produits numériques, un après l'autre. Premier produit : Mon E-Carnet, un carnet de santé numérique personnel, en phase de test.
+> Redianice est une startup basée à Abidjan qui identifie des problèmes concrets, étudie les besoins et développe ses propres produits numériques. Premier produit : Mon E-Carnet, un projet de carnet de santé numérique en phase pilote.
 
 Site : https://redianice.vercel.app/
 Contact : redianicegroup@gmail.com
@@ -12,18 +12,18 @@ Redianice est une startup indépendante. Elle conçoit des produits numériques 
 
 ### Méthode
 
-1. Identifier : un problème réel, vécu par de vraies personnes.
-2. Concevoir : la solution en interne, de l'idée à la mise en ligne.
-3. Tester : avec de premiers utilisateurs, avant de lancer. Les produits de Redianice sont à cette étape.
-4. Lancer : et bâtir un modèle économique viable.
+1. Identifier un problème et comprendre les personnes concernées.
+2. Étudier les besoins, les usages, les solutions existantes et le marché.
+3. Concevoir et développer une réponse adaptée.
+4. Tester, apprendre et améliorer avant d’envisager la suite.
 
 ## Mon E-Carnet (https://redianice.vercel.app/produits/e-carnet/)
 
-Statut : en phase de test, avec des données fictives uniquement.
+Statut : en phase pilote. Les tests présentés sur le site utilisent des données fictives uniquement.
 
-Mon E-Carnet est un carnet de santé personnel, simple, qui reste sous le contrôle du patient. Il rassemble au même endroit les informations de santé d'une personne : allergies, traitements, vaccinations, ordonnances et rendez-vous. Le patient choisit qui peut les consulter, et pour combien de temps. Le professionnel autorisé retrouve l'essentiel, avec l'accord du patient. Trois espaces : un pour le patient, un pour le professionnel de santé, un pour l'établissement.
+Mon E-Carnet est un projet de carnet de santé numérique qui explore une manière d’organiser les informations de santé et de mieux comprendre leur partage. Le produit est en phase pilote. Les conditions d’accès, les fonctionnalités testées et les restrictions d’utilisation sont précisées sur sa page dédiée.
 
-### Fonctionnalités
+### Parcours explorés
 
 - Carnet personnel : allergies, antécédents, traitements, groupe sanguin et contact d'urgence, toujours à jour.
 - Carte d'urgence : un QR code que le patient active lui-même, pour que les secours accèdent à l'essentiel.
@@ -32,15 +32,15 @@ Mon E-Carnet est un carnet de santé personnel, simple, qui reste sous le contr�
 - Accès contrôlé : le professionnel demande, le patient accepte, refuse, prolonge ou retire l'accès. Chaque consultation est tracée.
 - Pensé pour le téléphone : les informations déjà consultées restent lisibles hors connexion, en lecture seule.
 
-### Ce qui le distingue
+### Démarche de conception
 
 Les carnets de santé numériques existent déjà, dans le monde et en Côte d'Ivoire : le besoin est réel. Mon E-Carnet mise sur l'exécution locale : une expérience simple, un contrôle clair pour le patient, une utilisation sobre en données, et une distinction nette entre ce que le patient déclare et ce qu'un professionnel a validé. Il reste neutre : le carnet suit le patient d'une structure à l'autre.
 
-### Modèle économique
+### Perspectives
 
 Le patient garde la main sur ses données. Les revenus sont prévus du côté des établissements et programmes de santé, par abonnement, avec des outils pour leurs équipes. Deux règles : l'accès d'un patient à ses données ne dépend jamais d'une facture, et les données de santé ne servent pas à des fins commerciales. La grille tarifaire sera décidée après les retours des premiers utilisateurs et partenaires.
 
-### Feuille de route
+### Prochaines étapes
 
 1. Maintenant : un carnet fiable, avec un accès toujours soumis au consentement du patient. Le produit est en phase de test avec des données fictives uniquement.
 2. Ensuite : prévention et suivi au quotidien (rappels, rendez-vous, proches).
@@ -49,7 +49,7 @@ Le patient garde la main sur ses données. Les revenus sont prévus du côté de
 
 Les étapes avancées dépendent des retours et des partenariats.
 
-## Investir et s'associer
+## Partenariats et investissement
 
 Redianice conçoit, teste et lance ses propres produits numériques. Pour les tester, les lancer et les déployer, elle échange avec des entreprises, des établissements, des institutions et des investisseurs.
 
