@@ -52,6 +52,7 @@
   var markLang = function (l) {
     $$("[data-lang]").forEach(function (b) { b.setAttribute("aria-current", String(b.getAttribute("data-lang") === l)); });
     $$(".lang__cur").forEach(function (s) { s.textContent = LANG_SHORT[l]; });
+    $$("#langSel").forEach(function (s) { s.value = l; });
   };
   var loadTranslate = function () {
     if (window.__gtLoaded) return; window.__gtLoaded = true;
@@ -80,6 +81,8 @@
     if (l === curLang) return;
     writeLang(l); location.reload();
   });
+  var sel = $("#langSel");
+  if (sel) sel.addEventListener("change", function () { if (sel.value === curLang) return; writeLang(sel.value); location.reload(); });
   // La traduction change la hauteur des textes : on recalcule les positions du scroll
   // (on ne réagit qu'au changement de langue, pas aux classes que Lenis ajoute pendant le scroll)
   var refreshSoon = function () {};
@@ -89,6 +92,13 @@
     var s = langState(); if (s === lastLangState) return;
     lastLangState = s; refreshSoon();
   }).observe(document.documentElement, { attributes: true, attributeFilter: ["class", "lang"] });
+
+  // Logo : version foncée tant que le hero (bleu ciel) est derrière l'en-tête
+  var navEl = $(".nav"), heroEl = $("#top");
+  if (navEl && heroEl) {
+    var onSky = function () { navEl.classList.toggle("nav--sky", heroEl.getBoundingClientRect().bottom > 56); };
+    window.addEventListener("scroll", onSky, { passive: true }); window.addEventListener("resize", onSky); onSky();
+  }
 
   // Menu desktop : la section visible est surlignée
   var spy = $$(".nav__links a[href^='#'], .nav-contact[href^='#']");
@@ -213,12 +223,11 @@
     gsap.from(".hero__trio", { yPercent: 14, opacity: 0, duration: 1.5, ease: "expo.out", delay: 0.9 });
   }
 
-  // Mission : le texte se révèle mot à mot avec le défilement
-  var st = $("#statement");
-  if (st) {
+  // Mission, Investir, Contact : le texte se révèle mot à mot avec le défilement
+  $$(".statement").forEach(function (st) {
     words(st, "sw", false);
-    gsap.to("#statement .sw", { opacity: 1, ease: "none", stagger: 0.1, scrollTrigger: { trigger: st, start: "top 80%", end: "bottom 50%", scrub: true } });
-  }
+    gsap.to($$(".sw", st), { opacity: 1, ease: "none", stagger: 0.1, scrollTrigger: { trigger: st, start: "top 80%", end: "bottom 50%", scrub: true } });
+  });
 
   // Nos produits : la piste est épinglée au centre de l'écran. Descendre fait défiler les cartes vers la
   // gauche, remonter les ramène vers la droite. Les flèches déplacent le scroll vers la carte voisine.

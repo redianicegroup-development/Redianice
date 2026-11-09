@@ -38,6 +38,7 @@ Sans l’environnement Vercel, les pages peuvent être ouvertes avec un serveur 
 | `RESEND_API_KEY` | Clé API Resend utilisée uniquement par le serveur |
 | `RESEND_FROM` | Adresse expéditrice vérifiée dans Resend, au format `Nom <adresse@domaine.com>` |
 | `CONTACT_TO` | Adresse destinataire des messages du formulaire |
+| `SITE_URL` | Adresse publique du site, utilisée pour afficher le logo dans l’e-mail (facultatif, par défaut `https://redianice.vercel.app`) |
 
 `.env.example` fournit un modèle. Le fichier `.env` est ignoré par Git : ne le committez et ne le partagez jamais. Pour le déploiement, ajoutez les trois variables dans les paramètres d’environnement du projet Vercel. Ne placez aucune clé secrète dans le code JavaScript côté navigateur.
 
