@@ -93,11 +93,33 @@
     lastLangState = s; refreshSoon();
   }).observe(document.documentElement, { attributes: true, attributeFilter: ["class", "lang"] });
 
-  // Logo : version foncée tant que le hero (bleu ciel) est derrière l'en-tête
+  // Logo : version foncée tant que le hero (bleu ciel) est derrière l'en-tête.
+  // Le hero est fixe (les sections glissent par-dessus) : on suit le bord haut de la section qui le recouvre.
   var navEl = $(".nav"), heroEl = $("#top");
   if (navEl && heroEl) {
-    var onSky = function () { navEl.classList.toggle("nav--sky", heroEl.getBoundingClientRect().bottom > 56); };
+    var coverEl = heroEl.nextElementSibling;
+    var onSky = function () { navEl.classList.toggle("nav--sky", (coverEl || heroEl).getBoundingClientRect()[coverEl ? "top" : "bottom"] > 56); };
     window.addEventListener("scroll", onSky, { passive: true }); window.addEventListener("resize", onSky); onSky();
+  }
+
+  // Hero fixe (position: sticky; top: 0). Écran plus court que le hero : il se fixe par le bas pour que tout le texte reste visible.
+  if (heroEl) {
+    var fitHero = function () { heroEl.style.top = Math.min(0, window.innerHeight - heroEl.offsetHeight) + "px"; };
+    window.addEventListener("resize", fitHero); fitHero();
+  }
+
+  // Comment ça marche : l'animation ne tourne que lorsqu'elle est visible (elle repart de l'étape 1) et peut être mise en pause
+  var hiw = $(".hiw");
+  if (hiw) {
+    if ("IntersectionObserver" in window) new IntersectionObserver(function (es) {
+      es.forEach(function (en) { hiw.classList.toggle("is-play", en.isIntersecting); });
+    }, { threshold: 0.3 }).observe($(".hiw__stage", hiw));
+    var pauseBtn = $(".hiw__pause", hiw);
+    if (pauseBtn) pauseBtn.addEventListener("click", function () {
+      var paused = hiw.classList.toggle("is-paused");
+      pauseBtn.setAttribute("aria-pressed", paused ? "true" : "false");
+      pauseBtn.textContent = paused ? "Reprendre l\u2019animation" : "Mettre l\u2019animation en pause";
+    });
   }
 
   // Menu desktop : la section visible est surlignée
@@ -222,7 +244,6 @@
     heroWords(h1);
     gsap.from("#h1 .w > span", { yPercent: 115, duration: 1.2, ease: "expo.out", stagger: 0.08, delay: 0.15 });
     gsap.from(".hero__lead, .hero__cta", { opacity: 0, y: 24, duration: 1, ease: "power3.out", delay: 0.8, stagger: 0.15 });
-    gsap.from(".hero__trio", { yPercent: 14, opacity: 0, duration: 1.5, ease: "expo.out", delay: 0.9 });
   }
 
   // Mission, Investir, Contact : le texte se révèle mot à mot avec le défilement
@@ -241,7 +262,8 @@
       var tw = gsap.to(track, {
         x: function () { return -travel(); }, ease: "none",
         scrollTrigger: {
-          trigger: stage, pin: true, scrub: 0.35, anticipatePin: 1, invalidateOnRefresh: true,
+          // refreshPriority : l'épinglage se calcule en premier, pour que les textes en dessous (Investir, Contact) tiennent compte de sa hauteur : leur effet de lumière se déclenche alors au bon moment
+          trigger: stage, pin: true, scrub: 0.35, anticipatePin: 1, invalidateOnRefresh: true, refreshPriority: 1,
           start: function () { return stage.offsetHeight + 110 < window.innerHeight ? "center center" : "top 84px"; },
           end: function () { var t = travel(); return "+=" + (t > 0 ? Math.round(Math.max(t * 1.4, window.innerHeight * 0.7)) : 1); },
           onUpdate: function (self) { setProgress(self.progress, travel() <= 0); },

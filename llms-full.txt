@@ -17,10 +17,6 @@ Redianice est une startup indépendante. Elle conçoit des produits numériques 
 3. Tester : avec de premiers utilisateurs, avant de lancer. Les produits de Redianice sont à cette étape.
 4. Lancer : et bâtir un modèle économique viable.
 
-### Valeurs
-
-Simplicité, utilité, transparence, exigence.
-
 ## Mon E-Carnet (https://redianice.vercel.app/produits/e-carnet/)
 
 Statut : en phase de test, avec des données fictives uniquement.
