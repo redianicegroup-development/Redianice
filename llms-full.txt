@@ -1,0 +1,94 @@
+# Redianice : contenu complet du site
+
+> Redianice est une startup indépendante qui imagine, construit et lance ses propres produits numériques, un après l'autre. Premier produit : Mon E-Carnet, un carnet de santé numérique personnel, en phase de test.
+
+Site : https://redianice.example/
+Contact : redianicegroup@gmail.com
+Langue du site : français (traduction automatique disponible dans le navigateur)
+
+## Qui est Redianice
+
+Redianice est une startup indépendante. Elle conçoit des produits numériques simples, utiles et fiables, qui laissent l'utilisateur maître de ses données.
+
+### Méthode
+
+1. Identifier : un problème réel, vécu par de vraies personnes.
+2. Concevoir : la solution en interne, de l'idée à la mise en ligne.
+3. Tester : avec de premiers utilisateurs, avant de lancer. Les produits de Redianice sont à cette étape.
+4. Lancer : et bâtir un modèle économique viable.
+
+### Valeurs
+
+Simplicité, utilité, transparence, exigence.
+
+## Mon E-Carnet (https://redianice.example/portfolio/e-carnet/)
+
+Statut : V3 prête, en phase de test avec des données fictives, avant le lancement.
+
+Mon E-Carnet est un carnet de santé personnel, simple, qui reste sous le contrôle du patient. Il rassemble au même endroit les informations de santé d'une personne : allergies, traitements, vaccinations, ordonnances et rendez-vous. Le patient choisit qui peut les consulter, et pour combien de temps. Le médecin retrouve l'essentiel en quelques secondes, avec l'accord du patient. Trois espaces : un pour le patient, un pour le professionnel de santé, un pour l'établissement.
+
+### Fonctionnalités
+
+- Carnet personnel : allergies, antécédents, traitements, groupe sanguin et contact d'urgence, toujours à jour.
+- Carte d'urgence : un QR code que le patient active lui-même, pour que les secours accèdent à l'essentiel.
+- Documents et ordonnances : analyses, ordonnances et vaccinations rangées au même endroit, exportables en PDF.
+- Rappels et rendez-vous : prise de médicaments, rendez-vous et plans de suivi, avec des notifications.
+- Accès contrôlé : le professionnel demande, le patient accepte, refuse, prolonge ou retire l'accès. Chaque consultation est tracée.
+- Pensé pour le téléphone : léger, adapté aux connexions faibles, consultable même sans réseau.
+
+### Ce qui le distingue
+
+Les carnets de santé numériques existent déjà, dans le monde et en Côte d'Ivoire : le besoin est réel. Mon E-Carnet mise sur l'exécution locale : une expérience simple, un contrôle clair pour le patient, une utilisation sobre en données, et une distinction nette entre ce que le patient déclare et ce qu'un professionnel a validé. Il reste neutre : le carnet suit le patient d'une structure à l'autre.
+
+### Modèle économique
+
+Le patient garde la main sur ses données. Les revenus sont prévus du côté des établissements et programmes de santé, par abonnement, avec des outils pour leurs équipes. Deux règles : l'accès d'un patient à ses données ne dépend jamais d'une facture, et les données de santé ne servent pas à des fins commerciales. La grille tarifaire sera décidée après les retours des premiers utilisateurs et partenaires.
+
+### Feuille de route
+
+1. Maintenant : un carnet fiable, avec un accès toujours soumis au consentement du patient. La V3 est prête et en phase de test avec des données fictives.
+2. Ensuite : prévention et suivi au quotidien (rappels, rendez-vous, proches).
+3. Puis : suivi d'un patient entre deux établissements, avec son accord.
+4. Enfin : un écosystème d'établissements partenaires et les abonnements.
+
+Les étapes avancées dépendent des retours et des partenariats.
+
+## Investir et s'associer
+
+Redianice conçoit, teste et lance ses propres produits numériques. Pour les tester, les lancer et les déployer, elle échange avec des entreprises, des établissements, des institutions et des investisseurs.
+
+- Partenaires et clients pilotes : tester les produits avec leurs équipes avant leur lancement, et aider à les adapter à leurs besoins.
+- Investisseurs : soutenir la création et le lancement des produits. Une présentation détaillée est disponible sur demande.
+
+Le soutien finance : le développement et le lancement des produits ; la sécurité et la conformité des données ; les premiers déploiements chez les partenaires.
+
+## Équipe
+
+Une petite équipe qui couvre le droit, la technique et le design.
+
+- Chef de projet et juriste, cofondateur : pilote le projet, fixe les priorités et veille au cadre légal.
+- M'Bollo Aka Elvis, développeur web, cofondateur : conçoit et développe les produits, de l'idée à la mise en ligne. Fondateur d'AKATech Studio (https://akatech.vercel.app).
+- Deux graphistes : branding et identité visuelle (logo, couleurs, style de Redianice).
+
+## Questions fréquentes
+
+### Qu'est-ce que Redianice ?
+Redianice est une startup indépendante. Elle imagine, construit et lance ses propres produits numériques, un après l'autre. Chaque produit part d'un problème réel : nous l'identifions, concevons la solution en interne, la testons avec de premiers utilisateurs, puis la lançons.
+
+### Qu'est-ce que Mon E-Carnet ?
+Mon E-Carnet est le premier produit de Redianice : un carnet de santé numérique personnel, simple, qui reste sous le contrôle du patient. Il rassemble allergies, traitements, vaccinations, ordonnances et rendez-vous, avec trois espaces : un pour le patient, un pour le professionnel de santé et un pour l'établissement.
+
+### Mon E-Carnet est-il déjà disponible ?
+Pas encore en lancement public. La V3 est prête et en phase de test avec des données fictives, avant le lancement. Nous la testons avec de premiers utilisateurs et des partenaires pilotes.
+
+### Qui contrôle les données de santé dans Mon E-Carnet ?
+Le patient. Il choisit qui peut consulter ses informations et pour combien de temps. Le professionnel de santé demande l'accès, le patient l'accepte, le refuse, le prolonge ou le retire, et chaque consultation est tracée. Les données de santé ne servent pas à des fins commerciales.
+
+### Mon E-Carnet est-il payant pour le patient ?
+L'accès d'un patient à ses données ne dépend jamais d'une facture. Les revenus sont prévus du côté des établissements et programmes de santé, par abonnement. La grille tarifaire sera décidée après les retours des premiers utilisateurs et partenaires.
+
+### Comment devenir partenaire ou investisseur ?
+Écrivez-nous à redianicegroup@gmail.com. Nous proposons aux entreprises, établissements et institutions de tester nos produits avant leur lancement, et une présentation détaillée est disponible sur demande pour les investisseurs.
+
+### Qui compose l'équipe de Redianice ?
+Une petite équipe qui couvre le droit, la technique et le design : un chef de projet et juriste, cofondateur ; M'Bollo Aka Elvis, développeur web, cofondateur et fondateur d'AKATech Studio ; et deux graphistes qui ont conçu l'identité visuelle.

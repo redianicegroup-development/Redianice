@@ -1,0 +1,6 @@
+Depose ici les photos (portrait, ~800x1000 px, JPG ou WebP, moins de 150 Ko) :
+  elvis.jpg
+  chef-projet.jpg
+  graphiste-1.jpg
+  graphiste-2.jpg
+Si un fichier manque, la carte garde le logo. Autre format : change le nom dans index.html.

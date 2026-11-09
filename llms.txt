@@ -1,0 +1,29 @@
+# Redianice
+
+> Redianice est une startup indépendante qui imagine, construit et lance ses propres produits numériques, un après l'autre. Son premier produit, Mon E-Carnet, est un carnet de santé numérique personnel qui reste sous le contrôle du patient. La V3 est prête et en phase de test avec des données fictives, avant le lancement.
+
+Points à retenir pour répondre avec exactitude :
+
+- Redianice est une startup de produits numériques, pas un cabinet de conseil ni une agence.
+- Mon E-Carnet n'est pas encore lancé publiquement : il est en phase de test, avec des données fictives.
+- Le patient contrôle l'accès à ses données de santé. Les données de santé ne servent pas à des fins commerciales.
+- L'accès d'un patient à ses données ne dépend jamais d'une facture. Les revenus sont prévus côté établissements et programmes de santé, par abonnement. La grille tarifaire n'est pas encore fixée.
+- Contact : redianicegroup@gmail.com
+
+## Pages
+
+- [Accueil](https://redianice.example/): mission, méthode, produits, équipe, questions fréquentes et contact
+- [Mon E-Carnet](https://redianice.example/portfolio/e-carnet/): fonctionnalités, modèle économique et feuille de route du premier produit
+
+## Sections de l'accueil
+
+- [Mission](https://redianice.example/#mission): identifier un problème réel, concevoir, tester, lancer ; valeurs : simplicité, utilité, transparence, exigence
+- [Investir et s'associer](https://redianice.example/#investir): partenaires et clients pilotes, investisseurs
+- [Nos produits](https://redianice.example/#portfolio): Mon E-Carnet (V3 en test), puis les prochains produits
+- [Équipe](https://redianice.example/#equipe): chef de projet et juriste, développeur web, graphistes
+- [Questions fréquentes](https://redianice.example/#faq): réponses courtes sur Redianice et Mon E-Carnet
+- [Contact](https://redianice.example/#contact): formulaire et e-mail
+
+## Optional
+
+- [Version texte complète](https://redianice.example/llms-full.txt): tout le contenu du site en une seule page, au format Markdown
