@@ -176,39 +176,23 @@
     if (img.complete && !img.naturalWidth) swap();
   });
 
-  // ---------- Équipe : l'image se révèle depuis le point survolé ou touché ; le texte s'efface ----------
+  // ---------- Équipe : le portrait reste visible ; au survol (ou au toucher) les infos montent en bas de la carte ----------
   function closeCards(except) { $$(".card.is-open").forEach(function (c) { if (c !== except) c.classList.remove("is-open"); }); }
   $$(".card").forEach(function (card) {
     var link = $(".team__details", card);
-    var origin = function (e) {
-      var r = card.getBoundingClientRect(); if (!r.width || !r.height) return;
-      card.style.setProperty("--rx", Math.round((e.clientX - r.left) / r.width * 100) + "%");
-      card.style.setProperty("--ry", Math.round((e.clientY - r.top) / r.height * 100) + "%");
-    };
-    card.addEventListener("pointerenter", origin);
-    card.addEventListener("pointerdown", origin);
     card.addEventListener("click", function (e) {
-      if (e.target.closest("a")) return;                                   // « Voir la fiche » est un vrai lien
-      if (canHover) { if (link) window.location.assign(link.href); return; } // souris : le survol révèle, le clic ouvre la fiche
-      if (card.classList.contains("is-open")) { if (link) window.location.assign(link.href); return; } // toucher : 1er = révéler, 2e = ouvrir
+      if (e.target.closest("a")) return;                                   // « En savoir plus » est un vrai lien
+      if (canHover) { if (link) window.location.assign(link.href); return; } // souris : le survol affiche les infos, le clic ouvre la fiche
+      if (card.classList.contains("is-open")) { if (link) window.location.assign(link.href); return; } // toucher : 1er = afficher, 2e = ouvrir
       closeCards(card); card.classList.add("is-open");
     });
   });
   document.addEventListener("click", function (e) { if (!e.target.closest(".card")) closeCards(); });
 
-  // ---------- Fiches : portrait qui se dévoile, bouton « copier l'adresse » ----------
+  // ---------- Fiches : portrait qui se dévoile ----------
   $$(".tp-portrait").forEach(function (p) { window.requestAnimationFrame(function () { window.requestAnimationFrame(function () { p.classList.add("in"); }); }); });
-  $$("[data-copy]").forEach(function (b) {
-    b.addEventListener("click", function () {
-      var txt = b.getAttribute("data-copy"), label = b.textContent;
-      var done = function () { b.textContent = "Adresse copiée"; b.setAttribute("data-done", ""); setTimeout(function () { b.textContent = label; b.removeAttribute("data-done"); }, 2200); };
-      if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(txt).then(done, function () {}); return; }
-      var ta = document.createElement("textarea"); ta.value = txt; ta.setAttribute("readonly", ""); ta.style.cssText = "position:fixed;opacity:0"; document.body.appendChild(ta); ta.select();
-      try { if (document.execCommand("copy")) done(); } catch (_) {} ta.remove();
-    });
-  });
 
-  // ---------- Pages produit et fiches : sommaire collant, progression de lecture ----------
+  // ---------- Pages produit et fiches : sommaire (dans la page, il ne suit pas le scroll), progression de lecture ----------
   var tocHost = $("[data-toc-host]");
   if (tocHost) {
     var heads = $$("h2[data-toc]", tocHost);
@@ -216,7 +200,7 @@
       var tocNav = document.createElement("nav"); tocNav.className = "toc"; tocNav.setAttribute("aria-label", "Sur cette page");
       heads.forEach(function (h, i) {
         if (!h.id) h.id = "s-" + (i + 1);
-        var a = document.createElement("a"); a.href = "#" + h.id; a.textContent = h.getAttribute("data-toc"); a.setAttribute("data-offset", "140");
+        var a = document.createElement("a"); a.href = "#" + h.id; a.textContent = h.getAttribute("data-toc"); a.setAttribute("data-offset", "96");
         a.addEventListener("click", function (e) {
           h.style.transition = "none"; h.classList.add("in");   // le titre visé est mesuré à sa vraie place (sans le décalage de l'apparition)
           if (window.__lenis) return; e.preventDefault(); h.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "start" });
@@ -224,16 +208,6 @@
         tocNav.appendChild(a);
       });
       tocHost.insertBefore(tocNav, tocHost.firstChild);
-      var tocLinks = $$("a", tocNav), curIdx = -1, tocTick = false;
-      var markToc = function () {
-        tocTick = false;
-        var idx = 0; heads.forEach(function (h, i) { if (h.getBoundingClientRect().top <= 150) idx = i; });
-        if (idx === curIdx) return; curIdx = idx;
-        tocLinks.forEach(function (a, i) { if (i === idx) a.setAttribute("aria-current", "true"); else a.removeAttribute("aria-current"); });
-        var a = tocLinks[idx]; tocNav.scrollTo({ left: a.offsetLeft - (tocNav.clientWidth - a.offsetWidth) / 2, behavior: reduced ? "auto" : "smooth" });
-      };
-      window.addEventListener("scroll", function () { if (!tocTick) { tocTick = true; window.requestAnimationFrame(markToc); } }, { passive: true });
-      markToc();
     }
     var rp = document.createElement("div"); rp.className = "rp"; rp.setAttribute("aria-hidden", "true"); rp.innerHTML = "<i></i>"; document.body.appendChild(rp);
     var rpBar = $("i", rp), rpTick = false;

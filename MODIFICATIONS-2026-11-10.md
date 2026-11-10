@@ -29,3 +29,22 @@ index.html, css/style.css, js/main.js, produits/e-carnet/, equipe/*/, investir/,
 - **Fiche de M'Bollo Aka Elvis** : parcours (études en réseau et sécurité informatique, 2022 premier projet freelance, 2023 premières applications métier, 2024 AKATech devient une agence, aujourd'hui développeur freelance à AKATech Studio et cofondateur de Redianice, plus de 10 clients et PME), réalisations choisies, contact et liens d'AKATech Studio (e-mail, WhatsApp, LinkedIn, GitHub, portfolio), carte du studio avec l'affiche AKATech (`assets/akatech-studio.webp`). Informations reprises du site AKATech (historique, projets, contact) et du profil GitHub.
 - **Fiche du graphiste (2e)** : freelance, chartes graphiques et branding ; texte « Ce qu'il fait » rédigé sans fait inventé ; nom, parcours et liens à venir (fiche en `noindex` tant que le nom manque). Texte passé au masculin.
 - README : lignes `equipe/` et `assets/team/` ajoutées.
+
+## V10 → V11 : retours sur les captures
+
+### Fiches équipe
+- **« Réalisations choisies »** retirée (fiche de M'Bollo Aka Elvis).
+- **« Contact » et « Liens » fusionnés** en une seule section « Contact et liens » : une rangée d'icônes, sans adresse ni numéro écrits, et plus de bouton « Copier l'adresse ». Elvis : e-mail, WhatsApp, LinkedIn, GitHub, portfolio (e-mail et WhatsApp d'AKATech Studio). Les trois autres fiches : e-mail, WhatsApp et LinkedIn de Redianice.
+- **Facebook** : le site ne contient aucune adresse de page Facebook. L'icône est prête, en commentaire (`<!-- Facebook … -->`) dans la rangée d'icônes de chaque fiche : remplacer `URL_FACEBOOK` et retirer les balises de commentaire.
+- **Carte AKATech Studio** : l'affiche est remplacée par le logo (`assets/akatech-logo.webp`, fond transparent). `assets/akatech-studio.webp` n'est plus utilisée et a été retirée.
+
+### Page Mon E-Carnet
+- **Sommaire** (Le problème, Objectifs, Conception…) : il ne suit plus le défilement. Il reste en haut de l'article, avec tous les repères visibles (retour à la ligne, plus de défilement horizontal). Un clic défile toujours doucement jusqu'à la section.
+
+### Cartes équipe (accueil, Mon E-Carnet, bas des fiches)
+- **Portrait toujours visible**, en plein cadre ; le rôle est une petite pastille discrète en haut à gauche.
+- **Survol (souris) ou toucher (mobile)** : un dégradé léger monte depuis le bas et le nom, l'intitulé et la description s'affichent en bas de la carte, avec un bouton **« En savoir plus »** discret.
+- Souris : le clic ouvre la fiche. Mobile : 1er toucher = infos, 2e toucher ou bouton = fiche (un toucher ailleurs referme).
+
+### Fichiers modifiés
+index.html, css/style.css, js/main.js, produits/e-carnet/index.html, equipe/*/index.html, assets/akatech-logo.webp (nouveau), assets/akatech-studio.webp (retiré).
