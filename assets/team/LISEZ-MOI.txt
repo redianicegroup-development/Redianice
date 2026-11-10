@@ -1,6 +1,10 @@
-Depose ici les photos (portrait, ~800x1000 px, JPG ou WebP, moins de 150 Ko) :
-  elvis.jpg
-  chef-projet.jpg
-  graphiste-1.jpg
-  graphiste-2.jpg
-Si un fichier manque, la carte garde le logo. Autre format : change le nom dans index.html.
+Portraits de l'équipe : dépose ici 4 photos (format portrait 4:5, environ 800 x 1000 px, JPG, moins de 150 Ko),
+avec EXACTEMENT ces noms :
+
+  chef-projet.jpg   -> le cofondateur (pilotage et droit)
+  elvis.jpg         -> M'Bollo Aka Elvis
+  graphiste-1.jpg   -> la graphiste « identité visuelle »
+  graphiste-2.jpg   -> la graphiste « création visuelle »
+
+Aucun code à modifier : le site utilise ces fichiers dès qu'ils sont là, sur les cartes de l'accueil, les fiches
+et la page Mon E-Carnet. Tant qu'un fichier manque, le portrait neutre (portrait-a-fournir.svg) s'affiche à la place.
