@@ -15,6 +15,8 @@ Site vitrine de Redianice, startup indépendante qui conçoit et lance ses propr
 | --- | --- |
 | `index.html` | Page d’accueil et formulaire de contact |
 | `produits/e-carnet/` | Présentation de Mon E-Carnet |
+| `equipe/<nom>/` | Fiches individuelles de l’équipe (rôle, parcours, contact, liens), ouvertes depuis les cartes de l’accueil |
+| `assets/team/` | Portraits de l’équipe (`elvis.jpg`, `chef-projet.jpg`, `graphiste-1.jpg`, `graphiste-2.jpg`), voir `LISEZ-MOI.txt` |
 | `mentions-legales/`, `confidentialite/`, `404.html` | Pages légales et page d’erreur |
 | `vercel.json` | Redirection `/portfolio/e-carnet/` et en-têtes de sécurité |
 | `scripts/changer-domaine.mjs` | Remplace le domaine et l’adresse de contact dans tout le site |

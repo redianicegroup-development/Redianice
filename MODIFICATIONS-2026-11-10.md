@@ -23,3 +23,9 @@ Même habillage que le site (menu, bandeau, pied de page). Portrait qui se dévo
 
 ## Fichiers
 index.html, css/style.css, js/main.js, produits/e-carnet/, equipe/*/, investir/, mentions-legales/, confidentialite/, 404.html, portfolio/e-carnet/, sitemap.xml, assets/team/LISEZ-MOI.txt.
+
+## Mise à jour : photos et contenu des fiches
+- **Photos ajoutées** : `assets/team/elvis.jpg` (M'Bollo Aka Elvis) et `assets/team/graphiste-2.jpg` (graphiste freelance), recadrées en 4:5. Restent à ajouter : `chef-projet.jpg` et `graphiste-1.jpg`.
+- **Fiche de M'Bollo Aka Elvis** : parcours (études en réseau et sécurité informatique, 2022 premier projet freelance, 2023 premières applications métier, 2024 AKATech devient une agence, aujourd'hui développeur freelance à AKATech Studio et cofondateur de Redianice, plus de 10 clients et PME), réalisations choisies, contact et liens d'AKATech Studio (e-mail, WhatsApp, LinkedIn, GitHub, portfolio), carte du studio avec l'affiche AKATech (`assets/akatech-studio.webp`). Informations reprises du site AKATech (historique, projets, contact) et du profil GitHub.
+- **Fiche du graphiste (2e)** : freelance, chartes graphiques et branding ; texte « Ce qu'il fait » rédigé sans fait inventé ; nom, parcours et liens à venir (fiche en `noindex` tant que le nom manque). Texte passé au masculin.
+- README : lignes `equipe/` et `assets/team/` ajoutées.

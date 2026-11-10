@@ -1,10 +1,9 @@
-Portraits de l'équipe : dépose ici 4 photos (format portrait 4:5, environ 800 x 1000 px, JPG, moins de 150 Ko),
-avec EXACTEMENT ces noms :
+Portraits de l'équipe : format portrait 4:5 (environ 800 x 1000 px), JPG, moins de 150 Ko, avec EXACTEMENT ces noms :
 
-  chef-projet.jpg   -> le cofondateur (pilotage et droit)
-  elvis.jpg         -> M'Bollo Aka Elvis
-  graphiste-1.jpg   -> la graphiste « identité visuelle »
-  graphiste-2.jpg   -> la graphiste « création visuelle »
+  elvis.jpg         -> M'Bollo Aka Elvis                        (DÉJÀ AJOUTÉE)
+  graphiste-2.jpg   -> le graphiste freelance (chartes, branding)  (DÉJÀ AJOUTÉE)
+  chef-projet.jpg   -> le cofondateur (pilotage et droit)       (à ajouter)
+  graphiste-1.jpg   -> la graphiste « identité visuelle »       (à ajouter)
 
-Aucun code à modifier : le site utilise ces fichiers dès qu'ils sont là, sur les cartes de l'accueil, les fiches
-et la page Mon E-Carnet. Tant qu'un fichier manque, le portrait neutre (portrait-a-fournir.svg) s'affiche à la place.
+Aucun code à modifier : le site utilise ces fichiers dès qu'ils sont là (cartes de l'accueil, fiches, page Mon E-Carnet).
+Tant qu'un fichier manque, le portrait neutre (portrait-a-fournir.svg) s'affiche à la place.
