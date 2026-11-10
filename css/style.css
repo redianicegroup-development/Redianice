@@ -393,3 +393,24 @@ body{top:0!important}.goog-text-highlight{background:none!important;box-shadow:n
 @keyframes k45{0%,40%,60%,100%{opacity:0}41%,58%{opacity:.9}}
 }
 @media(prefers-reduced-motion:reduce){.hiw__pause{display:none}}
+
+/* Équipe — interaction des cartes et fiches individuelles */
+.team__intro{max-width:42rem;color:var(--muted);margin-top:14px}
+.team-card{cursor:pointer}
+.team__details{position:absolute;z-index:3;left:22px;right:22px;bottom:22px;display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-radius:999px;background:rgba(11,61,255,.92);color:#fff;font-weight:700;opacity:0;transform:translateY(8px);transition:opacity .35s,transform .35s;text-decoration:none}
+.team-card.has-photo:hover .team__details,.team-card.has-photo:focus-within .team__details,.team-card.has-photo.is-open .team__details{opacity:1;transform:none}
+.team__details:focus-visible{opacity:1;transform:none;outline:3px solid #fff;outline-offset:3px}
+@media(hover:none){.team-card.has-photo.is-open .team__details{opacity:1;transform:none}}
+/* Logo sans pastille ni ombre, comme sur la landing page */
+.logo{background:transparent!important;box-shadow:none!important;padding:0!important}
+.team-profile{max-width:900px;margin:clamp(40px,8vw,100px) auto;padding:0 22px 80px}
+.team-profile__nav{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:18px clamp(20px,5vw,72px);border-bottom:1px solid var(--line)}
+.team-profile__brand{font-weight:800;letter-spacing:-.04em;font-size:1.25rem}
+.team-profile__back{font-weight:700;color:var(--pure);text-underline-offset:4px}
+.team-profile__portrait{display:block;width:min(100%,420px);aspect-ratio:4/5;object-fit:cover;border-radius:28px;margin:0 0 30px;background:#d7e8ff}
+.team-profile__eyebrow{color:var(--pure);font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.team-profile h1{font-size:clamp(2.5rem,7vw,5.2rem);line-height:.98;letter-spacing:-.06em;margin:.4em 0}
+.team-profile h2{margin-top:38px}
+.team-profile__contact{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+.team-profile__contact a{display:inline-flex;padding:12px 18px;border-radius:999px;background:var(--pure);color:#fff;font-weight:700;text-decoration:none}
+@media(max-width:759px){.team-profile__nav{align-items:flex-start;flex-direction:column}.team-profile{padding-top:26px}.team__details{bottom:18px}}
