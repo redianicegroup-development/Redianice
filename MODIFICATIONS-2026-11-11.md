@@ -123,3 +123,19 @@ Nouveaux : `js/realisations.js`, `assets/realisations/LISEZ-MOI.txt`. Modifiés 
 
 ## Fichiers
 Nouveau : `assets/mark-fonce.png`. Modifiés : `index.html`, `404.html`, `investir/`, `portfolio/e-carnet/`, `produits/e-carnet/`, `mentions-legales/`, `confidentialite/`, `equipe/*/`, `css/style.css`, `js/main.js`, `js/footer-fx.js`, `README.md`, ce fichier.
+
+
+# V23 → V24 : section « À propos », titre « Mission », en-tête sans fonds
+
+## Accueil
+- **Nouvelle section « À propos »** (`#apropos`) placée juste après le hero, sur la page d'accueil (pas de page séparée) : « Redianice est né d'un coup de tête entre quatre personnes autodidactes qui voient grand… ». Même mise en forme et même effet d'illumination que la Mission.
+- **Titre « Mission » visible** au-dessus de « Derrière chaque difficulté… » (l'ancien titre masqué « Tout commence par un problème. » est remplacé).
+- **Bloc « Vision »** (texte proposé, à valider) sous la Mission, avant « De l'observation à la solution. ».
+- Lien « À propos » ajouté dans le menu (ordinateur et téléphone) des 11 pages, avant « Mission ».
+
+## En-tête (toutes les pages)
+- **Logo** : plus de fond blanc cassé ni de coins arrondis derrière la marque (il ne reste que son cadre bleu). Contrepartie : les textes qui défilent derrière le logo passent maintenant à travers.
+- **Bouton Menu (téléphone)** : plus de pastille blanc cassé, seul le mot « Menu » reste. Le panneau ouvert garde son fond et le bouton « Fermer » reste bleu. Le menu de la version ordinateur n'a pas changé.
+
+## Fichiers
+`index.html`, `404.html`, `investir/`, `mentions-legales/`, `confidentialite/`, `produits/e-carnet/`, `portfolio/e-carnet/`, `equipe/*/` (lien de menu), `css/style.css`, ce fichier.

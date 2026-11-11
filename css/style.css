@@ -22,7 +22,7 @@ span[translate=no]{white-space:nowrap}
 /* Logo : la marque seule (assets/mark-fonce.png), sans le nom « redianice ». Taille : --logo-h */
 :root{--logo-h:clamp(52px,13vw,64px)}
 .logo{height:var(--logo-h);padding:0;border-radius:0;background:transparent;box-shadow:none}
-.logo img{display:block;height:var(--logo-h);width:auto;border-radius:24%;background:var(--paper);transition:transform .35s var(--spring)}.logo:hover img{transform:scale(1.06)}
+.logo img{display:block;height:var(--logo-h);width:auto;background:transparent;transition:transform .35s var(--spring)}.logo:hover img{transform:scale(1.06)}
 
 .nav-contact{box-shadow:0 0 0 1.5px var(--blue)}.nav-contact:hover,.nav-contact.is-active{background:var(--blue);color:var(--paper);border-color:var(--blue)}
 .nav__right{display:flex;align-items:center;gap:8px}
@@ -194,9 +194,9 @@ h1 .w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.12
 .mbtn__slide{height:200%;transition:transform .6s var(--spring)}.mbtn[aria-expanded=true] .mbtn__slide{transform:translateY(-50%)}
 .mbtn__state{height:50%;overflow:hidden}.mbtn__roll{height:200%;transition:transform .4s var(--ease)}.mbtn:hover .mbtn__roll{transform:translateY(-50%)}
 .mbtn__roll span{display:flex;height:50%;align-items:center;justify-content:center;font:700 .95rem Urbanist,sans-serif}
-.mbtn__state--a span{background:var(--paper);color:var(--blue)}.mbtn__state--b span{background:var(--blue);color:var(--paper)}
-.mpanel{position:absolute;z-index:2;top:0;right:0;width:104px;height:42px;border-radius:21px;overflow:hidden;background:var(--paper);flex-direction:column;padding:0 0 0 28px;transition:width .6s var(--spring),height .6s var(--spring),border-radius .6s var(--spring),box-shadow .6s}
-.mpanel.is-open{width:calc(100vw - 40px);height:min(88svh,640px);padding-top:64px;padding-bottom:22px;overflow-x:hidden;overflow-y:auto;border-radius:26px;box-shadow:0 30px 60px -20px rgba(11,61,255,.35),0 0 0 1.5px var(--blue)}
+.mbtn__state--a span{background:transparent;color:var(--blue)}.mbtn__state--b span{background:var(--blue);color:var(--paper)}
+.mpanel{position:absolute;z-index:2;top:0;right:0;width:104px;height:42px;border-radius:21px;overflow:hidden;background:transparent;flex-direction:column;padding:0 0 0 28px;transition:width .6s var(--spring),height .6s var(--spring),border-radius .6s var(--spring),box-shadow .6s,background 0s .6s}
+.mpanel.is-open{background:var(--paper);transition:width .6s var(--spring),height .6s var(--spring),border-radius .6s var(--spring),box-shadow .6s,background 0s;width:calc(100vw - 40px);height:min(88svh,640px);padding-top:64px;padding-bottom:22px;overflow-x:hidden;overflow-y:auto;border-radius:26px;box-shadow:0 30px 60px -20px rgba(11,61,255,.35),0 0 0 1.5px var(--blue)}
 .mpanel>nav{margin-top:auto}
 .mrow{perspective:120px;perspective-origin:bottom;margin-bottom:-4px}
 .mitem{display:flex;align-items:center;gap:0;opacity:0;transform:rotateX(90deg) translateY(40px);transform-origin:bottom;transition:transform .3s var(--smooth),opacity .3s}
@@ -622,3 +622,6 @@ html .hero .hero__lead,html .sec .statement:not(.statement--x),html .tp-hero .do
 .tp-body .tp-work p{font-size:clamp(1.7rem,4.6vw,2.2rem);line-height:1.12;font-weight:600;letter-spacing:-.03em;color:var(--ink)}
 .tp-body>p+.tp-work{margin-top:clamp(20px,4vw,36px)}
 .tp-body .lit .sw{opacity:.3}
+
+/* V24 : sections « À propos » et « Mission » (titre visible au-dessus du grand texte) */
+#apropos>.h2--big+.statement,#mission>.h2--big+.statement{margin-top:clamp(24px,4vw,48px)}
