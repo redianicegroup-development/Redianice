@@ -192,23 +192,9 @@
   // ---------- Fiches : portrait qui se dévoile ----------
   $$(".tp-portrait").forEach(function (p) { window.requestAnimationFrame(function () { window.requestAnimationFrame(function () { p.classList.add("in"); }); }); });
 
-  // ---------- Pages produit et fiches : sommaire (dans la page, il ne suit pas le scroll), progression de lecture ----------
-  var tocHost = $("[data-toc-host]");
-  if (tocHost) {
-    var heads = $$("h2[data-toc]", tocHost);
-    if (heads.length > 2) {
-      var tocNav = document.createElement("nav"); tocNav.className = "toc"; tocNav.setAttribute("aria-label", "Sur cette page");
-      heads.forEach(function (h, i) {
-        if (!h.id) h.id = "s-" + (i + 1);
-        var a = document.createElement("a"); a.href = "#" + h.id; a.textContent = h.getAttribute("data-toc"); a.setAttribute("data-offset", "96");
-        a.addEventListener("click", function (e) {
-          h.style.transition = "none"; h.classList.add("in");   // le titre visé est mesuré à sa vraie place (sans le décalage de l'apparition)
-          if (window.__lenis) return; e.preventDefault(); h.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "start" });
-        });
-        tocNav.appendChild(a);
-      });
-      tocHost.insertBefore(tocNav, tocHost.firstChild);
-    }
+  // ---------- Pages produit : barre de progression de lecture ----------
+  var progHost = $("[data-progress]");
+  if (progHost) {
     var rp = document.createElement("div"); rp.className = "rp"; rp.setAttribute("aria-hidden", "true"); rp.innerHTML = "<i></i>"; document.body.appendChild(rp);
     var rpBar = $("i", rp), rpTick = false;
     var drawRp = function () { rpTick = false; var max = document.documentElement.scrollHeight - window.innerHeight; rpBar.style.transform = "scaleX(" + (max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0) + ")"; };
@@ -216,8 +202,15 @@
     window.addEventListener("resize", drawRp); drawRp();
   }
 
+  // ---------- Illumination du texte (pages produit et fiches) : blocs concernés ----------
+  // Paragraphes et puces des sections de lecture. Sont exclus : les paragraphes qui portent un bouton et la note sous les icônes de contact.
+  var litOn = !reduced && !!(window.gsap && window.ScrollTrigger && window.Lenis);
+  var litBlocks = $$(".doc[data-rv] > p, .doc[data-rv] .uses li, .doc[data-rv] .tl li p").filter(function (el) {
+    return !el.querySelector(".pill") && !el.classList.contains("tp-note") && !el.classList.contains("doc__cta");
+  });
+
   // ---------- Apparition douce des blocs au défilement ----------
-  var rvEls = $$("[data-rv] > *:not(.toc)");
+  var rvEls = $$("[data-rv] > *").filter(function (el) { return !(litOn && (litBlocks.indexOf(el) > -1 || (el.matches("ul.uses") && el.parentNode.matches(".doc[data-rv]")))); });   // l'illumination remplace le fondu pour les paragraphes et les listes
   if (rvEls.length && !reduced && "IntersectionObserver" in window) {
     var rvIO = new IntersectionObserver(function (es) {
       es.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add("in"); rvIO.unobserve(en.target); } });
@@ -225,9 +218,9 @@
     rvEls.forEach(function (el) { el.classList.add("rv"); rvIO.observe(el); });
   }
 
-  // ---------- Captures : flèches, compteur et agrandissement (plein écran) ----------
+  // ---------- Captures : galerie « gravity » (WebGL) ; repli = défilement horizontal avec flèches, compteur et agrandissement ----------
   var shotsEl = $(".shots");
-  if (shotsEl) {
+  function initShots() {
     var figs = $$(".shot", shotsEl), nowFig = 0;
     var chev = function (d) { return '<svg class="ic" aria-hidden="true"><use href="#i-chevron-' + d + '"/></svg>'; };
     var bar = document.createElement("div"); bar.className = "gallery__bar";
@@ -274,6 +267,35 @@
     lbImg.addEventListener("pointerdown", function (e) { sx = e.clientX; });
     lbImg.addEventListener("pointerup", function (e) { if (sx === null) return; var dx = e.clientX - sx; sx = null; if (Math.abs(dx) > 50) showFig(lbNow + (dx < 0 ? 1 : -1)); });
   }
+
+  // Galerie « gravity » : les captures du HTML (.shots) alimentent le carrousel WebGL (js/gravity-carousel.js).
+  // Elle se monte à l'approche de la section. Sans WebGL2 (ou si le contexte est perdu), la galerie à défilement ci-dessus prend le relais.
+  function mountGravity() {
+    if (!window.RediGravity || !window.WebGL2RenderingContext) return false;
+    var figs = $$(".shot", shotsEl);
+    if (!figs.length) return false;
+    var bigSrc = function (im) { var ss = im.getAttribute("srcset"); return ss ? ss.split(",").pop().trim().split(" ")[0] : im.currentSrc || im.src; };
+    var items = figs.map(function (f) {
+      var im = $("img", f), b = $("figcaption b", f), fc = $("figcaption", f), d = "";
+      if (fc) { var c = fc.cloneNode(true); $$("b, small", c).forEach(function (n) { n.parentNode.removeChild(n); }); d = c.textContent.replace(/\s+/g, " ").trim(); }
+      return { src: bigSrc(im), alt: im.alt, title: b ? b.textContent : im.alt, subtitle: d };
+    });
+    var host = document.createElement("div"); host.className = "gv-host";
+    shotsEl.parentNode.insertBefore(host, shotsEl);
+    shotsEl.hidden = true;
+    var started = false;
+    var fallback = function () { if (host.parentNode) host.parentNode.removeChild(host); shotsEl.hidden = false; initShots(); };
+    var go = function () {
+      if (started) return; started = true;
+      if (!window.RediGravity.mount(host, items, { label: "Captures de Mon E-Carnet", onLost: fallback })) fallback();
+    };
+    if ("IntersectionObserver" in window) {
+      var gio = new IntersectionObserver(function (es) { if (es.some(function (e) { return e.isIntersecting; })) { gio.disconnect(); go(); } }, { rootMargin: "600px 0px" });
+      gio.observe(host);
+    } else go();
+    return true;
+  }
+  if (shotsEl && !mountGravity()) initShots();
 
   // Formulaire : envoi vers /api/contact (Resend côté serveur)
   var form = $("#form"), tsId = null, tsKey = (document.querySelector('meta[name="turnstile-sitekey"]') || {}).content;
@@ -341,6 +363,33 @@
   $$(".statement").forEach(function (st) {
     words(st, "sw", false);
     gsap.to($$(".sw", st), { opacity: 1, ease: "none", stagger: 0.1, scrollTrigger: { trigger: st, start: "top 80%", end: "bottom 50%", scrub: true } });
+  });
+
+  // Pages produit et fiches : chaque paragraphe et chaque puce s'illumine mot à mot au fil du défilement.
+  // Les balises internes (gras, liens, translate="no") sont conservées : seuls les mots des nœuds texte sont enveloppés.
+  function litSplit(el) {
+    var out = [], ic = $(":scope > svg", el);
+    if (ic) { ic.classList.add("sw"); out.push(ic); }               // l'icône d'une puce s'allume avec le premier mot
+    (function walk(node) {
+      Array.prototype.slice.call(node.childNodes).forEach(function (n) {
+        if (n.nodeType === 3) {
+          var frag = document.createDocumentFragment();
+          n.textContent.split(/(\s+)/).forEach(function (part) {
+            if (!part) return;
+            if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(part)); return; }
+            var w = document.createElement("span"); w.className = "sw"; w.textContent = part; out.push(w); frag.appendChild(w);
+          });
+          node.replaceChild(frag, n);
+        } else if (n.nodeType === 1 && !/^(svg|script|style)$/i.test(n.nodeName)) walk(n);
+      });
+    })(el);
+    return out;
+  }
+  litBlocks.forEach(function (el) {
+    var ws = litSplit(el); if (!ws.length) return;
+    el.classList.add("lit");
+    // clamp() : un bloc proche du haut ou du bas de la page s'allume quand même entièrement
+    gsap.to(ws, { opacity: 1, ease: "none", stagger: 0.1, scrollTrigger: { trigger: el, start: "clamp(top 88%)", end: "clamp(bottom 62%)", scrub: true } });
   });
 
   // Nos produits : la piste est épinglée au centre de l'écran. Descendre fait défiler les cartes vers la

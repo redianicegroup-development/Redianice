@@ -22,9 +22,14 @@ Site vitrine de Redianice, startup indépendante qui conçoit et lance ses propr
 | `scripts/changer-domaine.mjs` | Remplace le domaine et l’adresse de contact dans tout le site |
 | `css/style.css` | Styles du site |
 | `js/main.js` | Interactions et formulaire |
+| `js/gravity-carousel.js` | Galerie « gravity » WebGL des captures de Mon E-Carnet (repli : galerie à défilement) |
+| `js/hero-bg.js` | Hero de l'accueil : fond animé WebGL2 (halo bleu + caractères ASCII, réagit au survol et au clic). Réglages dans `DEFAULTS`, en haut du fichier. Sans WebGL2 : dégradé fixe (`.hero__bg.no-gl`) |
+| `js/hero-objets.js` | Hero de l'accueil : objets 3D qui flottent et défilent selon le scroll (position, vitesse et rotation de chaque objet : attributs `style`, `data-speed`, `data-spin` dans `index.html`) |
+| `js/footer-fx.js` | Footer (toutes les pages) : filigrane « redianice » interactif en canvas + 6 objets déplaçables renouvelés toutes les 10 s |
 | `js/vendor/` | Bibliothèques JavaScript utilisées |
 | `api/contact.js` | API serverless du formulaire |
 | `assets/` | Images, logos et polices |
+| `assets/objets/` | 25 objets 3D détourés (WebP, 400 px max) utilisés par le hero et le footer |
 | `assets/captures/` | Captures réelles de Mon E-Carnet (WebP, données fictives uniquement ; nom et date de naissance masqués par des x). Chaque capture existe en taille d'origine et en version `-640` pour mobile |
 
 ## Développement local

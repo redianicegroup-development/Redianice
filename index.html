@@ -11,7 +11,7 @@
 <link rel="alternate" hreflang="x-default" href="https://redianice.vercel.app/">
 <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
 <meta name="author" content="Redianice">
-<meta name="theme-color" content="#c6dffd">
+<meta name="theme-color" content="#f3efe7">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Redianice">
 <meta property="og:locale" content="fr_FR">
@@ -51,6 +51,8 @@
 
 <main id="main">
 <section class="hero" id="top">
+  <!-- Fond animé : halo bleu et caractères ASCII (js/hero-bg.js, réglages en haut du fichier) -->
+  <div class="hero__bg" data-hero-bg aria-hidden="true"></div>
   <div class="hero__body">
     <!-- Pastille du titre : un logo de produit par .h1-pill__s, ils défilent toutes les 4 s. Ajoutez les prochains produits ici. -->
     <h1 id="h1">Des solutions pour des problèmes <span class="h1-pill" aria-hidden="true"><span class="h1-pill__s is-on"><img src="assets/e-carnet-logo.webp" alt="" width="640" height="640"></span><span class="h1-pill__s"><span class="ph"><svg class="ic" aria-hidden="true"><use href="#i-sparkles"/></svg></span></span><span class="h1-pill__s"><span class="ph"><svg class="ic" aria-hidden="true"><use href="#i-lightbulb"/></svg></span></span></span> concrets.</h1>
@@ -58,6 +60,17 @@
     <div class="hero__cta"><a class="pill" href="#produits"><svg class="ic" aria-hidden="true"><use href="#i-layout-grid"/></svg>Découvrir nos projets</a><a class="pill pill--ghost" href="#investir"><svg class="ic" aria-hidden="true"><use href="#i-users"/></svg>Parler d'un partenariat</a></div>
   </div>
 </section>
+<div class="hero-objs" aria-hidden="true">
+  <span class="hobj" data-speed="0.35" data-spin="-14" style="--x:5%;--y:11%;--mx:4%;--my:10%;--k:0.85;--r:-8deg;--dur:5.2s;--del:-1.0s"><span class="hobj__v"><img src="assets/objets/ampoule.webp" alt="" width="400" height="377" decoding="async"></span></span>
+  <span class="hobj" data-speed="-0.25" data-spin="18" style="--x:2%;--y:56%;--mx:-2%;--my:61%;--k:1.0;--r:6deg;--dur:6.1s;--del:-3.2s"><span class="hobj__v"><img src="assets/objets/loupe.webp" alt="" width="400" height="400" decoding="async"></span></span>
+  <span class="hobj hobj--d" data-speed="0.15" data-spin="-10" style="--x:15%;--y:73%;--mx:20%;--my:79%;--k:1.0;--r:-5deg;--dur:5.7s;--del:-2.1s"><span class="hobj__v"><img src="assets/objets/carnet-code.webp" alt="" width="394" height="400" decoding="async"></span></span>
+  <span class="hobj" data-speed="0.5" data-spin="16" style="--x:87%;--y:13%;--mx:76%;--my:11%;--k:1.0;--r:10deg;--dur:5.0s;--del:-0.6s"><span class="hobj__v"><img src="assets/objets/fusee.webp" alt="" width="317" height="400" decoding="async"></span></span>
+  <span class="hobj" data-speed="-0.3" data-spin="-14" style="--x:88%;--y:54%;--mx:83%;--my:58%;--k:0.95;--r:-6deg;--dur:6.4s;--del:-4.0s"><span class="hobj__v"><img src="assets/objets/globe.webp" alt="" width="298" height="400" decoding="async"></span></span>
+  <span class="hobj hobj--d" data-speed="0.1" data-spin="12" style="--x:73%;--y:74%;--mx:62%;--my:80%;--k:0.95;--r:7deg;--dur:5.5s;--del:-1.7s"><span class="hobj__v"><img src="assets/objets/graphique.webp" alt="" width="367" height="400" decoding="async"></span></span>
+  <span class="hobj hobj--t" data-speed="-0.35" data-spin="-6" style="--x:42%;--y:83%;--mx:38%;--my:87%;--k:1.1;--r:4deg;--dur:6.8s;--del:-2.6s"><span class="hobj__v"><img src="assets/objets/poignee-de-main.webp" alt="" width="400" height="239" decoding="async"></span></span>
+  <span class="hobj hobj--d" data-speed="0.45" data-spin="10" style="--x:27%;--y:10%;--mx:30%;--my:12%;--k:0.85;--r:-6deg;--dur:5.9s;--del:-3.6s"><span class="hobj__v"><img src="assets/objets/ecran.webp" alt="" width="400" height="344" decoding="async"></span></span>
+  <span class="hobj hobj--d" data-speed="0.4" data-spin="-12" style="--x:64%;--y:9%;--mx:58%;--my:12%;--k:0.85;--r:8deg;--dur:6.2s;--del:-0.3s"><span class="hobj__v"><img src="assets/objets/mallette.webp" alt="" width="400" height="361" decoding="async"></span></span>
+</div>
 
 <section class="sec" id="mission">
   <p class="label">[Mission et vision]</p>
@@ -103,27 +116,27 @@
 <section class="sec" id="equipe">
   <p class="label">[Équipe]</p>
   <h2 class="h2 h2--big">Quatre personnes. Des compétences qui se complètent.</h2>
-  <p class="team__intro">Survolez une carte (ou touchez-la) pour afficher ses informations, puis cliquez sur «&nbsp;En&nbsp;savoir&nbsp;plus&nbsp;» pour découvrir son rôle, son parcours et ses coordonnées.</p>
+  <p class="team__intro">Survolez une carte (ou touchez-la) pour afficher le nom du membre, puis cliquez sur «&nbsp;En&nbsp;savoir&nbsp;plus&nbsp;» pour découvrir son rôle, son parcours et ses coordonnées.</p>
   <div class="team">
-    <article class="card team-card" aria-label="Cofondateur — pilotage et droit">
-      <img class="card__photo" src="/assets/team/chef-projet.jpg" data-fallback="/assets/team/portrait-a-fournir.svg" alt="Portrait du cofondateur (pilotage et droit)" width="800" height="1000" loading="lazy" decoding="async">
-      <span class="card__idx">Droit</span><div class="card__body"><h3>Cofondateur</h3><p class="card__name">Pilotage et droit</p><p class="card__desc">Il coordonne le projet, fixe les priorités et contribue à la préparation des documents juridiques.</p></div>
-      <a class="team__details" href="/equipe/chef-de-projet/" aria-label="En savoir plus : Cofondateur — pilotage et droit">En savoir plus <span aria-hidden="true">→</span></a>
+    <article class="card team-card" aria-label="Cofondateur">
+      <img class="card__photo" src="/assets/team/chef-projet.jpg" data-fallback="/assets/team/portrait-a-fournir.svg" alt="Portrait du cofondateur" width="800" height="1000" loading="lazy" decoding="async">
+      <span class="card__idx">Droit</span>
+      <a class="team__details" href="/equipe/chef-de-projet/" aria-label="En savoir plus : Cofondateur">En savoir plus <span aria-hidden="true">→</span></a>
     </article>
     <article class="card team-card" aria-label="M’Bollo Aka Elvis — développeur web et cofondateur">
       <img class="card__photo" src="/assets/team/elvis.jpg" data-fallback="/assets/team/portrait-a-fournir.svg" alt="Portrait de M’Bollo Aka Elvis" width="800" height="1000" loading="lazy" decoding="async">
-      <span class="card__idx">Technique</span><div class="card__body"><h3>Développeur web · cofondateur</h3><p class="card__name"><span translate="no">M’Bollo Aka Elvis</span></p><p class="card__desc">Développeur freelance (AKATech Studio), il conçoit et développe les produits de Redianice, de la réflexion technique à leur évolution.</p></div>
+      <span class="card__idx">Technique</span><div class="card__body"><h3 class="card__name"><span translate="no">M’Bollo Aka Elvis</span></h3></div>
       <a class="team__details" href="/equipe/mbollo-aka-elvis/" aria-label="En savoir plus : M’Bollo Aka Elvis — développeur web et cofondateur">En savoir plus <span aria-hidden="true">→</span></a>
     </article>
-    <article class="card team-card" aria-label="Graphiste — identité visuelle">
-      <img class="card__photo" src="/assets/team/graphiste-1.jpg" data-fallback="/assets/team/portrait-a-fournir.svg" alt="Portrait de la graphiste (identité visuelle)" width="800" height="1000" loading="lazy" decoding="async">
-      <span class="card__idx">Design</span><div class="card__body"><h3>Graphiste</h3><p class="card__name">Identité visuelle</p><p class="card__desc">Elle contribue à l’identité visuelle de Redianice et de ses produits, en binôme avec l’autre graphiste.</p></div>
-      <a class="team__details" href="/equipe/graphiste-1/" aria-label="En savoir plus : Graphiste — identité visuelle">En savoir plus <span aria-hidden="true">→</span></a>
+    <article class="card team-card" aria-label="Graphiste">
+      <img class="card__photo" src="/assets/team/graphiste-1.jpg" data-fallback="/assets/team/portrait-a-fournir.svg" alt="Portrait de la graphiste" width="800" height="1000" loading="lazy" decoding="async">
+      <span class="card__idx">Design</span>
+      <a class="team__details" href="/equipe/graphiste-1/" aria-label="En savoir plus : Graphiste">En savoir plus <span aria-hidden="true">→</span></a>
     </article>
-    <article class="card team-card" aria-label="Graphiste freelance — chartes graphiques et branding">
-      <img class="card__photo" src="/assets/team/graphiste-2.jpg" data-fallback="/assets/team/portrait-a-fournir.svg" alt="Portrait du graphiste freelance (chartes graphiques et branding)" width="800" height="1000" loading="lazy" decoding="async">
-      <span class="card__idx">Design</span><div class="card__body"><h3>Graphiste freelance</h3><p class="card__name">Chartes graphiques et branding</p><p class="card__desc">Il dessine ce qu’on reconnaît d’une marque avant même d’avoir lu son nom.</p></div>
-      <a class="team__details" href="/equipe/graphiste-2/" aria-label="En savoir plus : Graphiste freelance — chartes graphiques et branding">En savoir plus <span aria-hidden="true">→</span></a>
+    <article class="card team-card" aria-label="Graphiste freelance">
+      <img class="card__photo" src="/assets/team/graphiste-2.jpg" data-fallback="/assets/team/portrait-a-fournir.svg" alt="Portrait du graphiste freelance" width="800" height="1000" loading="lazy" decoding="async">
+      <span class="card__idx">Design</span>
+      <a class="team__details" href="/equipe/graphiste-2/" aria-label="En savoir plus : Graphiste freelance">En savoir plus <span aria-hidden="true">→</span></a>
     </article>
   </div>
 </section>
@@ -135,7 +148,6 @@
 </section>
 
 <section class="sec sec--contact" id="contact">
-  <div class="giant" aria-hidden="true"><span>redianice</span><img src="assets/mark.png" alt="" loading="lazy"></div>
   <div class="contact">
     <div>
       <h2 class="h2 h2--big">Parlons de votre projet.</h2>
@@ -161,7 +173,7 @@
 <footer class="foot">
   <div class="foot__main">
     <div class="foot__brand">
-      <a class="foot__logo" href="/" aria-label="Redianice, accueil"><img src="/assets/logo-clair.png" alt="Redianice" width="900" height="145" loading="lazy"></a>
+      <a class="foot__logo" href="/" aria-label="Redianice, accueil"><img src="/assets/logo-fonce.png" alt="Redianice" width="900" height="145" loading="lazy"></a>
       <p class="foot__tag">Des problèmes réels. Des solutions pensées pour demain.</p>
       <p class="foot__about"><span translate="no">Redianice</span> est une startup indépendante basée à Abidjan (Côte d'Ivoire). Elle conçoit et développe ses propres produits numériques.</p>
     </div>
@@ -171,6 +183,10 @@
       <a class="foot__wa" href="https://wa.me/2250566191444" target="_blank" rel="noopener noreferrer">WhatsApp +225 05 66 19 14 44</a>
       <div class="foot__social"><a class="pill pill--ghost pill--icon" href="mailto:redianicegroup@gmail.com" aria-label="Gmail"><svg class="ic ic--fill" aria-hidden="true"><use href="#i-gmail"/></svg></a><a class="pill pill--ghost pill--icon" href="https://wa.me/2250566191444" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><svg class="ic ic--fill" aria-hidden="true"><use href="#i-whatsapp"/></svg></a><a class="pill pill--ghost pill--icon" href="https://www.linkedin.com/company/redianice" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><svg class="ic ic--fill" aria-hidden="true"><use href="#i-linkedin"/></svg></a></div>
     </div>
+  </div>
+  <div class="foot__stage" data-foot-fx data-text="redianice" aria-hidden="true">
+    <canvas class="foot__wm"></canvas>
+    <div class="foot__objs"></div>
   </div>
   <div class="foot__bar">
     <p>© <span id="y">2026</span> <span translate="no">Redianice</span>. Tous droits réservés.</p>
@@ -183,5 +199,8 @@
 <script src="js/vendor/ScrollTrigger.min.js"></script>
 <script src="js/vendor/lenis.min.js"></script>
 <script src="js/main.js"></script>
+<script src="js/footer-fx.js" defer></script>
+<script src="js/hero-bg.js" defer></script>
+<script src="js/hero-objets.js" defer></script>
 </body>
 </html>
