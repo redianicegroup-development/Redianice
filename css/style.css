@@ -613,3 +613,15 @@ h1,h2,h3,h4,.h2,.h2--big,.doc>h1,.hero__lead,.doc__lead,.statement:not(.statemen
 .fold>summary:focus-visible{outline:3px solid var(--blue);outline-offset:2px;border-radius:18px}
 .fold__body{padding:0 20px 18px}
 .fold__body .tp-sub:first-child{margin-top:6px}
+
+/* ---------- V19 : contenu centré (FAQ, fiches perso, pages produit et documents), plus de colonne collée à gauche ---------- */
+:root{--col:46rem;--col-wide:76rem}
+/* FAQ : étiquette, titre et questions partagent la même colonne centrée */
+#faq>*{width:min(100%,62rem);margin-left:auto;margin-right:auto}
+/* Corps des pages documents (produit, fiches perso, investir, légales) : une seule colonne, bords alignés, centrée */
+.sec.doc>*:not(.shots):not(.gv-host):not(.pbleed):not(.hiw){width:min(100%,var(--col));max-width:none;margin-left:auto;margin-right:auto}
+.sec.doc>.hiw{width:min(100%,64rem);margin-left:auto;margin-right:auto}
+.sec.doc .shots{padding-left:max(var(--pad),calc((100% + 2*var(--pad) - var(--col))/2));scroll-padding-inline:max(var(--pad),calc((100% + 2*var(--pad) - var(--col))/2))}
+/* En-têtes : pages produit/documents = même colonne que le corps ; fiches perso = grille large centrée */
+.doc-hero:not(.tp-hero)>*{width:min(100%,var(--col));margin-left:auto;margin-right:auto}
+.tp-hero>*{width:min(100%,var(--col-wide));margin-left:auto;margin-right:auto}

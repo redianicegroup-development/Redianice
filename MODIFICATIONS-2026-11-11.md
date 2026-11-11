@@ -67,3 +67,11 @@ Nouveaux : `js/realisations.js`, `assets/realisations/LISEZ-MOI.txt`. Modifiés 
 - **Section « Réalisations » retirée des 4 fiches** (`equipe/chef-de-projet`, `graphiste-1`, `graphiste-2`, `mbollo-aka-elvis`). Structure des fiches : portrait et rôle, Son rôle, Contact et liens.
 - Fiche Elvis : le bouton du haut « Réalisations et liens » devient « Contact et liens » (ancre `#contact`) ; les descriptions (meta, Open Graph, Twitter) ne parlent plus de réalisations. La carte « Mon E-Carnet » et la galerie WebGL des projets hors Redianice disparaissent avec la section ; la carte AKATech Studio reste.
 - Nettoyage : `js/realisations.js` et `assets/realisations/` supprimés, scripts `realisations.js` et `gravity-carousel.js` retirés de la fiche Elvis (la galerie reste utilisée par la page Mon E-Carnet), règles CSS `.real`, `.tp-real`, `.tp-empty` retirées, lignes correspondantes retirées du README.
+
+
+# V19 → V20 : contenu centré (FAQ, fiches perso, pages produit)
+
+- **Colonne centrée** au lieu d'une colonne collée à gauche avec du vide à droite : FAQ de l'accueil (étiquette, titre et questions sur le même axe, largeur 62 rem), corps des pages documents (`.sec.doc` : Mon E-Carnet, fiches perso, et par cohérence Investir, mentions légales, confidentialité) sur une colonne de 46 rem avec bords alignés (paragraphes, listes, cartes, repliable), en-têtes des pages produit et documents sur la même colonne, en-tête des fiches perso (fil d'Ariane + portrait et texte) centré sur 76 rem.
+- Inchangés : galerie WebGL « gravity » (déjà pleine largeur, centrée), « Comment ça marche » (centré, jusqu'à 64 rem), cartes d'équipe, autres sections de l'accueil.
+- Réglage : variables `--col` (46 rem) et `--col-wide` (76 rem) et bloc « V19 » en fin de `css/style.css`.
+- Contrôlé aux largeurs 390, 768, 1440 et 1920 px sur 9 pages : aucun débordement horizontal, blocs centrés à 12 px près.
