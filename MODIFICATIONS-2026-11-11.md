@@ -75,3 +75,18 @@ Nouveaux : `js/realisations.js`, `assets/realisations/LISEZ-MOI.txt`. Modifiés 
 - Inchangés : galerie WebGL « gravity » (déjà pleine largeur, centrée), « Comment ça marche » (centré, jusqu'à 64 rem), cartes d'équipe, autres sections de l'accueil.
 - Réglage : variables `--col` (46 rem) et `--col-wide` (76 rem) et bloc « V19 » en fin de `css/style.css`.
 - Contrôlé aux largeurs 390, 768, 1440 et 1920 px sur 9 pages : aucun débordement horizontal, blocs centrés à 12 px près.
+
+
+# V20 → V21 : même padding que « Mission » partout, contact sans liens, icônes du footer sous le slogan
+
+- **Padding uniforme de Mission à Contact** : les six sections de l'accueil (Mission, Produits, Investir, Équipe, FAQ, Contact) ont maintenant exactement le padding de Mission (160 px haut/bas et 72 px de côté sur ordinateur, 72 px et 20 px sur mobile), et leur contenu part du même bord. Mesuré à 1440 px et 390 px. Changements : Contact reprend le padding de haut des autres (il était réduit à 110 px) ; la FAQ n'est plus limitée à 62 rem ni centrée (le réglage de la V20 est annulé pour elle), elle occupe toute la largeur comme les autres sections.
+- **Section Contact** : les icônes Gmail, WhatsApp et LinkedIn sont retirées (il reste le titre, le texte et le formulaire).
+- **Footer (11 pages)** : les icônes Gmail, WhatsApp et LinkedIn passent sous le slogan, dans la colonne de la marque ; la colonne de droite (`.foot__contact`) est supprimée, ainsi que les règles `.social`, `.foot__contact` et la grille à deux colonnes du footer dans `css/style.css`.
+
+
+# V21 → V22 : pages et slug avec le même padding que « Mission »
+
+- **Pages documents** (Mon E-Carnet, 4 fiches perso, Investir, mentions légales, confidentialité) : le centrage en colonne étroite de la V20 est retiré. Les bords gauche/droite sont ceux de Mission (72 px sur ordinateur, 20 px sur mobile), en-têtes compris (fil d'Ariane, titre, portrait). Mesuré sur les 9 pages à 1440 et 390 px : même bord gauche partout, aucun débordement.
+- **Haut et bas** : les sections de ces pages ont aussi les 160 px de Mission (72 px sur mobile) au lieu de 96 / 100 px ; seul le haut de l'en-tête reste à 130 px pour dégager la barre de navigation.
+- **Blocs sur toute la largeur** : listes, cartes de rôle, bloc repliable, carte AKATech Studio, étapes. Les cartes « Son rôle » passent sur deux colonnes dès 900 px. Le texte courant garde sa longueur de ligne (42 em), comme les textes d'introduction de Mission.
+- Réglage : bloc « V22 » en fin de `css/style.css` ; les variables `--col` et `--col-wide` de la V20 n'existent plus.
