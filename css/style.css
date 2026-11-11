@@ -419,8 +419,6 @@ html.js .tp-portrait:not(.in){clip-path:inset(100% 0 0 0 round 32px)}
 .tl li::before{content:"";position:absolute;left:3px;top:3px;width:18px;height:18px;border-radius:50%;background:var(--paper);border:3px solid var(--blue)}
 .tl b{display:block;color:var(--blue);font-size:1.1rem;line-height:1.25}.tl p{margin:4px 0 0}
 .tl a,.tp-body p a{color:var(--blue);font-weight:700;text-underline-offset:4px}
-.tp-empty{display:flex;gap:14px;align-items:center;max-width:46em;padding:20px 22px;border:2px dashed rgba(11,61,255,.55);border-radius:22px;color:var(--blue)}
-.tp-empty .ic{flex:none;width:28px;height:28px;color:var(--blue)}.tp-empty p{margin:0}
 .tp-icons{display:flex;flex-wrap:wrap;gap:10px;list-style:none;margin:10px 0 0;padding:0}
 .tp-pager{display:flex;flex-wrap:wrap;gap:12px;margin-top:clamp(36px,6vw,64px)}
 
@@ -568,7 +566,7 @@ main{position:relative}
    « h1,h2,h3,h4,.h2,.h2--big,.hero__lead,.doc__lead,.faq summary,.foot__tag{color:var(--ink)} » (voir V14). */
 
 /* 1. Texte courant : noir */
-.sec,.sec--sky,.form,.pcard,.tp-feature__body,.tp-empty,.lb__cap{color:var(--ink)}
+.sec,.sec--sky,.form,.pcard,.tp-feature__body,.lb__cap{color:var(--ink)}
 .lead-in,.deal p,.faq p,.contact__lead,.doc p,.rows p,.steps li,.flow li,.shot figcaption,.pcard p,.hiw__list p,
 .team__intro,.tp-note,.tp-facts li,.lb__cap small,.statement--lead,
 .form input,.form textarea,.form select{color:var(--ink)}
@@ -602,3 +600,16 @@ h1,h2,h3,h4,.h2,.h2--big,.doc>h1,.hero__lead,.doc__lead,.statement:not(.statemen
 .trail__img{position:absolute;top:0;left:0;width:var(--trail-size);aspect-ratio:1;opacity:0;pointer-events:none;will-change:transform}
 .trail__img img{display:block;width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 14px 16px rgba(11,61,255,.22))}
 @media(max-width:700px){.trail{--trail-size:112px}}
+
+/* ---------- V18 : réalisations (pages perso), détails repliables (page produit) ---------- */
+.tp-sub{margin:26px 0 8px;font-size:1.05rem;font-weight:700}
+.gv-host--logos{min-height:calc(clamp(340px,40vw,460px) + 124px)}
+.gv-host--logos .gv{height:clamp(340px,40vw,460px);margin-bottom:60px}
+.fold{max-width:46em;margin:16px 0 0;border:1.5px solid var(--line);border-radius:20px;background:var(--tint)}
+.fold>summary{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:48px;padding:12px 20px;cursor:pointer;list-style:none;font-weight:700;color:var(--blue)}
+.fold>summary::-webkit-details-marker{display:none}
+.fold>summary::after{content:"+";font-size:1.5rem;line-height:1}
+.fold[open]>summary::after{content:"\2212"}
+.fold>summary:focus-visible{outline:3px solid var(--blue);outline-offset:2px;border-radius:18px}
+.fold__body{padding:0 20px 18px}
+.fold__body .tp-sub:first-child{margin-top:6px}

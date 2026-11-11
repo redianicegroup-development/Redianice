@@ -208,7 +208,7 @@
   // Paragraphes et puces des sections de lecture. Sont exclus : les paragraphes qui portent un bouton et la note sous les icônes de contact.
   var litOn = !reduced && !!(window.gsap && window.ScrollTrigger && window.Lenis);
   var litBlocks = $$(".doc[data-rv] > p, .doc[data-rv] .uses li, .doc[data-rv] .tl li p").filter(function (el) {
-    return !el.querySelector(".pill") && !el.classList.contains("tp-note") && !el.classList.contains("doc__cta");
+    return !el.closest(".fold") && !el.querySelector(".pill") && !el.classList.contains("tp-note") && !el.classList.contains("doc__cta");
   });
 
   // ---------- Apparition douce des blocs au défilement ----------

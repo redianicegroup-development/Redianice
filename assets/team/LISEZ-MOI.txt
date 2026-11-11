@@ -2,7 +2,7 @@ Portraits de l'équipe : format portrait 4:5 (environ 800 x 1000 px), JPG, moins
 
   elvis.jpg         -> M'Bollo Aka Elvis                        (DÉJÀ AJOUTÉE)
   graphiste-2.jpg   -> le graphiste freelance (chartes, branding)  (DÉJÀ AJOUTÉE)
-  chef-projet.jpg   -> le cofondateur (pilotage et droit)       (à ajouter)
+  chef-projet.jpg   -> le juriste (droit)       (à ajouter)
   graphiste-1.jpg   -> la graphiste « identité visuelle »       (à ajouter)
 
 Aucun code à modifier : le site utilise ces fichiers dès qu'ils sont là (cartes de l'accueil, fiches, page Mon E-Carnet).

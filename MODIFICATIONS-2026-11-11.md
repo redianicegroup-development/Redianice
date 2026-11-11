@@ -43,3 +43,27 @@ index.html, 404.html, investir/, mentions-legales/, confidentialite/, produits/e
 ## Fichiers
 Nouveau : `js/trail.js`. Modifiés : `css/style.css`, `js/main.js`, `js/footer-fx.js`, `js/hero-bg.js`, `index.html`, `produits/e-carnet/index.html`, `equipe/*/index.html`, `README.md`, ce fichier.
 
+
+# V17 → V18 : statut collaborateur, textes des fiches, réalisations, page produit allégée
+
+## Statut
+- **« Collaborateur » pour les quatre membres** : « cofondateur » retiré partout (fiches, cartes de l'accueil et de la page produit, JSON-LD, llms.txt, llms-full.txt). Juriste : « Juriste · collaborateur » ; graphistes : « collaboratrice » / « collaborateur ».
+- Fiche juriste : h1 « Juriste de Redianice », plus de « pilotage » ni de « chef de projet » (texte aligné sur le modèle : contribution juridique). Le slug `/equipe/chef-de-projet/` est conservé (page en noindex) ; à renommer quand les noms seront connus.
+
+## Fiches équipe (structure : portrait et rôle, Son rôle, Réalisations, Contact)
+- « Son rôle » = présentation + responsabilités fusionnées (1 paragraphe + 4 points maximum). Section « Parcours » supprimée partout.
+- **Réalisations** : Elvis = « Chez Redianice » (Mon E-Carnet) et « Hors Redianice » (Kôkô Eats, REKOLLECTE, Vazi Express, Nexura) dans la galerie WebGL « gravity », avec le nom du projet sur chaque carte en attendant les logos. Les trois autres fiches : « Ses réalisations seront présentées ici prochainement. »
+- Prochaine étape prévue : clic sur un projet = détail puis liens. Aujourd'hui le clic agrandit la carte.
+
+## Page Mon E-Carnet (galerie et parcours animés non touchés)
+- « Conception et développement » + « Démarche de développement » regroupés dans un bloc repliable « Détails techniques » ; bloc « Un premier produit en phase pilote » supprimé (doublon de « État actuel ») ; le lien Investir passe sous « À quoi pourrait servir un accompagnement ? ». Le statut « phase pilote » est inchangé.
+
+## Fichiers
+Nouveaux : `js/realisations.js`, `assets/realisations/LISEZ-MOI.txt`. Modifiés : `css/style.css`, `js/main.js` (le texte du bloc repliable n'est pas concerné par l'illumination au défilement), `js/gravity-carousel.js` (libellés des boutons paramétrables, comportement des captures identique), `index.html`, `produits/e-carnet/index.html`, `equipe/*/index.html`, `llms.txt`, `llms-full.txt`, `assets/team/LISEZ-MOI.txt`, `README.md`, ce fichier.
+
+
+# V18 → V19 : fiches équipe sans section « Réalisations »
+
+- **Section « Réalisations » retirée des 4 fiches** (`equipe/chef-de-projet`, `graphiste-1`, `graphiste-2`, `mbollo-aka-elvis`). Structure des fiches : portrait et rôle, Son rôle, Contact et liens.
+- Fiche Elvis : le bouton du haut « Réalisations et liens » devient « Contact et liens » (ancre `#contact`) ; les descriptions (meta, Open Graph, Twitter) ne parlent plus de réalisations. La carte « Mon E-Carnet » et la galerie WebGL des projets hors Redianice disparaissent avec la section ; la carte AKATech Studio reste.
+- Nettoyage : `js/realisations.js` et `assets/realisations/` supprimés, scripts `realisations.js` et `gravity-carousel.js` retirés de la fiche Elvis (la galerie reste utilisée par la page Mon E-Carnet), règles CSS `.real`, `.tp-real`, `.tp-empty` retirées, lignes correspondantes retirées du README.

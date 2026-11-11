@@ -853,9 +853,9 @@ void main() {
     var chev = function (d) { return '<svg class="ic" aria-hidden="true"><use href="#i-chevron-' + d + '"/></svg>'; };
     var bar = document.createElement("div");
     bar.className = "gv-bar";
-    bar.innerHTML = '<button class="gallery__btn" type="button" data-gv="-1" aria-label="Capture précédente">' + chev("left") + "</button>" +
+    bar.innerHTML = '<button class="gallery__btn" type="button" data-gv="-1" aria-label="' + (options.prevLabel || "Capture précédente") + '">' + chev("left") + "</button>" +
       (reduced ? "" : '<button class="gv-bar__pause" type="button" data-gv="pause" aria-pressed="false">Pause</button>') +
-      '<button class="gallery__btn" type="button" data-gv="1" aria-label="Capture suivante">' + chev("right") + "</button>";
+      '<button class="gallery__btn" type="button" data-gv="1" aria-label="' + (options.nextLabel || "Capture suivante") + '">' + chev("right") + "</button>";
     host.appendChild(bar);
     var playing = true;
     bar.addEventListener("click", function (e) {
