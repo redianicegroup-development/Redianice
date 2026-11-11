@@ -1,6 +1,6 @@
 @font-face{font-family:Urbanist;src:url(../assets/fonts/urbanist-latin-wght-normal.woff2) format("woff2");font-weight:100 900;font-display:swap}
-/* Palette : --paper (blanc cassé) = tous les fonds ; --blue = tous les textes, icônes et traits ;
-   --ink (noir) = titres et sous-titres uniquement (voir le bloc « Titres en noir » en fin de fichier).
+/* Palette : --paper (blanc cassé) = tous les fonds ; --blue = titres, sous-titres, boutons, liens, icônes et traits ;
+   --ink (noir) = texte courant ; titres et sous-titres en --blue (voir le bloc « Titres en bleu, texte en noir » en fin de fichier).
    Boutons et états actifs/survol : inversion des deux couleurs. Pour ajuster, modifier ces deux lignes dans :root. */
 :root{--paper:#f3efe7;--blue:#0b3dff;--ink:#0a0a0a;--line:rgba(11,61,255,.32);--tint:rgba(11,61,255,.07);--pad:clamp(20px,5vw,72px);--ease:cubic-bezier(.16,1,.3,1);--spring:cubic-bezier(.175,.885,.32,1.1);--smooth:cubic-bezier(.76,0,.24,1)}
 *{box-sizing:border-box;margin:0}
@@ -89,7 +89,7 @@ h1 .w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.12
 
 /* ---------- Équipe ---------- */
 .team{margin-top:clamp(40px,7vw,90px);display:grid;gap:14px}
-.card{--cbg:var(--paper);position:relative;min-height:440px;border-radius:26px;overflow:hidden;padding:22px;background:var(--paper);color:var(--blue);border:1.5px solid var(--blue);display:flex;flex-direction:column;justify-content:space-between;cursor:default}
+.card{--cbg:var(--paper);position:relative;min-height:440px;border-radius:26px;overflow:hidden;padding:22px;background:var(--paper);color:var(--blue);border:1.5px solid var(--blue);display:flex;flex-direction:column;justify-content:space-between;cursor:pointer}
 .card:nth-child(2){--cbg:var(--paper)}.card:nth-child(3){--cbg:var(--paper)}.card:nth-child(4){--cbg:var(--paper)}
 .card__idx{font-size:.9rem;font-weight:600;color:var(--blue);background:rgba(243,239,231,.92);border:1.5px solid var(--blue)}
 .card__body,.card__idx{transition:opacity .45s,transform .6s var(--ease)}
@@ -512,10 +512,10 @@ html.lb-open{overflow:hidden}
 
 
 /* ================= Hero : objets 3D (rebond + parallaxe au scroll) =================
-   Les objets sont dans un calque au-dessus des sections : en défilant, ils glissent par-dessus la section suivante.
+   Les objets sont dans un calque au-dessus du hero mais SOUS les sections : en défilant, la section Mission les recouvre.
    Position : --x / --y (bureau), --mx / --my (mobile) ; taille : --k (facteur) ; --speed / --spin lus par js/hero-objets.js */
 main{position:relative}
-.hero-objs{position:absolute;left:0;right:0;top:0;height:var(--hero-h,100svh);z-index:3;pointer-events:none;overflow-x:clip}
+.hero-objs{position:absolute;left:0;right:0;top:0;height:var(--hero-h,100svh);z-index:1;pointer-events:none;overflow-x:clip}
 .hobj{position:absolute;left:var(--x);top:var(--y);width:calc(clamp(80px,min(12.5vw,19svh),196px)*var(--k,1));will-change:transform}
 .hobj__v{display:block}
 .hobj img{display:block;width:100%;height:auto;transform:rotate(var(--r,0deg));filter:drop-shadow(0 16px 18px rgba(11,61,255,.2));animation:hobj-bob var(--dur,5.5s) ease-in-out var(--del,0s) infinite alternate}
@@ -532,11 +532,8 @@ main{position:relative}
 .foot__main{display:grid;gap:36px}
 .foot__logo{display:inline-block}.foot__logo img{height:30px;width:auto}
 .foot__tag{margin-top:24px;max-width:13em;font-size:clamp(1.8rem,4.6vw,3.2rem);font-weight:700;letter-spacing:-.035em;line-height:1.05}
-.foot__about{margin-top:16px;max-width:30em;line-height:1.5}
 .foot__contact{display:grid;gap:10px;align-content:start}
-.foot__h{font-weight:700;font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;opacity:.7}
-.foot__mail,.foot__wa{width:fit-content;font-weight:600;font-size:1.05rem;text-underline-offset:4px;overflow-wrap:anywhere}
-.foot__social{display:flex;gap:10px;margin-top:10px}
+.foot__social{display:flex;gap:10px}
 .foot .pill--icon{width:44px;min-height:44px}
 .foot p{opacity:.9}
 /* scène du filigrane : la hauteur exacte est calculée par js/footer-fx.js (valeur de repli ici) */
@@ -564,9 +561,44 @@ main{position:relative}
 .hero .pill--ghost{background:var(--paper)}
 .hero .pill--ghost:hover{background:var(--blue);border-color:var(--blue);color:var(--paper)}
 
-/* ================= Titres en noir =================
-   Titres et sous-titres en noir (--ink) ; tout le reste du texte reste en bleu.
-   Pour revenir au bleu partout : remplacer « --ink:#0a0a0a » par « --ink:var(--blue) » dans :root. */
-h1,h2,h3,h4,.h2,.h2--big,.doc>h1,.hero__lead,.doc__lead,.statement:not(.statement--lead),
-.uses__h,.deal h3,.rows h3,.pcard h3,.card .card__name,.tp-role,.faq summary,.foot__tag,.gv__title,.gv__subtitle,
-.flow b,.doc .uses li b,.steps b,.shot figcaption b,.hiw__list b,.tl b,.tp-work b,.tp-feature__body b,.lb__cap b{color:var(--ink)}
+/* ================= Titres en bleu, texte en noir =================
+   Titres et sous-titres de section en bleu (--blue) ; texte courant en noir (--ink).
+   Boutons, menu, liens, icônes, étiquettes et traits restent bleus.
+   Pour revenir à l'ancien rendu (titres noirs, texte bleu) : supprimer ce bloc, puis ajouter
+   « h1,h2,h3,h4,.h2,.h2--big,.hero__lead,.doc__lead,.faq summary,.foot__tag{color:var(--ink)} » (voir V14). */
+
+/* 1. Texte courant : noir */
+.sec,.sec--sky,.form,.pcard,.tp-feature__body,.tp-empty,.lb__cap{color:var(--ink)}
+.lead-in,.deal p,.faq p,.contact__lead,.doc p,.rows p,.steps li,.flow li,.shot figcaption,.pcard p,.hiw__list p,
+.team__intro,.tp-note,.tp-facts li,.lb__cap small,.statement--lead,
+.form input,.form textarea,.form select{color:var(--ink)}
+.foot__bar>p{color:var(--ink)}
+
+/* 2. Liens dans le texte : restent bleus */
+.doc p a:not(.pill),.doc li a:not(.pill),.faq p a,.deal p a,.rows p a,.lead-in a,.contact__lead a,.form__note a,.tp-note a{color:var(--blue)}
+
+/* 3. Titres et sous-titres : bleu (placé après le texte pour l'emporter à spécificité égale) */
+h1,h2,h3,h4,.h2,.h2--big,.doc>h1,.hero__lead,.doc__lead,.statement:not(.statement--lead),.uses__h,.deal h3,.rows h3,.pcard h3,.card .card__name,.tp-role,.faq summary,.foot__tag,.gv__title,.gv__subtitle,.flow b,.doc .uses li b,.steps b,.shot figcaption b,.hiw__list b,.tl b,.tp-work b,.tp-feature__body b,.lb__cap b{color:var(--blue)}
+:is(.sec,.doc,.pcard,.deal,.faq,.rows,.hero,.foot,.tp-hero) h1,:is(.sec,.doc,.pcard,.deal,.faq,.rows,.hero,.foot,.tp-hero) h2,:is(.sec,.doc,.pcard,.deal,.faq,.rows,.hero,.foot,.tp-hero) h3,:is(.sec,.doc,.pcard,.deal,.faq,.rows,.hero,.foot,.tp-hero) h4,:is(.sec,.doc,.pcard,.deal,.faq,.rows,.hero,.foot,.tp-hero) .h2,:is(.sec,.doc,.pcard,.deal,.faq,.rows,.hero,.foot,.tp-hero) .h2--big,:is(.sec,.doc,.pcard,.deal,.faq,.rows,.hero,.foot,.tp-hero) .hero__lead,:is(.sec,.doc,.pcard,.deal,.faq,.rows,.hero,.foot,.tp-hero) .doc__lead,:is(.sec,.doc,.pcard,.deal,.faq,.rows,.hero,.foot,.tp-hero) .statement:not(.statement--lead),:is(.sec,.doc,.pcard,.deal,.faq,.rows,.hero,.foot,.tp-hero) .uses__h,:is(.sec,.doc,.pcard,.deal,.faq,.rows,.hero,.foot,.tp-hero) .deal h3,:is(.sec,.doc,.pcard,.deal,.faq,.rows,.hero,.foot,.tp-hero) .rows h3,:is(.sec,.doc,.pcard,.deal,.faq,.rows,.hero,.foot,.tp-hero) .pcard h3,:is(.sec,.doc,.pcard,.deal,.faq,.rows,.hero,.foot,.tp-hero) .card .card__name,:is(.sec,.doc,.pcard,.deal,.faq,.rows,.hero,.foot,.tp-hero) .tp-role,:is(.sec,.doc,.pcard,.deal,.faq,.rows,.hero,.foot,.tp-hero) .faq summary,:is(.sec,.doc,.pcard,.deal,.faq,.rows,.hero,.foot,.tp-hero) .foot__tag,:is(.sec,.doc,.pcard,.deal,.faq,.rows,.hero,.foot,.tp-hero) .gv__title,:is(.sec,.doc,.pcard,.deal,.faq,.rows,.hero,.foot,.tp-hero) .gv__subtitle,:is(.sec,.doc,.pcard,.deal,.faq,.rows,.hero,.foot,.tp-hero) .flow b,:is(.sec,.doc,.pcard,.deal,.faq,.rows,.hero,.foot,.tp-hero) .doc .uses li b,:is(.sec,.doc,.pcard,.deal,.faq,.rows,.hero,.foot,.tp-hero) .steps b,:is(.sec,.doc,.pcard,.deal,.faq,.rows,.hero,.foot,.tp-hero) .shot figcaption b,:is(.sec,.doc,.pcard,.deal,.faq,.rows,.hero,.foot,.tp-hero) .hiw__list b,:is(.sec,.doc,.pcard,.deal,.faq,.rows,.hero,.foot,.tp-hero) .tl b,:is(.sec,.doc,.pcard,.deal,.faq,.rows,.hero,.foot,.tp-hero) .tp-work b,:is(.sec,.doc,.pcard,.deal,.faq,.rows,.hero,.foot,.tp-hero) .tp-feature__body b,:is(.sec,.doc,.pcard,.deal,.faq,.rows,.hero,.foot,.tp-hero) .lb__cap b{color:var(--blue)}
+.tp-feature__body small,.label,.crumbs,.tl time,.status{color:var(--blue)}
+
+/* ================= Hero : lisibilité du chapô devant le halo ================= */
+.hero__lead{text-shadow:0 0 14px rgba(243,239,231,.95),0 0 5px rgba(243,239,231,.9)}
+
+/* ================= Cartes équipe : rôle + clic qui alterne photo / détails ================= */
+.card .card__role{margin:0 0 6px;font-size:.78rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;line-height:1.2;color:var(--blue)}
+.team--compact .card .card__role{font-size:.66rem;margin-bottom:4px}
+/* souris : le survol affiche les détails ; un clic sur la carte les masque (retour à la photo), un autre clic les rend. Quitter la carte réinitialise. */
+@media(hover:hover){
+.card.is-photo:hover::after{opacity:0}
+.card.is-photo:hover .card__body{opacity:0;transform:translateY(14px)}
+.card.is-photo:hover .card__photo{transform:scale(1.02)}
+.card.is-photo:hover a.team__details{opacity:0;transform:translateY(8px);pointer-events:none}
+}
+
+/* ================= Fiches : traînée d'objets du métier (js/trail.js) =================
+   Des objets suivent le curseur (ou le doigt) dans l'en-tête de la fiche. Effet de plinch_image.html, objets du rôle du membre. */
+.trail{position:absolute;inset:0;z-index:6;overflow:hidden;pointer-events:none;perspective:1000px;--trail-size:170px}
+.trail__img{position:absolute;top:0;left:0;width:var(--trail-size);aspect-ratio:1;opacity:0;pointer-events:none;will-change:transform}
+.trail__img img{display:block;width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 14px 16px rgba(11,61,255,.22))}
+@media(max-width:700px){.trail{--trail-size:112px}}

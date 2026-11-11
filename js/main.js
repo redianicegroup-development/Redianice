@@ -176,16 +176,18 @@
     if (img.complete && !img.naturalWidth) swap();
   });
 
-  // ---------- Équipe : le portrait reste visible ; au survol (ou au toucher) les infos montent en bas de la carte ----------
+  // ---------- Équipe : le portrait reste visible ; au survol (ou au toucher) le rôle et le nom montent en bas de la carte ----------
+  // Cliquer ou toucher la carte alterne photo / détails, autant de fois qu'on veut, sans jamais ouvrir la fiche :
+  // seul le bouton « En savoir plus » (un vrai lien) ouvre la page du membre.
   function closeCards(except) { $$(".card.is-open").forEach(function (c) { if (c !== except) c.classList.remove("is-open"); }); }
   $$(".card").forEach(function (card) {
-    var link = $(".team__details", card);
     card.addEventListener("click", function (e) {
-      if (e.target.closest("a")) return;                                   // « En savoir plus » est un vrai lien
-      if (canHover) { if (link) window.location.assign(link.href); return; } // souris : le survol affiche les infos, le clic ouvre la fiche
-      if (card.classList.contains("is-open")) { if (link) window.location.assign(link.href); return; } // toucher : 1er = afficher, 2e = ouvrir
-      closeCards(card); card.classList.add("is-open");
+      if (e.target.closest("a")) return;                                    // « En savoir plus » : lien normal
+      if (canHover) { card.classList.toggle("is-photo"); return; }          // souris : le survol montre les détails, le clic les masque / les rend
+      var open = card.classList.contains("is-open");                        // toucher : 1 toucher = détails, 1 autre = photo
+      closeCards(card); card.classList.toggle("is-open", !open);
     });
+    card.addEventListener("mouseleave", function () { card.classList.remove("is-photo"); });
   });
   document.addEventListener("click", function (e) { if (!e.target.closest(".card")) closeCards(); });
 

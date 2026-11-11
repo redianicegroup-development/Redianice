@@ -1,12 +1,13 @@
 /* Redianice — footer : filigrane interactif + objets déplaçables.
 
    1) Filigrane « redianice » dessiné en canvas (effet repris de redianice.html) :
-      - la lettre survolée (ou balayée toute seule quand personne n'y touche) passe en contour pointillé,
+      - tout le mot est un filigrane en contour pointillé, à peine rempli ;
+      - la lettre survolée (ou balayée toute seule quand personne n'y touche) se renforce (contour plein, léger remplissage),
         avec un cadre de sélection, des étincelles et une étiquette de cotes ;
       - une lettre se saisit et se déplace ; relâchée, elle revient en rebondissant (ressort) ;
       - un clic / un toucher fait sauter les lettres en vague.
-   2) 6 objets 3D déplaçables (souris ou doigt), tirés au hasard parmi 25.
-      Toutes les 10 s, 6 autres les remplacent. Un objet tenu en main n'est jamais remplacé.
+   2) 9 objets 3D déplaçables (7 sur téléphone), souris ou doigt, tirés au hasard parmi 25.
+      Toutes les 10 s, un autre lot les remplace. Un objet tenu en main n'est jamais remplacé.
 
    Tout est décoratif : le calque est masqué aux lecteurs d'écran et le site reste utilisable au clavier.
    prefers-reduced-motion : pas de balayage automatique, pas de vague, pas d'inertie, pas de flottement. */
@@ -31,10 +32,12 @@
   var DASH_ON = 10, DASH_OFF = 6, STROKE = 2.2;        // contour pointillé de la lettre survolée
   var SPRING = 320, BOUNCE = 0.4, KICK_DECAY = 0.62;   // rebond des lettres
   var SPECKS = 14;                                     // étincelles autour du cadre
+  var WM_DASH = 0.8, WM_FILL = 0.07;                   // filigrane au repos : opacité du contour pointillé, du remplissage (la lettre survolée monte à 1 et 0,2)
   var SWEEP = !reduced, CLICK_KICK = !reduced;
   var LABEL_FONT = "11px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace";
 
-  var PER = 6, EVERY = 10000;                          // 6 objets visibles, renouvelés toutes les 10 s
+  var EVERY = 10000;                                   // lot d'objets renouvelé toutes les 10 s
+  var perFor = function (w) { return w < 600 ? 7 : 9; }; // nombre d'objets visibles : 9 (7 sur téléphone)
   var POOL = [
     ["ampoule", 400, 377],
     ["appareil-photo", 400, 304],
@@ -82,9 +85,9 @@
   };
 
   /* taille de référence d'un objet selon la largeur de la scène */
-  var objUnit = function (w) { return clamp(w * 0.115, 56, 170); };
+  var objUnit = function (w) { return clamp(w * 0.105, 54, 150); };
   /* place au-dessus des lettres pour les objets : plus haute sur téléphone, où le mot est petit */
-  var headroom = function (w) { return Math.round(objUnit(w) * (w < 600 ? 2.6 : 0.95)); };
+  var headroom = function (w) { return Math.round(objUnit(w) * (w < 600 ? 3.6 : 1.25)); };
 
   /* ================================================================== 1) FILIGRANE */
   var ctx = canvas.getContext("2d");
@@ -136,8 +139,9 @@
     c.setTransform(dpr, 0, 0, dpr, -left * dpr, -top * dpr);
     setFont(c, word.size);
     if (stroke) {
-      c.lineJoin = "round"; c.lineWidth = STROKE * 2; c.lineCap = "butt"; c.strokeStyle = INK;
-      c.setLineDash([DASH_ON, DASH_OFF]);
+      var k = clamp(word.size / 330, 0.4, 1);            // pointillés plus fins et plus courts quand le mot est petit (téléphone)
+      c.lineJoin = "round"; c.lineWidth = STROKE * Math.max(k, 0.6) * 2; c.lineCap = "butt"; c.strokeStyle = INK;
+      c.setLineDash([DASH_ON * k, DASH_OFF * k]);
       c.strokeText(glyph.char, glyph.x, word.baseline);
       c.setLineDash([]);
       c.globalCompositeOperation = "destination-out";   // on ne garde que le contour extérieur
@@ -379,8 +383,11 @@
       if (moved > 1) { ctx.globalAlpha = Math.min(1, moved / 24) * 0.55; blit(g.dashes, 0, 0); ctx.globalAlpha = 1; }
     });
     glyphs.forEach(function (g) {
-      if (g.outline < 0.999) { ctx.globalAlpha = 1 - g.outline; blit(g.fill, g.offset.x, g.offset.y); }
-      if (g.outline > 0.001) { ctx.globalAlpha = g.outline; blit(g.dashes, g.offset.x, g.offset.y); }
+      var o = g.outline;                                  // 0 = filigrane au repos, 1 = lettre survolée
+      ctx.globalAlpha = WM_DASH + (1 - WM_DASH) * o;      // contour pointillé : tout le mot est un filigrane
+      blit(g.dashes, g.offset.x, g.offset.y);
+      ctx.globalAlpha = WM_FILL + (0.2 - WM_FILL) * o;    // remplissage très léger, un peu plus marqué sous le curseur
+      blit(g.fill, g.offset.x, g.offset.y);
       ctx.globalAlpha = 1;
     });
     drawFrame();
@@ -437,7 +444,7 @@
   var namesNotOnScreen = function () {
     var shown = live.map(function (o) { return o.name; });
     var avail = POOL.filter(function (p) { return shown.indexOf(p[0]) < 0; });
-    return shuffle(avail).slice(0, PER);
+    return shuffle(avail).slice(0, perFor(width));
   };
 
   var preload = function (list) { list.forEach(function (p) { var im = new Image(); im.decoding = "async"; im.src = BASE + p[0] + ".webp"; }); };
@@ -452,7 +459,9 @@
   };
 
   var spawn = function (batch) {
-    var W = width, H = height, slots = shuffle([0, 1, 2, 3, 4, 5]).slice(0, batch.length), slotW = W / PER;
+    var W = width, H = height, count = Math.max(1, batch.length), slotW = W / count, slots = [];
+    for (var q = 0; q < count; q++) slots.push(q);
+    slots = shuffle(slots);
     batch.forEach(function (p, n) {
       var sz = makeSize(p, W);
       var cx = (slots[n] + 0.5) * slotW + rand(-0.3, 0.3) * slotW;

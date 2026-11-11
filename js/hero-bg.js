@@ -1,6 +1,7 @@
 /* Redianice — fond animé du hero (accueil).
    Port en JavaScript pur du composant « GradientASCII » de backgroung_hero.html (WebGL2, sans React ni Babel) :
-   mêmes shaders, mêmes réglages (forme « horizon », glyphes de 18 px, lueur 0,3, survol et clic réactifs).
+   mêmes shaders et même animation (forme « horizon », lueur 0,3, survol et clic réactifs), sans les caractères ASCII
+   et avec des bleus plus clairs.
    Ajouts : le dessin s'arrête quand le hero est recouvert par la section suivante, ou quand l'onglet est masqué ;
    « réduire les animations » donne une image fixe ; sans WebGL2, le hero garde un dégradé CSS (classe .no-gl).
    Réglages : voir DEFAULTS plus bas. */
@@ -425,13 +426,18 @@
   };
 
 
-  // Réglages du hero : ceux de la démo (backgroung_hero.html). Tout le reste prend les valeurs par défaut du composant.
+  // Réglages du hero. Base : la démo (backgroung_hero.html) ; adaptations pour le site :
+  //   - glyphOpacity 0 : plus de caractères ASCII, seul le halo reste ;
+  //   - bleus plus clairs (palette) et gradientOpacity 0,68 : le titre bleu reste lisible devant le halo.
+  // Pour retrouver la démo d'origine : colors ['#1e3fd8', '#f6f8ff', '#a5d8ff', '#38bdf8'], glyphOpacity 0.85, gradientOpacity 0.9.
   var DEFAULTS = {
-    colors: ['#1e3fd8', '#f6f8ff', '#a5d8ff', '#38bdf8'],
+    colors: ['#7b97ff', '#f6f8ff', '#b4dcff', '#7fd3fb'],
     shape: 'horizon',
     cellSize: 18,
     speed: 1,
     glow: 0.3,
+    glyphOpacity: 0,
+    gradientOpacity: 0.68,
     mouseInteraction: true,
     lightMode: false
   };

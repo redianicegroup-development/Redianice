@@ -23,9 +23,10 @@ Site vitrine de Redianice, startup indépendante qui conçoit et lance ses propr
 | `css/style.css` | Styles du site |
 | `js/main.js` | Interactions et formulaire |
 | `js/gravity-carousel.js` | Galerie « gravity » WebGL des captures de Mon E-Carnet (repli : galerie à défilement) |
-| `js/hero-bg.js` | Hero de l'accueil : fond animé WebGL2 (halo bleu + caractères ASCII, réagit au survol et au clic). Réglages dans `DEFAULTS`, en haut du fichier. Sans WebGL2 : dégradé fixe (`.hero__bg.no-gl`) |
+| `js/hero-bg.js` | Hero de l'accueil : fond animé WebGL2 (halo bleu clair, sans caractères, réagit au survol et au clic). Réglages dans `DEFAULTS`, en haut du fichier. Sans WebGL2 : dégradé fixe (`.hero__bg.no-gl`) |
 | `js/hero-objets.js` | Hero de l'accueil : objets 3D qui flottent et défilent selon le scroll (position, vitesse et rotation de chaque objet : attributs `style`, `data-speed`, `data-spin` dans `index.html`) |
-| `js/footer-fx.js` | Footer (toutes les pages) : filigrane « redianice » interactif en canvas + 6 objets déplaçables renouvelés toutes les 10 s |
+| `js/footer-fx.js` | Footer (toutes les pages) : filigrane « redianice » en contour pointillé (canvas) + 9 objets déplaçables (7 sur téléphone), lot renouvelé toutes les 10 s |
+| `js/trail.js` | Pages perso (`equipe/*`) : traînée d'objets du métier qui suit le curseur ou le doigt (effet de `plinch_image.html`). Objets choisis par l'attribut `data-trail` de l'en-tête de chaque fiche |
 | `js/vendor/` | Bibliothèques JavaScript utilisées |
 | `api/contact.js` | API serverless du formulaire |
 | `assets/` | Images, logos et polices |

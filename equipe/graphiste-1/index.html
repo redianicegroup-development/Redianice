@@ -48,7 +48,7 @@
 </header>
 
 <main id="main">
-<section class="sec sec--sky doc-hero tp-hero">
+<section class="sec sec--sky doc-hero tp-hero" data-trail="appareil-photo,palette,crayon,stylet,tablette-graphique,ampoule">
   <nav aria-label="Fil d'Ariane"><ol class="crumbs"><li><a href="/">Accueil</a></li><li><a href="/#equipe">Équipe</a></li><li aria-current="page">Graphiste · identité visuelle</li></ol></nav>
   <div class="tp-hero__grid">
     <figure class="tp-portrait"><img src="/assets/team/graphiste-1.jpg" data-fallback="/assets/team/portrait-a-fournir.svg" alt="Portrait de la graphiste (identité visuelle)" width="800" height="1000" decoding="async"><figcaption class="tp-portrait__tag"><svg class="ic" aria-hidden="true"><use href="#i-palette"/></svg>Design</figcaption></figure>
@@ -84,17 +84,17 @@
   <div class="team team--compact" style="--n:3">
     <article class="card team-card" aria-label="Cofondateur">
       <img class="card__photo" src="/assets/team/chef-projet.jpg" data-fallback="/assets/team/portrait-a-fournir.svg" alt="Portrait du cofondateur" width="800" height="1000" loading="lazy" decoding="async">
-      <span class="card__idx">Droit</span>
+      <span class="card__idx">Droit</span><div class="card__body"><p class="card__role">Juriste</p></div>
       <a class="team__details" href="/equipe/chef-de-projet/" aria-label="En savoir plus : Cofondateur">En savoir plus <span aria-hidden="true">→</span></a>
     </article>
     <article class="card team-card" aria-label="M’Bollo Aka Elvis — développeur web et cofondateur">
       <img class="card__photo" src="/assets/team/elvis.jpg" data-fallback="/assets/team/portrait-a-fournir.svg" alt="Portrait de M’Bollo Aka Elvis" width="800" height="1000" loading="lazy" decoding="async">
-      <span class="card__idx">Technique</span><div class="card__body"><h3 class="card__name"><span translate="no">M’Bollo Aka Elvis</span></h3></div>
+      <span class="card__idx">Technique</span><div class="card__body"><p class="card__role">Développeur web</p><h3 class="card__name"><span translate="no">M’Bollo Aka Elvis</span></h3></div>
       <a class="team__details" href="/equipe/mbollo-aka-elvis/" aria-label="En savoir plus : M’Bollo Aka Elvis — développeur web et cofondateur">En savoir plus <span aria-hidden="true">→</span></a>
     </article>
     <article class="card team-card" aria-label="Graphiste freelance">
       <img class="card__photo" src="/assets/team/graphiste-2.jpg" data-fallback="/assets/team/portrait-a-fournir.svg" alt="Portrait du graphiste freelance" width="800" height="1000" loading="lazy" decoding="async">
-      <span class="card__idx">Design</span>
+      <span class="card__idx">Design</span><div class="card__body"><p class="card__role">Graphiste</p></div>
       <a class="team__details" href="/equipe/graphiste-2/" aria-label="En savoir plus : Graphiste freelance">En savoir plus <span aria-hidden="true">→</span></a>
     </article>
   </div>
@@ -106,12 +106,8 @@
     <div class="foot__brand">
       <a class="foot__logo" href="/" aria-label="Redianice, accueil"><img src="/assets/logo-fonce.png" alt="Redianice" width="900" height="145" loading="lazy"></a>
       <p class="foot__tag">Des problèmes réels. Des solutions pensées pour demain.</p>
-      <p class="foot__about"><span translate="no">Redianice</span> est une startup indépendante basée à Abidjan (Côte d'Ivoire). Elle conçoit et développe ses propres produits numériques.</p>
     </div>
     <div class="foot__contact">
-      <p class="foot__h">Nous écrire</p>
-      <a class="foot__mail" href="mailto:redianicegroup@gmail.com">redianicegroup@gmail.com</a>
-      <a class="foot__wa" href="https://wa.me/2250566191444" target="_blank" rel="noopener noreferrer">WhatsApp +225 05 66 19 14 44</a>
       <div class="foot__social"><a class="pill pill--ghost pill--icon" href="mailto:redianicegroup@gmail.com" aria-label="Gmail"><svg class="ic ic--fill" aria-hidden="true"><use href="#i-gmail"/></svg></a><a class="pill pill--ghost pill--icon" href="https://wa.me/2250566191444" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><svg class="ic ic--fill" aria-hidden="true"><use href="#i-whatsapp"/></svg></a><a class="pill pill--ghost pill--icon" href="https://www.linkedin.com/company/redianice" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><svg class="ic ic--fill" aria-hidden="true"><use href="#i-linkedin"/></svg></a></div>
     </div>
   </div>
@@ -130,6 +126,7 @@
 <script src="/js/vendor/ScrollTrigger.min.js"></script>
 <script src="/js/vendor/lenis.min.js"></script>
 <script src="/js/main.js"></script>
+<script src="/js/trail.js" defer></script>
 <script src="/js/footer-fx.js" defer></script>
 </body>
 </html>
