@@ -131,17 +131,6 @@
     spy.forEach(function (a) { var s = $(a.getAttribute("href")); if (s) io.observe(s); });
   }
 
-  // Hero : le logo de la pastille change toutes les 4 s
-  var pi = 0;
-  if (!reduced) setInterval(function () {
-    var s = $$(".h1-pill__s"); if (s.length < 2) return;
-    var nx = (pi + 1) % s.length;
-    s.forEach(function (el, i) { if (i !== pi && i !== nx) el.classList.remove("is-out", "is-on"); });
-    s[pi].classList.remove("is-on"); s[pi].classList.add("is-out");
-    s[nx].classList.remove("is-out"); s[nx].classList.add("is-on");
-    pi = nx;
-  }, 4000);
-
   // Nos produits : sans animation, la piste défile nativement (tactile, trackpad, flèches).
   // Avec animation (plus bas), la piste est épinglée et suit le scroll de la page : pas de glisser-déposer.
   var stage = $("#pstage"), track = $("#ptrack"), fill = $("#pfill"), pp = $("#pprev"), pn = $("#pnext");
@@ -207,7 +196,7 @@
   // ---------- Illumination du texte (pages produit et fiches) : blocs concernés ----------
   // Paragraphes et puces des sections de lecture. Sont exclus : les paragraphes qui portent un bouton et la note sous les icônes de contact.
   var litOn = !reduced && !!(window.gsap && window.ScrollTrigger && window.Lenis);
-  var litBlocks = $$(".doc[data-rv] > p, .doc[data-rv] .uses li, .doc[data-rv] .tl li p").filter(function (el) {
+  var litBlocks = $$(".doc[data-rv] > p, .doc[data-rv] .uses li, .doc[data-rv] .tl li p, .doc[data-rv] .tp-work li p").filter(function (el) {
     return !el.closest(".fold") && !el.querySelector(".pill") && !el.classList.contains("tp-note") && !el.classList.contains("doc__cta");
   });
 
@@ -356,9 +345,11 @@
   }
   var h1 = $("#h1");
   if (h1) {
-    heroWords(h1);
-    gsap.from("#h1 .w > span", { yPercent: 115, duration: 1.2, ease: "expo.out", stagger: 0.08, delay: 0.15 });
-    gsap.from(".hero__lead, .hero__cta", { opacity: 0, y: 24, duration: 1, ease: "power3.out", delay: 0.8, stagger: 0.15 });
+    if (!h1.classList.contains("sr")) {           // titre visible : mot à mot
+      heroWords(h1);
+      gsap.from("#h1 .w > span", { yPercent: 115, duration: 1.2, ease: "expo.out", stagger: 0.08, delay: 0.15 });
+    }
+    gsap.from(".hero__wm, .hero__lead, .hero__cta", { opacity: 0, y: 24, duration: 1, ease: "power3.out", delay: 0.2, stagger: 0.18 });
   }
 
   // Mission, Investir, Contact : le texte se révèle mot à mot avec le défilement
@@ -391,7 +382,8 @@
     var ws = litSplit(el); if (!ws.length) return;
     el.classList.add("lit");
     // clamp() : un bloc proche du haut ou du bas de la page s'allume quand même entièrement
-    gsap.to(ws, { opacity: 1, ease: "none", stagger: 0.1, scrollTrigger: { trigger: el, start: "clamp(top 88%)", end: "clamp(bottom 62%)", scrub: true } });
+    var big = !!el.closest(".tp-body");           // rôle des fiches : mêmes réglages que le texte de la Mission
+    gsap.to(ws, { opacity: 1, ease: "none", stagger: 0.1, scrollTrigger: { trigger: el, start: big ? "clamp(top 80%)" : "clamp(top 88%)", end: big ? "clamp(bottom 50%)" : "clamp(bottom 62%)", scrub: true } });
   });
 
   // Nos produits : la piste est épinglée au centre de l'écran. Descendre fait défiler les cartes vers la

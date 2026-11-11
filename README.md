@@ -25,11 +25,11 @@ Site vitrine de Redianice, startup indépendante qui conçoit et lance ses propr
 | `js/gravity-carousel.js` | Galerie « gravity » WebGL des captures de Mon E-Carnet (repli : galerie à défilement) |
 | `js/hero-bg.js` | Hero de l'accueil : fond animé WebGL2 (halo bleu clair, sans caractères, réagit au survol et au clic). Réglages dans `DEFAULTS`, en haut du fichier. Sans WebGL2 : dégradé fixe (`.hero__bg.no-gl`) |
 | `js/hero-objets.js` | Hero de l'accueil : objets 3D qui flottent et défilent selon le scroll (position, vitesse et rotation de chaque objet : attributs `style`, `data-speed`, `data-spin` dans `index.html`) |
-| `js/footer-fx.js` | Footer (toutes les pages) : filigrane « redianice » en contour pointillé (canvas) + 9 objets déplaçables (7 sur téléphone), lot renouvelé toutes les 10 s |
+| `js/footer-fx.js` | Filigrane « redianice » en contour pointillé (canvas), utilisé dans le hero de l'accueil et dans le footer de toutes les pages. Footer : objets déplaçables, toujours les mêmes aux mêmes places (10 sur ordinateur, 6 sur téléphone : ceux du hero + poignée de main + argent ; `SET_DESKTOP` / `SET_PHONE` en tête de fichier) |
 | `js/trail.js` | Pages perso (`equipe/*`) : traînée d'objets du métier qui suit le curseur ou le doigt (effet de `plinch_image.html`). Objets choisis par l'attribut `data-trail` de l'en-tête de chaque fiche |
 | `js/vendor/` | Bibliothèques JavaScript utilisées |
 | `api/contact.js` | API serverless du formulaire |
-| `assets/` | Images, logos et polices |
+| `assets/` | Images, logos et polices. `mark-fonce.png` : la marque seule (sans le nom), utilisée dans l'en-tête |
 | `assets/objets/` | 25 objets 3D détourés (WebP, 400 px max) utilisés par le hero et le footer |
 | `assets/captures/` | Captures réelles de Mon E-Carnet (WebP, données fictives uniquement ; nom et date de naissance masqués par des x). Chaque capture existe en taille d'origine et en version `-640` pour mobile |
 

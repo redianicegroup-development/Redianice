@@ -19,9 +19,10 @@ span[translate=no]{white-space:nowrap}
 /* ---------- Navigation ---------- */
 .nav{position:fixed;top:16px;left:20px;right:20px;z-index:40;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px}
 .pillbar{display:inline-flex;align-items:center;gap:8px;height:42px;padding:0 20px;border:0;border-radius:999px;background:var(--paper);color:var(--blue);font:700 .92rem Urbanist,sans-serif;text-decoration:none;cursor:pointer;transition:background .3s,color .3s,box-shadow .3s;box-shadow:0 0 0 1.5px var(--blue)}
-.logo{padding:0 18px;box-shadow:0 0 0 1.5px rgba(11,61,255,.55)}.logo:hover{box-shadow:0 0 0 2.5px var(--blue)}.logo img{height:20px;width:auto}
-.logo:not(.logo--solid){background:transparent;box-shadow:none;padding:0}
-.logo .logo__l{display:none}.logo .logo__d{display:block}
+/* Logo : la marque seule (assets/mark-fonce.png), sans le nom « redianice ». Taille : --logo-h */
+:root{--logo-h:clamp(52px,13vw,64px)}
+.logo{height:var(--logo-h);padding:0;border-radius:0;background:transparent;box-shadow:none}
+.logo img{display:block;height:var(--logo-h);width:auto;border-radius:24%;background:var(--paper);transition:transform .35s var(--spring)}.logo:hover img{transform:scale(1.06)}
 
 .nav-contact{box-shadow:0 0 0 1.5px var(--blue)}.nav-contact:hover,.nav-contact.is-active{background:var(--blue);color:var(--paper);border-color:var(--blue)}
 .nav__right{display:flex;align-items:center;gap:8px}
@@ -65,7 +66,6 @@ h1 .w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.12
 /* ---------- Sections : blanc cassé ---------- */
 .sec{position:relative;padding:clamp(72px,12vw,160px) var(--pad);background:var(--paper);color:var(--blue)}
 .sec+.sec{border-top:1px solid var(--line)}
-.label{font-weight:600;font-size:.95rem;margin-bottom:28px;color:var(--blue)}
 .statement{font-size:clamp(1.7rem,4.6vw,4rem);line-height:1.12;font-weight:600;letter-spacing:-.03em;max-width:21em;margin-left:auto;color:var(--blue)}
 .statement--lead{margin-left:0}
 .statement .sw{opacity:.3}
@@ -124,14 +124,13 @@ h1 .w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.12
 
 /* ---------- Page détail produit ---------- */
 .sec--sky{background:var(--paper);color:var(--blue)}
-.sec--sky .label{color:var(--blue)}
 .doc-hero{padding-top:130px}
 .crumbs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:26px;font-weight:600;font-size:.95rem;list-style:none;padding:0}
 .crumbs a{text-underline-offset:3px}.crumbs li+li::before{content:"/";margin-right:6px;opacity:.5}
 .doc__hero{display:grid;gap:28px;align-items:center}
 .cs-hero{display:grid;gap:14px;justify-items:start}
 .cs-hero__logo{width:clamp(92px,18vw,140px);height:auto;border-radius:26%;box-shadow:0 30px 60px -36px rgba(11,61,255,0.35)}
-.cs-hero .label{margin:14px 0 0}.cs-hero h1{margin:0}.cs-hero .doc__lead{margin:6px 0 10px}
+.cs-hero h1{margin:0}.cs-hero .doc__lead{margin:6px 0 10px}
 .doc__hero img{width:min(240px,60vw);border-radius:28px;box-shadow:0 30px 60px -36px rgba(11,61,255,0.35)}
 .doc__lead{font-size:clamp(1.2rem,1rem + 1vw,1.8rem);max-width:28em;margin:18px 0}
 .sec--sky .status{background:transparent;color:var(--blue);border:1.5px solid var(--blue)}
@@ -187,15 +186,15 @@ h1 .w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.12
 }
 @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}.statement .sw{opacity:1}}
 @media(min-width:900px){.nav{display:grid;grid-template-columns:1fr auto 1fr}.nav__right{justify-self:end}.logo{justify-self:start}}
-@media(min-width:900px) and (max-width:1099px){.nav__links a{padding:9px 11px;font-size:.88rem}.logo{padding:0 14px}}
+@media(min-width:900px) and (max-width:1099px){.nav__links a{padding:9px 11px;font-size:.88rem}}
 @media(max-width:899px){
 .js .nav__links,.js .nav__right{display:none}.js .mbtn{display:block}.js .mpanel{display:flex}
-.mbtn{position:absolute;z-index:3;top:0;right:0;width:104px;height:42px;padding:0;border:0;border-radius:999px;overflow:hidden;background:transparent;cursor:pointer}
+.mbtn{position:absolute;z-index:3;top:calc((var(--logo-h) - 42px) / 2);right:0;width:104px;height:42px;padding:0;border:0;border-radius:999px;overflow:hidden;background:transparent;cursor:pointer}
 .mbtn__slide,.mbtn__state,.mbtn__roll{display:block}
 .mbtn__slide{height:200%;transition:transform .6s var(--spring)}.mbtn[aria-expanded=true] .mbtn__slide{transform:translateY(-50%)}
 .mbtn__state{height:50%;overflow:hidden}.mbtn__roll{height:200%;transition:transform .4s var(--ease)}.mbtn:hover .mbtn__roll{transform:translateY(-50%)}
 .mbtn__roll span{display:flex;height:50%;align-items:center;justify-content:center;font:700 .95rem Urbanist,sans-serif}
-.mbtn__state--a span{background:var(--paper);color:var(--blue);box-shadow:inset 0 0 0 1.5px var(--blue)}.mbtn__state--b span{background:var(--blue);color:var(--paper)}
+.mbtn__state--a span{background:var(--paper);color:var(--blue)}.mbtn__state--b span{background:var(--blue);color:var(--paper)}
 .mpanel{position:absolute;z-index:2;top:0;right:0;width:104px;height:42px;border-radius:21px;overflow:hidden;background:var(--paper);flex-direction:column;padding:0 0 0 28px;transition:width .6s var(--spring),height .6s var(--spring),border-radius .6s var(--spring),box-shadow .6s}
 .mpanel.is-open{width:calc(100vw - 40px);height:min(88svh,640px);padding-top:64px;padding-bottom:22px;overflow-x:hidden;overflow-y:auto;border-radius:26px;box-shadow:0 30px 60px -20px rgba(11,61,255,.35),0 0 0 1.5px var(--blue)}
 .mpanel>nav{margin-top:auto}
@@ -226,10 +225,6 @@ h1 .w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.12
 .ic--fill{fill:currentColor;stroke:none}
 .pill .ic{width:1.1em;height:1.1em;margin-right:8px}.pill .ic:last-child{margin:0 0 0 8px}
 .pill--icon{width:48px;padding:0}.pill--icon .ic,.pill--icon .ic:last-child{width:1.3em;height:1.3em;margin:0}
-.h1-pill{position:relative;overflow:hidden;vertical-align:top;width:1.85em;height:.8em;margin:.08em .02em 0;border-radius:999px;background:var(--paper);box-shadow:0 0 0 .05em rgba(11,61,255,.3)}
-.h1-pill__s{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0;transform:translateY(70%);transition:opacity .6s,transform .9s var(--ease)}
-.h1-pill__s.is-on{opacity:1;transform:none}.h1-pill__s.is-out{opacity:0;transform:translateY(-70%)}
-.h1-pill__s img{height:80%;width:auto;aspect-ratio:1;border-radius:22%}
 .ph{display:flex;align-items:center;justify-content:center;height:80%;aspect-ratio:1;border-radius:22%;background:var(--tint);color:var(--blue);border:1.5px solid var(--line)}.ph .ic{width:55%;height:55%;vertical-align:0}
 .flow .ic{display:block;width:30px;height:30px;color:var(--blue);margin-bottom:14px}
 .deal h3{display:flex;align-items:center;gap:10px}.deal h3 .ic{color:var(--blue)}
@@ -370,7 +365,6 @@ body{top:0!important}.goog-text-highlight{background:none!important;box-shadow:n
 
 /* ================= Équipe : cartes à révélation d'image ================= */
 .logo{background:transparent!important;box-shadow:none!important;padding:0!important}
-.team__intro{max-width:42rem;color:var(--blue);margin-top:14px}
 /* Le portrait est toujours visible, en plein cadre. Au survol (souris), au toucher ou au focus : un dégradé léger monte depuis le bas et les infos s'affichent. */
 .card__photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 20%;pointer-events:none;transform:scale(1.02);transition:transform 1.2s var(--ease)}
 .card::after{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(to top,rgba(243,239,231,.97) 0%,rgba(243,239,231,.86) 26%,rgba(243,239,231,.45) 52%,rgba(243,239,231,0) 78%);opacity:0;transition:opacity .5s}
@@ -562,7 +556,7 @@ main{position:relative}
 /* 1. Texte courant : noir */
 .sec,.sec--sky,.form,.pcard,.tp-feature__body,.lb__cap{color:var(--ink)}
 .lead-in,.deal p,.faq p,.contact__lead,.doc p,.rows p,.steps li,.flow li,.shot figcaption,.pcard p,.hiw__list p,
-.team__intro,.tp-note,.tp-facts li,.lb__cap small,.statement--lead,
+.tp-note,.tp-facts li,.lb__cap small,.statement--lead,
 .form input,.form textarea,.form select{color:var(--ink)}
 .foot__bar>p{color:var(--ink)}
 
@@ -572,7 +566,7 @@ main{position:relative}
 /* 3. Titres et sous-titres : bleu (placé après le texte pour l'emporter à spécificité égale) */
 h1,h2,h3,h4,.h2,.h2--big,.doc>h1,.hero__lead,.doc__lead,.statement:not(.statement--lead),.uses__h,.deal h3,.rows h3,.pcard h3,.card .card__name,.tp-role,.faq summary,.foot__tag,.gv__title,.gv__subtitle,.flow b,.doc .uses li b,.steps b,.shot figcaption b,.hiw__list b,.tl b,.tp-work b,.tp-feature__body b,.lb__cap b{color:var(--blue)}
 :is(.sec,.doc,.pcard,.deal,.faq,.rows,.hero,.foot,.tp-hero) h1,:is(.sec,.doc,.pcard,.deal,.faq,.rows,.hero,.foot,.tp-hero) h2,:is(.sec,.doc,.pcard,.deal,.faq,.rows,.hero,.foot,.tp-hero) h3,:is(.sec,.doc,.pcard,.deal,.faq,.rows,.hero,.foot,.tp-hero) h4,:is(.sec,.doc,.pcard,.deal,.faq,.rows,.hero,.foot,.tp-hero) .h2,:is(.sec,.doc,.pcard,.deal,.faq,.rows,.hero,.foot,.tp-hero) .h2--big,:is(.sec,.doc,.pcard,.deal,.faq,.rows,.hero,.foot,.tp-hero) .hero__lead,:is(.sec,.doc,.pcard,.deal,.faq,.rows,.hero,.foot,.tp-hero) .doc__lead,:is(.sec,.doc,.pcard,.deal,.faq,.rows,.hero,.foot,.tp-hero) .statement:not(.statement--lead),:is(.sec,.doc,.pcard,.deal,.faq,.rows,.hero,.foot,.tp-hero) .uses__h,:is(.sec,.doc,.pcard,.deal,.faq,.rows,.hero,.foot,.tp-hero) .deal h3,:is(.sec,.doc,.pcard,.deal,.faq,.rows,.hero,.foot,.tp-hero) .rows h3,:is(.sec,.doc,.pcard,.deal,.faq,.rows,.hero,.foot,.tp-hero) .pcard h3,:is(.sec,.doc,.pcard,.deal,.faq,.rows,.hero,.foot,.tp-hero) .card .card__name,:is(.sec,.doc,.pcard,.deal,.faq,.rows,.hero,.foot,.tp-hero) .tp-role,:is(.sec,.doc,.pcard,.deal,.faq,.rows,.hero,.foot,.tp-hero) .faq summary,:is(.sec,.doc,.pcard,.deal,.faq,.rows,.hero,.foot,.tp-hero) .foot__tag,:is(.sec,.doc,.pcard,.deal,.faq,.rows,.hero,.foot,.tp-hero) .gv__title,:is(.sec,.doc,.pcard,.deal,.faq,.rows,.hero,.foot,.tp-hero) .gv__subtitle,:is(.sec,.doc,.pcard,.deal,.faq,.rows,.hero,.foot,.tp-hero) .flow b,:is(.sec,.doc,.pcard,.deal,.faq,.rows,.hero,.foot,.tp-hero) .doc .uses li b,:is(.sec,.doc,.pcard,.deal,.faq,.rows,.hero,.foot,.tp-hero) .steps b,:is(.sec,.doc,.pcard,.deal,.faq,.rows,.hero,.foot,.tp-hero) .shot figcaption b,:is(.sec,.doc,.pcard,.deal,.faq,.rows,.hero,.foot,.tp-hero) .hiw__list b,:is(.sec,.doc,.pcard,.deal,.faq,.rows,.hero,.foot,.tp-hero) .tl b,:is(.sec,.doc,.pcard,.deal,.faq,.rows,.hero,.foot,.tp-hero) .tp-work b,:is(.sec,.doc,.pcard,.deal,.faq,.rows,.hero,.foot,.tp-hero) .tp-feature__body b,:is(.sec,.doc,.pcard,.deal,.faq,.rows,.hero,.foot,.tp-hero) .lb__cap b{color:var(--blue)}
-.tp-feature__body small,.label,.crumbs,.tl time,.status{color:var(--blue)}
+.tp-feature__body small,.crumbs,.tl time,.status{color:var(--blue)}
 
 /* ================= Hero : lisibilité du chapô devant le halo ================= */
 .hero__lead{text-shadow:0 0 14px rgba(243,239,231,.95),0 0 5px rgba(243,239,231,.9)}
@@ -612,3 +606,19 @@ h1,h2,h3,h4,.h2,.h2--big,.doc>h1,.hero__lead,.doc__lead,.statement:not(.statemen
 /* Bords gauche/droite à var(--pad) et haut/bas comme .sec ; les blocs prennent toute la largeur, le texte courant garde sa longueur de ligne. */
 .sec.doc>.uses,.sec.doc>.tp-work,.sec.doc>.tl,.sec.doc>.fold,.sec.doc>.tp-feature,.sec.doc>.steps,.sec.doc>.rows{max-width:none}
 @media(min-width:900px){.sec.doc>.tp-work{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* ================= V18 : hero avec filigrane, textes d'introduction en noir, description du rôle en grand ================= */
+/* Hero : le filigrane « redianice » (le même que celui du pied de page, js/footer-fx.js) remplace le grand titre. Le titre reste dans le HTML (h1.sr) pour les lecteurs d'écran et le référencement. */
+.hero__wm{position:relative;width:100%;touch-action:pan-y;-webkit-user-select:none;user-select:none}
+.hero__lead{margin-top:clamp(14px,3vw,26px)}
+
+/* Textes d'introduction en noir : chapô du hero, textes de la Mission, chapô des fiches. Les titres restent bleus. */
+html .hero .hero__lead,html .sec .statement:not(.statement--x),html .tp-hero .doc__lead{color:var(--ink)}
+
+/* Fiches : description du rôle à la taille du texte de la Mission, avec la même illumination (js/main.js).
+   Sur grand écran : plafonnée à 2,8 rem (paragraphe) et 2,2 rem (cartes de rôle). */
+.tp-body>p:not(.tp-note){font-size:clamp(1.7rem,4.6vw,2.8rem);line-height:1.12;font-weight:600;letter-spacing:-.03em;max-width:21em;color:var(--ink)}
+.tp-body .tp-work b{font-size:clamp(1.2rem,2vw,1.45rem)}
+.tp-body .tp-work p{font-size:clamp(1.7rem,4.6vw,2.2rem);line-height:1.12;font-weight:600;letter-spacing:-.03em;color:var(--ink)}
+.tp-body>p+.tp-work{margin-top:clamp(20px,4vw,36px)}
+.tp-body .lit .sw{opacity:.3}

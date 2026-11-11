@@ -1,4 +1,4 @@
-/* Redianice — footer : filigrane interactif + objets déplaçables.
+/* Redianice — filigrane interactif (footer de toutes les pages + hero de l'accueil) + objets déplaçables (footer).
 
    1) Filigrane « redianice » dessiné en canvas (effet repris de redianice.html) :
       - tout le mot est un filigrane en contour pointillé, à peine rempli ;
@@ -6,19 +6,19 @@
         avec un cadre de sélection, des étincelles et une étiquette de cotes ;
       - une lettre se saisit et se déplace ; relâchée, elle revient en rebondissant (ressort) ;
       - un clic / un toucher fait sauter les lettres en vague.
-   2) 9 objets 3D déplaçables (7 sur téléphone), souris ou doigt, tirés au hasard parmi 25.
-      Toutes les 10 s, un autre lot les remplace. Un objet tenu en main n'est jamais remplacé.
+   2) Objets 3D déplaçables (footer seulement), souris ou doigt. Plus aucun tirage au sort : toujours les mêmes, aux mêmes places.
+      Ce sont les objets du hero (9, ou 5 sur téléphone) + la poignée de main et l'argent. Voir SET_DESKTOP / SET_PHONE.
+      Une scène sans calque « .foot__objs » (le hero) n'affiche que le filigrane.
 
    Tout est décoratif : le calque est masqué aux lecteurs d'écran et le site reste utilisable au clavier.
    prefers-reduced-motion : pas de balayage automatique, pas de vague, pas d'inertie, pas de flottement. */
 (function () {
   "use strict";
 
-  var stage = document.querySelector("[data-foot-fx]");
-  if (!stage) return;
+  function mount(stage) {
   var canvas = stage.querySelector(".foot__wm");
   var layer = stage.querySelector(".foot__objs");
-  if (!canvas || !layer || !canvas.getContext) return;
+  if (!canvas || !canvas.getContext) return;
 
   var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var rootStyle = getComputedStyle(document.documentElement);
@@ -36,35 +36,30 @@
   var SWEEP = !reduced, CLICK_KICK = !reduced;
   var LABEL_FONT = "11px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace";
 
-  var EVERY = 10000;                                   // lot d'objets renouvelé toutes les 10 s
-  var perFor = function (w) { return w < 600 ? 7 : 9; }; // nombre d'objets visibles : 9 (7 sur téléphone)
-  var POOL = [
-    ["ampoule", 400, 377],
-    ["appareil-photo", 400, 304],
-    ["argent", 400, 298],
-    ["balance", 400, 362],
-    ["carnet-code", 394, 400],
-    ["certificat", 400, 386],
-    ["clavier", 400, 195],
-    ["code-juridique", 352, 400],
-    ["crayon", 400, 307],
-    ["dossier", 396, 400],
-    ["ecran", 400, 344],
-    ["engrenage", 398, 400],
-    ["fusee", 317, 400],
-    ["globe", 298, 400],
-    ["graphique", 367, 400],
-    ["icone-IDM", 300, 395],
-    ["liste-controle", 339, 400],
-    ["loupe", 391, 400],
-    ["mallette", 400, 361],
-    ["marteau-juge", 400, 355],
-    ["palette", 400, 366],
-    ["poignee-de-main", 400, 239],
-    ["souris", 400, 361],
-    ["stylet", 256, 400],
-    ["tablette-graphique", 400, 285]
+  /* Objets du footer : toujours les mêmes, aux mêmes places.
+     O(nom du fichier, largeur, hauteur, centre x en part de la largeur, y en part de la place libre, rotation en degrés, taille relative) */
+  var O = function (name, w, h, cx, fy, rot, k) { return { name: name, w: w, h: h, cx: cx, fy: fy, rot: rot, k: k }; };
+  var SET_DESKTOP = [          // objets du hero + poignée de main + argent, sur deux rangées
+    O("ampoule", 400, 377, 0.05, 0.04, -8, 0.9),
+    O("ecran", 400, 344, 0.15, 0.52, 6, 0.95),
+    O("loupe", 391, 400, 0.26, 0.08, 10, 1),
+    O("carnet-code", 394, 400, 0.36, 0.54, -6, 0.95),
+    O("poignee-de-main", 400, 239, 0.47, 0.1, 4, 1.1),
+    O("argent", 400, 298, 0.57, 0.54, -9, 1),
+    O("graphique", 367, 400, 0.68, 0.06, 8, 0.95),
+    O("mallette", 400, 361, 0.78, 0.52, -5, 0.95),
+    O("fusee", 317, 400, 0.88, 0.05, 12, 1),
+    O("globe", 298, 400, 0.95, 0.54, -6, 0.95)
   ];
+  var SET_PHONE = [            // ceux du hero sur téléphone + argent
+    O("ampoule", 400, 377, 0.17, 0.02, -8, 1),
+    O("poignee-de-main", 400, 239, 0.5, 0.06, 4, 1.25),
+    O("fusee", 317, 400, 0.83, 0.02, 12, 1),
+    O("loupe", 391, 400, 0.17, 0.62, 10, 1),
+    O("argent", 400, 298, 0.5, 0.6, -9, 1.1),
+    O("globe", 298, 400, 0.83, 0.62, -6, 1)
+  ];
+  var setFor = function (w) { return w < 600 ? SET_PHONE : SET_DESKTOP; };
 
   /* ------------------------------------------------------------------ outils */
   var clamp01 = function (v) { return Math.min(1, Math.max(0, Number(v) || 0)); };
@@ -79,15 +74,10 @@
     }
     return (h >>> 0) / 4294967296;
   };
-  var shuffle = function (a) {
-    for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; }
-    return a;
-  };
-
   /* taille de référence d'un objet selon la largeur de la scène */
-  var objUnit = function (w) { return clamp(w * 0.105, 54, 150); };
+  var objUnit = function (w) { return w < 600 ? clamp(w * 0.22, 64, 110) : clamp(w * 0.105, 54, 150); };
   /* place au-dessus des lettres pour les objets : plus haute sur téléphone, où le mot est petit */
-  var headroom = function (w) { return Math.round(objUnit(w) * (w < 600 ? 3.6 : 1.25)); };
+  var headroom = function (w) { return layer ? Math.round(objUnit(w) * (w < 600 ? 2.7 : 2.1)) : 0; };
 
   /* ================================================================== 1) FILIGRANE */
   var ctx = canvas.getContext("2d");
@@ -438,45 +428,33 @@
   /* ================================================================== 2) OBJETS DÉPLAÇABLES */
   var oldW = 0, oldH = 0;    // taille de la scène lors du dernier placement
   var live = [];             // objets à l'écran
-  var queued = null;         // prochain lot, préchargé
-  var started = false, timer = 0, raf2 = 0, last2 = 0, zTop = 5;
-
-  var namesNotOnScreen = function () {
-    var shown = live.map(function (o) { return o.name; });
-    var avail = POOL.filter(function (p) { return shown.indexOf(p[0]) < 0; });
-    return shuffle(avail).slice(0, perFor(width));
-  };
-
-  var preload = function (list) { list.forEach(function (p) { var im = new Image(); im.decoding = "async"; im.src = BASE + p[0] + ".webp"; }); };
+  var started = false, phoneSet = false, raf2 = 0, last2 = 0, zTop = 5;
 
   var applyTransform = function (o) {
     o.el.style.transform = "translate3d(" + o.x.toFixed(1) + "px," + o.y.toFixed(1) + "px,0) rotate(" + o.rot.toFixed(2) + "deg) scale(" + o.s.toFixed(3) + ")";
   };
 
   var makeSize = function (p, w) {
-    var u = objUnit(w) * rand(0.86, 1.12), ratio = p[1] / p[2];
+    var u = objUnit(w) * p.k, ratio = p.w / p.h;
     return ratio >= 1 ? { w: u, h: u / ratio } : { w: u * ratio, h: u };
   };
 
   var spawn = function (batch) {
-    var W = width, H = height, count = Math.max(1, batch.length), slotW = W / count, slots = [];
-    for (var q = 0; q < count; q++) slots.push(q);
-    slots = shuffle(slots);
+    var W = width, H = height;
     batch.forEach(function (p, n) {
       var sz = makeSize(p, W);
-      var cx = (slots[n] + 0.5) * slotW + rand(-0.3, 0.3) * slotW;
-      var o = { name: p[0], p: p, w: sz.w, h: sz.h, rot: rand(-16, 16), s: 1, vx: 0, vy: 0, drag: false };
+      var o = { name: p.name, p: p, w: sz.w, h: sz.h, rot: p.rot, s: 1, vx: 0, vy: 0, drag: false };
       o.rot0 = o.rot;
-      o.x = clamp(cx - o.w / 2, 0, Math.max(0, W - o.w));
-      o.y = (H - o.h) * (0.12 + 0.88 * Math.random());
+      o.x = clamp(p.cx * W - o.w / 2, 0, Math.max(0, W - o.w));
+      o.y = clamp(p.fy * (H - o.h), 0, Math.max(0, H - o.h));
       var el = document.createElement("div");
       el.className = "foot__obj"; el.style.width = o.w.toFixed(1) + "px";
       var img = new Image();
-      img.alt = ""; img.decoding = "async"; img.width = p[1]; img.height = p[2]; img.draggable = false;
-      img.style.setProperty("--dur", rand(4.6, 7.4).toFixed(2) + "s");
-      img.style.setProperty("--del", (-rand(0, 6)).toFixed(2) + "s");
+      img.alt = ""; img.decoding = "async"; img.width = p.w; img.height = p.h; img.draggable = false;
+      img.style.setProperty("--dur", (4.8 + (n % 4) * 0.7).toFixed(2) + "s");       // flottement : durées et décalages fixes
+      img.style.setProperty("--del", (-(n * 1.1) % 6).toFixed(2) + "s");
       img.onerror = function () { removeObj(o, true); };
-      img.src = BASE + p[0] + ".webp";
+      img.src = BASE + p.name + ".webp";
       el.appendChild(img);
       o.el = el; o.img = img;
       applyTransform(o);
@@ -492,30 +470,15 @@
 
   var removeObj = function (o, now) {
     var i = live.indexOf(o); if (i >= 0) live.splice(i, 1);
-    var done = function () { if (o.el.parentNode) o.el.parentNode.removeChild(o.el); };
-    if (now || reduced || !o.img.animate) { done(); return; }
-    o.el.style.pointerEvents = "none";
-    var a = o.img.animate([{ scale: 1, opacity: 1 }, { scale: 0, opacity: 0 }], { duration: 380, easing: "ease-in", fill: "forwards" });
-    a.onfinish = done;
-  };
-
-  var swap = function () {
-    if (live.some(function (o) { return o.drag; })) return;   // on n'enlève pas un objet tenu en main
-    var next = queued || namesNotOnScreen();
-    queued = null;
-    var old = live.slice();
-    old.forEach(function (o) { removeObj(o, false); });
-    spawn(next);
-    setTimeout(function () { queued = namesNotOnScreen(); preload(queued); }, 6000);   // précharge le lot suivant
+    if (o.el.parentNode) o.el.parentNode.removeChild(o.el);
   };
 
   var startCycle = function () {
-    if (started) return; started = true;
+    if (started || !layer) return; started = true;
     var sz = fitStage(); width = sz.w; height = sz.h;      // les dimensions doivent être connues avant de placer les objets
     oldW = width; oldH = height;
-    spawn(namesNotOnScreen());
-    queued = namesNotOnScreen(); preload(queued);
-    timer = setInterval(function () { if (!document.hidden && visible) swap(); }, EVERY);
+    phoneSet = width < 600;
+    spawn(setFor(width));
   };
 
   /* ---- glisser-déposer + inertie + rebond sur les parois */
@@ -585,7 +548,11 @@
 
   /* la scène change de taille : les objets gardent leur place relative */
   function objsResize() {
-    if (oldW && oldH && live.length) {
+    if (started && (width < 600) !== phoneSet && !live.some(function (o) { return o.drag; })) {
+      phoneSet = width < 600;
+      live.slice().forEach(function (o) { removeObj(o, true); });
+      spawn(setFor(width));
+    } else if (oldW && oldH && live.length) {
       var kx = width / oldW, ky = height / oldH;
       live.forEach(function (o) {
         var sz = makeSize(o.p, width);
@@ -616,5 +583,8 @@
     }, { rootMargin: "240px 0px" }).observe(stage);
   } else { visible = true; startCycle(); markDirty(); }
 
-  window.addEventListener("pagehide", function () { alive = false; clearInterval(timer); });
+  window.addEventListener("pagehide", function () { alive = false; });
+  }
+
+  Array.prototype.forEach.call(document.querySelectorAll("[data-foot-fx]"), mount);
 })();

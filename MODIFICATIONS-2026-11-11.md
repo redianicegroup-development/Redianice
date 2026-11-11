@@ -90,3 +90,36 @@ Nouveaux : `js/realisations.js`, `assets/realisations/LISEZ-MOI.txt`. Modifiés 
 - **Haut et bas** : les sections de ces pages ont aussi les 160 px de Mission (72 px sur mobile) au lieu de 96 / 100 px ; seul le haut de l'en-tête reste à 130 px pour dégager la barre de navigation.
 - **Blocs sur toute la largeur** : listes, cartes de rôle, bloc repliable, carte AKATech Studio, étapes. Les cartes « Son rôle » passent sur deux colonnes dès 900 px. Le texte courant garde sa longueur de ligne (42 em), comme les textes d'introduction de Mission.
 - Réglage : bloc « V22 » en fin de `css/style.css` ; les variables `--col` et `--col-wide` de la V20 n'existent plus.
+
+
+# V22 → V23 : en-tête, hero, étiquettes, titres, textes noirs, pied de page, fiche Elvis
+
+## En-tête (toutes les pages)
+- **Logo seul, sans le nom « redianice »**, et plus grand : 52 px sur téléphone, jusqu'à 64 px sur ordinateur (variable `--logo-h`, en haut du CSS). Nouveau fichier `assets/mark-fonce.png` (la marque de `logo-fonce.png`, en bleu du site). Le lien garde son libellé « Redianice, accueil » pour les lecteurs d'écran. La marque a un fond blanc cassé : les traits des sections qui défilent derrière ne la traversent plus.
+- **Bouton Menu (téléphone) sans contour bleu**, centré sur la hauteur du logo. Le menu de la version ordinateur n'a pas changé. Le logo du pied de page garde le nom.
+
+## Hero (accueil)
+- **Le grand titre est remplacé par le même filigrane que le pied de page** (mot « redianice » en contour pointillé, lettre survolée ou balayée qui se renforce). Le titre « Des solutions pour des problèmes concrets » reste dans le HTML, invisible (`h1.sr`), pour les lecteurs d'écran et le référencement. La pastille qui changeait de logo dans le titre est retirée (HTML, CSS, JS).
+- Chapô en **noir**.
+- `js/footer-fx.js` gère maintenant plusieurs scènes : une scène sans calque `.foot__objs` (le hero) n'affiche que le filigrane.
+
+## Pied de page : plus de hasard
+- **Mêmes objets que le hero, toujours aux mêmes places** : plus de tirage au sort, plus de renouvellement toutes les 10 s. Ordinateur : ampoule, écran, loupe, carnet de code, poignée de main, argent, graphique, mallette, fusée, globe (deux rangées). Téléphone : ampoule, poignée de main, fusée, loupe, argent, globe. Les objets restent déplaçables à la main.
+- Objets un peu plus grands sur téléphone. Réglage : `SET_DESKTOP`, `SET_PHONE`, `objUnit` et `headroom` dans `js/footer-fx.js`.
+
+## Étiquettes entre crochets et titres de sections
+- **Les 17 petites étiquettes `[ ]` sont supprimées** (accueil, Investir, Mon E-Carnet, 4 fiches, page portfolio) ainsi que leur CSS.
+- **Titres plus courts** (accueil) : « Un premier projet. Une ambition concrète. » → « Notre premier produit. » ; « Quatre personnes. Des compétences qui se complètent. » → « Quatre profils complémentaires. » ; « Les bonnes idées grandissent avec les bonnes collaborations. » → « Grandir à plusieurs. »
+- Phrase d'aide des cartes équipe (« Survolez une carte… ») retirée.
+
+## Textes en noir
+- Chapô du hero, textes de la Mission et chapô des fiches : noir. Titres, boutons et liens restent bleus. Les autres chapôs (Investir, Mon E-Carnet) restent bleus.
+
+## Fiche Elvis
+- **Chapô** : plus de « Chez Redianice, il conçoit et développe les produits… ». Il présente la personne : développeur web freelance à AKATech Studio, plus de 10 clients et PME : sites vitrines, e-commerce et applications web.
+- **Son rôle** (réécrit) : « Développeur full-stack orienté produit, il transforme un besoin identifié en application : il réfléchit à la solution technique, la conçoit, la développe, puis la fait évoluer au fil des retours. »
+- **Description du rôle en grand, avec l'illumination de la Mission** : le paragraphe de rôle et les descriptions des quatre cartes (taille de la Mission sur téléphone ; plafonnées à 2,8 rem et 2,2 rem sur ordinateur). Mêmes réglages de défilement que la Mission (début à 80 %, fin à 50 % de l'écran, mots non allumés à 30 %). Réglage : bloc « V18 » en fin de `css/style.css` et `big` dans `js/main.js`.
+- Même mise en forme sur les trois autres fiches (leur texte n'a pas changé).
+
+## Fichiers
+Nouveau : `assets/mark-fonce.png`. Modifiés : `index.html`, `404.html`, `investir/`, `portfolio/e-carnet/`, `produits/e-carnet/`, `mentions-legales/`, `confidentialite/`, `equipe/*/`, `css/style.css`, `js/main.js`, `js/footer-fx.js`, `README.md`, ce fichier.
