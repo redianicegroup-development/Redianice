@@ -358,6 +358,51 @@
     gsap.to($$(".sw", st), { opacity: 1, ease: "none", stagger: 0.1, scrollTrigger: { trigger: st, start: "top 80%", end: "bottom 50%", scrub: true } });
   });
 
+  // À propos, ordinateur : zigzag. Chaque sous-section se place d'un côté (data-side) et la marque, épinglée à l'écran,
+  // passe du côté opposé en roulant, au moment où la sous-section arrive (ScrollTrigger, branché sur Lenis plus haut).
+  // Téléphone : la marque est au-dessus du titre et pivote doucement pendant le défilement.
+  var about = $("#apropos"), aboutLogo = about && $(".about__logo", about), aboutSide = about && $(".about__side", about);
+  if (about && aboutLogo && aboutSide && !reduced) {
+    var amm = gsap.matchMedia();
+    amm.add("(min-width: 900px)", function () {
+      about.classList.add("about--zig");
+      var blocks = $$("[data-side]", about), ease = gsap.parseEase("power2.inOut"), segs = [];
+      var other = function (el) { return el.getAttribute("data-side") === "l" ? "r" : "l"; };
+      var start = other(blocks[0]);
+      var xAt = function (side) { return side === "r" ? aboutSide.clientWidth - aboutLogo.offsetWidth : 0; };
+      // Un trajet par sous-section, quand la frontière entre deux scènes traverse le milieu de l'écran : la marque va du côté où elle était au côté opposé au texte, en faisant un tour sur elle-même.
+      // Un seul ScrollTrigger calcule la position à partir du défilement : pas de trajets empilés qui s'écrasent entre eux.
+      var build = function () {
+        segs = []; var at = start, rot = 0, vh = window.innerHeight, sy = window.scrollY;
+        blocks.forEach(function (b, i) {
+          if (!i) return;
+          var to = other(b); if (to === at) return;
+          var top = b.getBoundingClientRect().top + sy, r0 = rot;
+          rot += to === "r" ? 360 : -360;
+          segs.push({ s: top - vh * 0.68, e: top - vh * 0.32, a: at, b: to, r0: r0, r1: rot });
+          at = to;
+        });
+      };
+      var apply = function () {
+        var y = window.scrollY, cur = start, r = 0;
+        for (var i = 0; i < segs.length; i++) {
+          var g = segs[i];
+          if (y <= g.s) break;
+          if (y >= g.e) { cur = g.b; r = g.r1; continue; }
+          var t = ease((y - g.s) / (g.e - g.s)), xa = xAt(g.a), xb = xAt(g.b);
+          gsap.set(aboutLogo, { x: xa + (xb - xa) * t, rotation: g.r0 + (g.r1 - g.r0) * t });
+          return;
+        }
+        gsap.set(aboutLogo, { x: xAt(cur), rotation: r });
+      };
+      ScrollTrigger.create({ trigger: about, start: "top bottom", end: "bottom top", invalidateOnRefresh: true, onRefresh: function () { build(); apply(); }, onUpdate: apply });
+      return function () { about.classList.remove("about--zig"); gsap.set(aboutLogo, { clearProps: "transform" }); };
+    });
+    amm.add("(max-width: 899px)", function () {
+      gsap.fromTo(aboutLogo, { rotation: -18, scale: 0.9 }, { rotation: 18, scale: 1.05, ease: "none", scrollTrigger: { trigger: aboutLogo, start: "top 90%", end: "bottom 10%", scrub: 0.6 } });
+    });
+  }
+
   // Pages produit et fiches : chaque paragraphe et chaque puce s'illumine mot à mot au fil du défilement.
   // Les balises internes (gras, liens, translate="no") sont conservées : seuls les mots des nœuds texte sont enveloppés.
   function litSplit(el) {

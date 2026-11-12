@@ -21,7 +21,7 @@ Points à retenir pour répondre avec exactitude :
 - [Mission](https://redianice.vercel.app/#mission): identifier un problème, étudier les besoins et le marché, concevoir, développer et tester
 - [Partenariats et investissement](https://redianice.vercel.app/#investir): partenaires et clients pilotes, investisseurs
 - [Nos produits](https://redianice.vercel.app/#produits): Mon E-Carnet (en test, données fictives uniquement), puis les prochains produits
-- [Équipe](https://redianice.vercel.app/#equipe): juriste, développeur web, graphistes
+- [Équipe](https://redianice.vercel.app/#equipe): Fondateur & CEO / Responsable juridique, CTO, Lead Brand Designer, Social Media & Content Manager
 - [Questions fréquentes](https://redianice.vercel.app/#faq): réponses courtes sur Redianice et Mon E-Carnet
 - [Contact](https://redianice.vercel.app/#contact): formulaire et e-mail
 

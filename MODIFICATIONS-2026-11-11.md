@@ -139,3 +139,64 @@ Nouveau : `assets/mark-fonce.png`. Modifiés : `index.html`, `404.html`, `invest
 
 ## Fichiers
 `index.html`, `404.html`, `investir/`, `mentions-legales/`, `confidentialite/`, `produits/e-carnet/`, `portfolio/e-carnet/`, `equipe/*/` (lien de menu), `css/style.css`, ce fichier.
+
+
+# V24 → V25 : « À propos » devient une grande section (logo à gauche, sous-sections à droite)
+
+## Structure (accueil)
+- Une seule section `#apropos` remplace « À propos » + « Mission » : **À propos de Redianice** (présentation), puis **Mission** (« Derrière chaque difficulté… », titre visible), **Vision**, **De l’observation à la solution.**, **Notre méthode**, **Notre approche : de l’idée au produit** (les 4 étapes) et **Les débuts de Redianice** (le « coup de tête », en une phrase).
+- Les ancres `#mission`, `#vision`, `#approche` et `#debuts` existent toujours à l’intérieur de la section.
+- Ordinateur : colonne gauche = la marque en grand, **épinglée** pendant tout le défilement de la section ; colonne droite = les sous-sections. Les 4 étapes passent sur 2 colonnes.
+- Téléphone : la marque est au-dessus du titre (pas de colonne), les sous-sections s’enchaînent en une colonne.
+
+## Animation
+- Au fil du défilement (GSAP ScrollTrigger, `scrub`), la marque pivote de -18° à +18° et passe de 88 % à 106 % de sa taille. Désactivée si le visiteur a demandé moins d’animations.
+
+## Logo
+- Nouveau fichier `assets/mark-vector.svg` : la marque redessinée en vectoriel (couleur #0b3dff), nette à toute taille. L’ancien PNG (145 px) devenait flou en grand. L’empreinte, minuscule dans le PNG, est simplifiée dans le SVG.
+
+## Menu
+- « Mission » n’est plus une entrée séparée du menu (11 pages) : elle fait partie d’« À propos ».
+
+## Textes
+- Présentation et Vision : version proposée, **sans** « durables » ni « acteur… utiles et durables » (promesse difficile à prouver pour l’instant).
+- Fichiers touchés : `index.html`, `css/style.css`, `js/main.js`, `assets/mark-vector.svg`, menus des 11 pages, ce fichier.
+
+
+# V25 → V26 : « À propos » en zigzag, la marque change de côté à chaque sous-section
+
+## Ordinateur
+- Chaque sous-section se place d'un côté (`data-side`) et la marque, épinglée à l'écran, passe du côté opposé : À propos (texte à gauche, marque à droite) → **Mission** (texte à droite, marque à gauche) → **Vision** (gauche / droite) → De l'observation à la solution (droite / gauche) → Notre méthode (gauche / droite) → Notre approche (droite / gauche) → Les débuts (gauche / droite).
+- Le déplacement se fait entre deux sous-sections, quand la frontière traverse le milieu de l'écran : la marque traverse l'écran en faisant un tour sur elle-même (rotation 360°), puis reste posée à côté du texte.
+- Un seul ScrollTrigger (branché sur Lenis, comme le reste du site) calcule la position de la marque à partir du défilement. Les trajets ne s'écrasent pas entre eux et le calcul se refait au redimensionnement.
+- Chaque sous-section occupe environ 90 % de la hauteur de l'écran (une « scène »), pour laisser à la marque le temps de se poser. La section est donc plus longue (environ 6 à 7 écrans).
+- Le mode zigzag est activé par la classe `about--zig`, ajoutée par le JS seulement sur ordinateur (≥ 900 px) et sans « animations réduites ».
+
+## Téléphone et animations réduites
+- Inchangés : une seule colonne, la marque au-dessus du titre (elle pivote doucement au défilement sur téléphone, pas avec animations réduites).
+
+## Fichiers
+`index.html` (attributs `data-side`, bloc `about__head`), `css/style.css`, `js/main.js`, ce fichier.
+
+
+# V26 → V27 : produit indisponible, cartes équipe, intitulés officiels, Instagram et TikTok
+
+## Accueil : Mon E-Carnet
+- Le bouton « Voir le produit » est **grisé et inactif** (plus de lien, `aria-disabled`, curseur « interdit »). Note sous le bouton : « Page indisponible pour le moment : Redianice n’est pas encore constituée. »
+- Attention : la page `/produits/e-carnet/` existe toujours (adresse directe, `sitemap.xml`, menu « Produits » éventuel, `llms.txt`). Pour une vraie protection du projet, il faudra la retirer du sitemap, la passer en `noindex` ou la mettre derrière un accès.
+
+## Équipe
+- **Pastilles de pôle retirées** (Droit, Technique, Design) en haut des 20 cartes équipe (accueil, page Mon E-Carnet, bas des 4 fiches). Les infos restent en bas de carte, la mise en page est inchangée.
+- **Intitulés officiels** sur les cartes et sur les fiches (titre de page, fil d'Ariane, grand titre, descriptions, données structurées, textes alternatifs, `llms.txt`, `llms-full.txt`) :
+  - Juriste → Fondateur & CEO / Responsable juridique
+  - M'Bollo Aka Elvis → Chief Technology Officer (CTO)
+  - Graphiste 1 → Lead Brand Designer
+  - Graphiste 2 → Social Media & Content Manager
+- Fiches sans nom (juriste et graphistes) : l'intitulé officiel est le grand titre et la ligne « Juriste · collaborateur » est supprimée (doublon). Fiche Elvis : le nom reste le grand titre, l'intitulé remplace « Développeur web · collaborateur ».
+- Les textes de présentation du corps des fiches n'ont pas été modifiés (ex. la fiche Graphiste 2 parle encore de chartes graphiques et de branding).
+
+## Footer (11 pages)
+- Deux icônes ajoutées après LinkedIn : **Instagram** (`https://www.instagram.com/redianice`) et **TikTok** (`https://www.tiktok.com/@redianice`). Les identifiants de compte sont supposés (même nom que LinkedIn) : à confirmer ou à corriger dans le footer des 11 pages.
+
+## Fichiers
+`index.html`, `404.html`, `investir/`, `mentions-legales/`, `confidentialite/`, `produits/e-carnet/`, `portfolio/e-carnet/`, `equipe/*/`, `css/style.css`, `llms.txt`, `llms-full.txt`, ce fichier.

@@ -623,5 +623,34 @@ html .hero .hero__lead,html .sec .statement:not(.statement--x),html .tp-hero .do
 .tp-body>p+.tp-work{margin-top:clamp(20px,4vw,36px)}
 .tp-body .lit .sw{opacity:.3}
 
-/* V24 : sections « À propos » et « Mission » (titre visible au-dessus du grand texte) */
-#apropos>.h2--big+.statement,#mission>.h2--big+.statement{margin-top:clamp(24px,4vw,48px)}
+/* V26 : « À propos », grande section en zigzag. Chaque sous-section alterne droite / gauche et la marque passe du côté opposé (ordinateur, animation active : classe .about--zig ajoutée par le JS).
+   Sans cette classe (téléphone, animations réduites) : une seule colonne, la marque au-dessus du titre. */
+.about__grid{display:grid;gap:clamp(28px,6vw,64px)}
+.about__logo{width:clamp(120px,34vw,170px);margin:0 auto;will-change:transform}
+.about__logo img{display:block;width:100%;height:auto}
+.about__body{min-width:0}
+.about__head>.h2--big+.statement{margin-top:clamp(24px,4vw,48px)}
+.about .statement{max-width:none;margin-left:0}
+.about__blk{margin-top:clamp(64px,10vw,130px)}
+.about__blk>.uses__h{margin-top:0}
+.about .flow{grid-template-columns:1fr;margin-bottom:0}.about .flow li{margin-left:0}
+@media(min-width:900px){
+  .about .h2--big{font-size:clamp(2.4rem,4.4vw,4.2rem);line-height:1.02}
+  .about .statement{font-size:clamp(1.6rem,2.45vw,2.6rem)}
+}
+@media(min-width:1100px){.about .flow{grid-template-columns:repeat(2,1fr)}.about .flow li{margin-left:-1px}}
+.about--zig .about__grid{gap:0}
+.about--zig .about__side,.about--zig .about__body{grid-area:1/1}
+.about--zig .about__side{position:sticky;top:0;height:100vh;height:100svh;align-self:start;display:flex;align-items:center;pointer-events:none;z-index:0}
+.about--zig .about__logo{flex:none;width:clamp(220px,26vw,340px);margin:0}
+.about--zig .about__body{position:relative;z-index:1}
+.about--zig .about__head,.about--zig .about__blk{min-height:90vh;min-height:90svh;display:flex;flex-direction:column;justify-content:center}
+.about--zig .about__blk{margin-top:0}
+.about--zig [data-side]{width:60%}
+.about--zig [data-side="r"]{margin-left:auto}
+
+/* ---------- V27 : cartes équipe sans pastille de pôle, bouton produit indisponible ---------- */
+.team-card .card__body{margin-top:auto}
+.pcard .pill--off,.pcard .pill--off:hover{background:#dcd8d0;border-color:#dcd8d0;color:#8a857b;cursor:not-allowed;box-shadow:none;transform:none}
+.pcard .pill--off .ic{opacity:.7}
+.pcard .pcard__note{margin:0;max-width:30em;font-size:.88rem;line-height:1.4;opacity:.75}

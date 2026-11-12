@@ -62,9 +62,9 @@ Le soutien finance : le développement et le lancement des produits ; la sécuri
 
 Une petite équipe qui couvre le droit, la technique et le design.
 
-- Juriste, collaborateur : contribue à l'analyse juridique et au cadre légal des projets.
-- M'Bollo Aka Elvis, développeur web, collaborateur : conçoit et développe les produits, de l'idée à la mise en ligne. Fondateur d'AKATech Studio (https://akatech.vercel.app).
-- Deux graphistes : branding et identité visuelle (logo, couleurs, style de Redianice).
+- Fondateur & CEO / Responsable juridique : contribue à l'analyse juridique et au cadre légal des projets.
+- M'Bollo Aka Elvis, Chief Technology Officer (CTO) : conçoit et développe les produits, de l'idée à la mise en ligne. Fondateur d'AKATech Studio (https://akatech.vercel.app).
+- Lead Brand Designer et Social Media & Content Manager : branding et identité visuelle (logo, couleurs, style de Redianice), réseaux sociaux et contenus.
 
 ## Questions fréquentes
 
@@ -87,4 +87,4 @@ L'accès d'un patient à ses données ne dépend jamais d'une facture. Les reven
 Écrivez-nous à redianicegroup@gmail.com. Nous proposons aux entreprises, établissements et institutions de tester nos produits avant leur lancement, et une présentation détaillée est disponible sur demande pour les investisseurs.
 
 ### Qui compose l'équipe de Redianice ?
-Une petite équipe qui couvre le droit, la technique et le design : un juriste, collaborateur ; M'Bollo Aka Elvis, développeur web, collaborateur et fondateur d'AKATech Studio ; et deux graphistes qui ont conçu l'identité visuelle.
+Une petite équipe qui couvre le droit, la technique et le design : un Fondateur & CEO / Responsable juridique ; M'Bollo Aka Elvis, Chief Technology Officer (CTO) et fondateur d'AKATech Studio ; et deux graphistes (Lead Brand Designer, Social Media & Content Manager) qui ont conçu l'identité visuelle.
