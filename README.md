@@ -64,3 +64,5 @@ Importez le dépôt dans Vercel et déployez-le depuis la branche `main`. Vercel
 2. Lancer `node scripts/changer-domaine.mjs ton-domaine.com contact@ton-domaine.com`.
 3. Vérifier le domaine dans Resend, puis mettre à jour `RESEND_FROM` et `CONTACT_TO` dans Vercel.
 4. Anti-spam : activer Cloudflare Turnstile (`TURNSTILE_SECRET_KEY` + clé publique dans `index.html`) et/ou une règle de limitation sur `/api/contact` dans le pare-feu Vercel.
+
+> V28 : voir `MODIFICATIONS-2026-11-12.md` (sections « Notre méthode » / « Notre approche » séparées, dégradé du hero au survol des cartes, pied de page, en-tête qui s'efface).

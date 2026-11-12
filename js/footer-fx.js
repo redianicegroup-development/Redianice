@@ -7,7 +7,7 @@
       - une lettre se saisit et se déplace ; relâchée, elle revient en rebondissant (ressort) ;
       - un clic / un toucher fait sauter les lettres en vague.
    2) Objets 3D déplaçables (footer seulement), souris ou doigt. Plus aucun tirage au sort : toujours les mêmes, aux mêmes places.
-      Ce sont les objets du hero (9, ou 5 sur téléphone) + la poignée de main et l'argent. Voir SET_DESKTOP / SET_PHONE.
+      8 objets sur ordinateur, 4 sur téléphone (sans la fusée ni le globe). Voir SET_DESKTOP / SET_PHONE.
       Une scène sans calque « .foot__objs » (le hero) n'affiche que le filigrane.
 
    Tout est décoratif : le calque est masqué aux lecteurs d'écran et le site reste utilisable au clavier.
@@ -39,25 +39,21 @@
   /* Objets du footer : toujours les mêmes, aux mêmes places.
      O(nom du fichier, largeur, hauteur, centre x en part de la largeur, y en part de la place libre, rotation en degrés, taille relative) */
   var O = function (name, w, h, cx, fy, rot, k) { return { name: name, w: w, h: h, cx: cx, fy: fy, rot: rot, k: k }; };
-  var SET_DESKTOP = [          // objets du hero + poignée de main + argent, sur deux rangées
-    O("ampoule", 400, 377, 0.05, 0.04, -8, 0.9),
-    O("ecran", 400, 344, 0.15, 0.52, 6, 0.95),
-    O("loupe", 391, 400, 0.26, 0.08, 10, 1),
-    O("carnet-code", 394, 400, 0.36, 0.54, -6, 0.95),
-    O("poignee-de-main", 400, 239, 0.47, 0.1, 4, 1.1),
-    O("argent", 400, 298, 0.57, 0.54, -9, 1),
-    O("graphique", 367, 400, 0.68, 0.06, 8, 0.95),
-    O("mallette", 400, 361, 0.78, 0.52, -5, 0.95),
-    O("fusee", 317, 400, 0.88, 0.05, 12, 1),
-    O("globe", 298, 400, 0.95, 0.54, -6, 0.95)
+  var SET_DESKTOP = [          // 8 objets sur deux rangées (la fusée et le globe ont été retirés en V28)
+    O("ampoule", 400, 377, 0.1, 0.04, -8, 0.95),
+    O("loupe", 391, 400, 0.33, 0.08, 10, 1),
+    O("poignee-de-main", 400, 239, 0.56, 0.1, 4, 1.1),
+    O("graphique", 367, 400, 0.79, 0.06, 8, 0.95),
+    O("ecran", 400, 344, 0.215, 0.52, 6, 0.95),
+    O("carnet-code", 394, 400, 0.445, 0.54, -6, 0.95),
+    O("argent", 400, 298, 0.675, 0.54, -9, 1),
+    O("mallette", 400, 361, 0.905, 0.52, -5, 0.95)
   ];
-  var SET_PHONE = [            // ceux du hero sur téléphone + argent
-    O("ampoule", 400, 377, 0.17, 0.02, -8, 1),
-    O("poignee-de-main", 400, 239, 0.5, 0.06, 4, 1.25),
-    O("fusee", 317, 400, 0.83, 0.02, 12, 1),
-    O("loupe", 391, 400, 0.17, 0.62, 10, 1),
-    O("argent", 400, 298, 0.5, 0.6, -9, 1.1),
-    O("globe", 298, 400, 0.83, 0.62, -6, 1)
+  var SET_PHONE = [            // 4 objets en quinconce (la fusée et le globe ont été retirés en V28)
+    O("ampoule", 400, 377, 0.24, 0.02, -8, 1.05),
+    O("poignee-de-main", 400, 239, 0.73, 0.06, 4, 1.25),
+    O("loupe", 391, 400, 0.24, 0.62, 10, 1.05),
+    O("argent", 400, 298, 0.73, 0.6, -9, 1.1)
   ];
   var setFor = function (w) { return w < 600 ? SET_PHONE : SET_DESKTOP; };
 

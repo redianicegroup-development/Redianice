@@ -102,6 +102,40 @@
     window.addEventListener("scroll", onSky, { passive: true }); window.addEventListener("resize", onSky); onSky();
   }
 
+  // En-tête : il s'efface quand on arrive dans le pied de page (son bord haut passe sous 70 % de la hauteur de l'écran), et revient en remontant.
+  // Il reste affiché si le menu mobile est ouvert ou si la page est encore tout en haut (pages courtes).
+  var footEl = $(".foot"), menuBtnEl = $("#menuBtn");
+  if (navEl && footEl) {
+    var awayRaf = 0;
+    var navAway = function () {
+      awayRaf = 0;
+      var open = menuBtnEl && menuBtnEl.getAttribute("aria-expanded") === "true";
+      var hide = !open && window.scrollY > 80 && footEl.getBoundingClientRect().top <= window.innerHeight * 0.7;
+      navEl.classList.toggle("is-away", hide);
+    };
+    var navAwaySoon = function () { if (!awayRaf) awayRaf = requestAnimationFrame(navAway); };
+    window.addEventListener("scroll", navAwaySoon, { passive: true }); window.addEventListener("resize", navAwaySoon);
+    if (menuBtnEl) menuBtnEl.addEventListener("click", navAwaySoon);
+    navAway();
+  }
+
+  // Survol des cartes en grille : le dégradé bleu (celui du fond du hero) suit le pointeur (variables --gx / --gy, voir css/style.css).
+  if (window.matchMedia("(hover: hover)").matches && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    var gridSel = ".pcard, .flow li, .deal, .steps li, .tp-work li", gridRaf = 0, gridEv = null;
+    document.addEventListener("pointermove", function (e) {
+      var el = e.target.closest && e.target.closest(gridSel);
+      if (!el) return;
+      gridEv = { el: el, x: e.clientX, y: e.clientY };
+      if (gridRaf) return;
+      gridRaf = requestAnimationFrame(function () {
+        gridRaf = 0; var g = gridEv, r = g.el.getBoundingClientRect();
+        if (!r.width || !r.height) return;
+        g.el.style.setProperty("--gx", Math.max(0, Math.min(100, (g.x - r.left) / r.width * 100)).toFixed(1) + "%");
+        g.el.style.setProperty("--gy", Math.max(0, Math.min(100, (g.y - r.top) / r.height * 100)).toFixed(1) + "%");
+      });
+    }, { passive: true });
+  }
+
   // Hero fixe (position: sticky; top: 0). Écran plus court que le hero : il se fixe par le bas pour que tout le texte reste visible.
   if (heroEl && heroEl.id === "top") {
     var fitHero = function () { heroEl.style.top = Math.min(0, window.innerHeight - heroEl.offsetHeight) + "px"; };
