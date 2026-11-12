@@ -714,3 +714,32 @@ html .hero .hero__lead,html .sec .statement:not(.statement--x),html .tp-hero .do
   .foot__bar>p{flex:1 1 auto}
   .foot__legal{flex:0 1 auto}
 }
+
+/* ================= V31 : pied de page plein écran =================
+   Le pied de page (logo, slogan, réseaux, mot « redianice » et objets, barre du bas) occupe exactement un écran, sur ordinateur comme sur téléphone
+   (100svh : la hauteur de l'écran avec les barres du navigateur affichées ; 100vh en repli). La scène du mot prend toute la hauteur qui reste
+   (flex: 1) : js/footer-fx.js y répartit les 7 objets au-dessus du mot, comme sur la capture. Écran très bas : le pied de page dépasse un peu l'écran
+   plutôt que d'écraser le mot.
+   Réglages : tailles du slogan ci-dessous, SET_DESKTOP / SET_PHONE et rig() dans js/footer-fx.js. */
+.foot{display:flex;flex-direction:column;min-height:100vh;min-height:100svh;gap:clamp(8px,1.6svh,16px);padding-top:clamp(24px,4.5svh,56px);padding-bottom:clamp(14px,2.2svh,24px)}
+.foot__main,.foot__bar{flex:none}
+.foot__stage{flex:1 1 auto;height:auto;min-height:clamp(190px,27vw,430px)}
+/* téléphone et tablette : le slogan s'adapte aussi à la hauteur de l'écran */
+.foot .foot__tag{font-size:clamp(1.5rem,min(8.2vw,5.2svh),3rem)}
+@media(min-width:900px){
+  /* ordinateur : logo, puis slogan sur une ligne avec les icônes à droite (gagne ~200 px de hauteur) */
+  .foot__brand{display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"logo logo" "tag social";align-items:end;column-gap:clamp(20px,3vw,48px)}
+  .foot__logo{grid-area:logo;justify-self:start}
+  .foot .foot__tag{grid-area:tag;max-width:none;margin-top:clamp(8px,1.6svh,18px);font-size:clamp(1.5rem,2.5vw,3rem)}
+  .foot__social{grid-area:social;margin-top:0}
+}
+/* écran bas (petit téléphone, tablette en paysage) : on resserre le haut et la barre du bas pour garder un seul écran */
+@media(max-width:899px) and (max-height:700px){
+  .foot{padding-top:20px}
+  .foot__main{gap:14px}
+  .foot .foot__tag{font-size:clamp(1.35rem,min(7.4vw,4.6svh),2.2rem);margin-top:14px}
+  .foot__social{margin-top:14px}
+  .foot .pill--icon{width:42px;min-height:42px}
+  .foot__bar{gap:8px 18px;padding-top:12px}
+  .foot__bar>p{font-size:.88rem}
+}

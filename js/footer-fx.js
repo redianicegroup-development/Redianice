@@ -7,7 +7,8 @@
       - une lettre se saisit et se déplace ; relâchée, elle revient en rebondissant (ressort) ;
       - un clic / un toucher fait sauter les lettres en vague.
    2) Objets 3D déplaçables (footer seulement), souris ou doigt. Plus aucun tirage au sort : toujours les mêmes, aux mêmes places.
-      8 objets sur ordinateur, 4 sur téléphone (sans la fusée ni le globe). Voir SET_DESKTOP / SET_PHONE.
+      7 objets, disposés comme sur la capture validée en V31 (voir SET_DESKTOP / SET_PHONE). Le pied de page occupe tout l'écran :
+      la scène prend la hauteur qui reste (CSS, flex) et les objets se répartissent au-dessus du mot, quelle que soit la taille de l'écran.
       Une scène sans calque « .foot__objs » (le hero) n'affiche que le filigrane.
 
    Tout est décoratif : le calque est masqué aux lecteurs d'écran et le site reste utilisable au clavier.
@@ -36,26 +37,30 @@
   var SWEEP = !reduced, CLICK_KICK = !reduced;
   var LABEL_FONT = "11px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace";
 
-  /* Objets du footer : toujours les mêmes, aux mêmes places.
-     O(nom du fichier, largeur, hauteur, centre x en part de la largeur, y en part de la place libre, rotation en degrés, taille relative) */
-  var O = function (name, w, h, cx, fy, rot, k) { return { name: name, w: w, h: h, cx: cx, fy: fy, rot: rot, k: k }; };
-  var SET_DESKTOP = [          // 8 objets sur deux rangées (la fusée et le globe ont été retirés en V28)
-    O("ampoule", 400, 377, 0.1, 0.04, -8, 0.95),
-    O("loupe", 391, 400, 0.33, 0.08, 10, 1),
-    O("poignee-de-main", 400, 239, 0.56, 0.1, 4, 1.1),
-    O("graphique", 367, 400, 0.79, 0.06, 8, 0.95),
-    O("ecran", 400, 344, 0.215, 0.52, 6, 0.95),
-    O("carnet-code", 394, 400, 0.445, 0.54, -6, 0.95),
-    O("argent", 400, 298, 0.675, 0.54, -9, 1),
-    O("mallette", 400, 361, 0.905, 0.52, -5, 0.95)
+  /* Objets du footer : toujours les mêmes, aux mêmes places (disposition de la capture validée en V31).
+     O(nom du fichier, largeur, hauteur, centre x en part de la largeur de la scène, centre y en part de la hauteur libre au-dessus du mot,
+       rotation en degrés, taille relative) */
+  var O = function (name, w, h, cx, v, rot, k) { return { name: name, w: w, h: h, cx: cx, v: v, rot: rot, k: k }; };
+  var SET_DESKTOP = [          // 7 objets : écran, carnet, graphique et loupe en haut, mallette à droite, ampoule et poignée de main posées sur les lettres
+    O("ecran", 400, 344, 0.064, 0.855, -5, 0.95),
+    O("carnet-code", 394, 400, 0.222, 0.662, -19.5, 0.95),
+    O("graphique", 367, 400, 0.397, 0.834, 7, 0.95),
+    O("loupe", 391, 400, 0.766, 0.639, 8, 1),
+    O("mallette", 400, 361, 0.95, 0.578, -1, 0.95),
+    O("ampoule", 400, 377, 0.435, 0.151, 0, 0.95),
+    O("poignee-de-main", 400, 239, 0.651, 0.304, 16, 1.1)
   ];
-  var SET_PHONE = [            // 4 objets en quinconce (la fusée et le globe ont été retirés en V28)
-    O("ampoule", 400, 377, 0.24, 0.02, -8, 1.05),
-    O("poignee-de-main", 400, 239, 0.73, 0.06, 4, 1.25),
-    O("loupe", 391, 400, 0.24, 0.62, 10, 1.05),
-    O("argent", 400, 298, 0.73, 0.6, -9, 1.1)
+  var SET_PHONE = [            // les mêmes 7 objets, répartis en quinconce sur la hauteur de l'écran
+    O("ecran", 400, 344, 0.2, 0.9, -5, 1),
+    O("graphique", 367, 400, 0.76, 0.92, 7, 1),
+    O("carnet-code", 394, 400, 0.45, 0.67, -19.5, 1),
+    O("loupe", 391, 400, 0.86, 0.6, 8, 1.05),
+    O("mallette", 400, 361, 0.17, 0.42, -1, 1),
+    O("poignee-de-main", 400, 239, 0.62, 0.35, 16, 1.25),
+    O("ampoule", 400, 377, 0.33, 0.12, 0, 1)
   ];
   var setFor = function (w) { return w < 600 ? SET_PHONE : SET_DESKTOP; };
+
 
   /* ------------------------------------------------------------------ outils */
   var clamp01 = function (v) { return Math.min(1, Math.max(0, Number(v) || 0)); };
@@ -72,8 +77,8 @@
   };
   /* taille de référence d'un objet selon la largeur de la scène */
   var objUnit = function (w) { return w < 600 ? clamp(w * 0.22, 64, 110) : clamp(w * 0.105, 54, 150); };
-  /* place au-dessus des lettres pour les objets : plus haute sur téléphone, où le mot est petit */
-  var headroom = function (w) { return layer ? Math.round(objUnit(w) * (w < 600 ? 2.7 : 2.1)) : 0; };
+  /* place minimale au-dessus des lettres pour les objets (le pied de page occupe tout l'écran : la scène prend le reste, voir fitStage) */
+  var minHead = function (w) { return layer ? Math.round(objUnit(w) * (w < 600 ? 2.4 : 1)) : 0; };
 
   /* ================================================================== 1) FILIGRANE */
   var ctx = canvas.getContext("2d");
@@ -274,13 +279,18 @@
     wake();
   };
 
-  /* hauteur de la scène : dépend de la largeur (taille des lettres + place pour les objets) */
+  /* hauteur de la scène. Hero (sans objets) : le mot seul, calculé sur la largeur. Pied de page : il occupe tout l'écran, la scène (flex: 1) prend
+     la hauteur qui reste ; le JS ne fixe que sa hauteur minimale (le mot + un minimum de place pour les objets). */
   var fitStage = function () {
     var w = Math.max(1, stage.clientWidth);
     var mt = measure(w);
-    var h = Math.ceil(mt.asc + mt.desc + headroom(w) + 6);
-    if (stage.style.height !== h + "px") stage.style.height = h + "px";
-    return { w: w, h: h };
+    var need = Math.ceil(mt.asc + mt.desc + minHead(w) + 6);
+    if (!layer) {
+      if (stage.style.height !== need + "px") stage.style.height = need + "px";
+      return { w: w, h: need };
+    }
+    if (stage.style.minHeight !== need + "px") stage.style.minHeight = need + "px";
+    return { w: w, h: Math.max(need, Math.round(stage.clientHeight)) };
   };
 
   function tick(now) {
@@ -430,19 +440,36 @@
     o.el.style.transform = "translate3d(" + o.x.toFixed(1) + "px," + o.y.toFixed(1) + "px,0) rotate(" + o.rot.toFixed(2) + "deg) scale(" + o.s.toFixed(3) + ")";
   };
 
-  var makeSize = function (p, w) {
-    var u = objUnit(w) * p.k, ratio = p.w / p.h;
+  /* hauteur libre au-dessus du mot et échelle des objets, selon la place réellement disponible */
+  var rig = function (w, h) {
+    var mt = measure(w);
+    var base = h - 6 - mt.desc;                       // ligne de base du mot
+    var A = Math.max(1, base - 6), phone = w < 600;
+    var ref = phone ? w * 1.15 : w * 0.3268;          // hauteur pour laquelle la disposition a été dessinée
+    var Ae = phone ? A : Math.min(A, ref * 1.3);
+    var r = Ae / ref;
+    var ss = phone ? clamp(Math.sqrt(r), 0.8, 1.2) : (r < 1 ? Math.max(0.62, Math.pow(r, 0.85)) : Math.min(1.3, Math.sqrt(r)));
+    return { base: base, A: Ae, ss: ss };
+  };
+
+  var makeSize = function (p, w, ss) {
+    var u = objUnit(w) * p.k * ss, ratio = p.w / p.h;
     return ratio >= 1 ? { w: u, h: u / ratio } : { w: u * ratio, h: u };
   };
 
+  /* place « d'origine » d'un objet : x en part de la largeur, y en part de la hauteur libre au-dessus du mot */
+  var homeOf = function (p, sz, g) {
+    return { x: clamp(p.cx * width - sz.w / 2, 0, Math.max(0, width - sz.w)),
+             y: clamp(g.base - p.v * g.A - sz.h / 2, 0, Math.max(0, height - sz.h)) };
+  };
+
   var spawn = function (batch) {
-    var W = width, H = height;
+    var g = rig(width, height);
     batch.forEach(function (p, n) {
-      var sz = makeSize(p, W);
-      var o = { name: p.name, p: p, w: sz.w, h: sz.h, rot: p.rot, s: 1, vx: 0, vy: 0, drag: false };
+      var sz = makeSize(p, width, g.ss), hm = homeOf(p, sz, g);
+      var o = { name: p.name, p: p, w: sz.w, h: sz.h, rot: p.rot, s: 1, vx: 0, vy: 0, drag: false, touched: false };
       o.rot0 = o.rot;
-      o.x = clamp(p.cx * W - o.w / 2, 0, Math.max(0, W - o.w));
-      o.y = clamp(p.fy * (H - o.h), 0, Math.max(0, H - o.h));
+      o.x = hm.x; o.y = hm.y;
       var el = document.createElement("div");
       el.className = "foot__obj"; el.style.width = o.w.toFixed(1) + "px";
       var img = new Image();
@@ -484,7 +511,7 @@
       if (e.pointerType === "mouse" && e.button !== 0) return;
       e.preventDefault(); e.stopPropagation();
       var r = layer.getBoundingClientRect();
-      o.drag = true; el.classList.add("is-drag"); el.style.zIndex = String(++zTop);
+      o.drag = true; o.touched = true; el.classList.add("is-drag"); el.style.zIndex = String(++zTop);
       o.gx = e.clientX - r.left - o.x; o.gy = e.clientY - r.top - o.y;
       o.tx = o.x; o.ty = o.y; o.vx = 0; o.vy = 0;
       o.px = e.clientX; o.py = e.clientY; o.pt = performance.now();
@@ -542,18 +569,23 @@
     if (moving) raf2 = requestAnimationFrame(step);
   }
 
-  /* la scène change de taille : les objets gardent leur place relative */
+  /* la scène change de taille : les objets non déplacés reprennent leur place d'origine, ceux que la personne a déplacés gardent leur place relative */
   function objsResize() {
     if (started && (width < 600) !== phoneSet && !live.some(function (o) { return o.drag; })) {
       phoneSet = width < 600;
       live.slice().forEach(function (o) { removeObj(o, true); });
       spawn(setFor(width));
     } else if (oldW && oldH && live.length) {
-      var kx = width / oldW, ky = height / oldH;
+      var kx = width / oldW, ky = height / oldH, g = rig(width, height);
       live.forEach(function (o) {
-        var sz = makeSize(o.p, width);
+        var sz = makeSize(o.p, width, g.ss);
         o.w = sz.w; o.h = sz.h; o.el.style.width = o.w.toFixed(1) + "px";
-        o.x = clamp(o.x * kx, 0, Math.max(0, width - o.w)); o.y = clamp(o.y * ky, 0, Math.max(0, height - o.h));
+        if (o.touched || o.drag) {
+          o.x = clamp(o.x * kx, 0, Math.max(0, width - o.w)); o.y = clamp(o.y * ky, 0, Math.max(0, height - o.h));
+        } else {
+          var hm = homeOf(o.p, sz, g);
+          o.x = hm.x; o.y = hm.y; o.vx = 0; o.vy = 0;
+        }
         applyTransform(o);
       });
     }
@@ -564,7 +596,7 @@
   var markDirty = function () { sizeDirty = true; layoutKey = ""; wake(); };
 
   if ("ResizeObserver" in window) {
-    new ResizeObserver(function () { if (Math.round(stage.clientWidth) !== Math.round(width)) markDirty(); }).observe(stage);
+    new ResizeObserver(function () { if (Math.round(stage.clientWidth) !== Math.round(width) || (layer && Math.round(stage.clientHeight) !== Math.round(height))) markDirty(); }).observe(stage);
   } else window.addEventListener("resize", markDirty, { passive: true });
 
   if (document.fonts) {
