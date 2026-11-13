@@ -19,22 +19,22 @@ const buildHtml = (prenom, nom, email, message) => {
     + '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#eaf1ff"><tr><td align="center" style="padding:24px 12px;">'
     + '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:560px;">'
     // bandeau
-    + '<tr><td bgcolor="#0b3dff" style="background:#0b3dff;border-radius:20px 20px 0 0;padding:26px 28px;' + font + '">'
+    + '<tr><td bgcolor="#3d5a8d" style="background:#3d5a8d;border-radius:20px 20px 0 0;padding:26px 28px;' + font + '">'
     + '<img src="' + LOGO + '" alt="redianice" width="160" height="26" style="display:block;border:0;outline:none;width:160px;height:26px;font-size:22px;font-weight:700;color:#ffffff;' + font + '">'
     + '<div style="margin-top:14px;font-size:13px;color:#c6dffd;">Nouveau message du site</div></td></tr>'
     // expéditeur
     + '<tr><td bgcolor="#ffffff" style="background:#ffffff;padding:26px 28px 8px;' + font + '">'
     + '<table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr>'
-    + '<td width="48" height="48" align="center" valign="middle" bgcolor="#c6dffd" style="width:48px;height:48px;background:#c6dffd;border-radius:24px;font-size:17px;font-weight:700;color:#0b3dff;' + font + '">' + initials + '</td>'
+    + '<td width="48" height="48" align="center" valign="middle" bgcolor="#c6dffd" style="width:48px;height:48px;background:#c6dffd;border-radius:24px;font-size:17px;font-weight:700;color:#3d5a8d;' + font + '">' + initials + '</td>'
     + '<td style="padding-left:14px;' + font + '"><div style="font-size:19px;font-weight:700;color:#050c3a;">' + full + '</div>'
-    + '<div style="margin-top:2px;font-size:14px;"><a href="mailto:' + mail + '" style="color:#0b3dff;text-decoration:none;">' + mail + '</a></div></td></tr></table></td></tr>'
+    + '<div style="margin-top:2px;font-size:14px;"><a href="mailto:' + mail + '" style="color:#3d5a8d;text-decoration:none;">' + mail + '</a></div></td></tr></table></td></tr>'
     // message
     + '<tr><td bgcolor="#ffffff" style="background:#ffffff;padding:18px 28px 6px;' + font + '">'
     + '<div style="font-size:12px;font-weight:700;letter-spacing:.6px;color:#5b6aa8;text-transform:uppercase;">Message</div>'
-    + '<div style="margin-top:8px;padding:16px 18px;background:#f1f6ff;border-left:4px solid #0b3dff;border-radius:8px;font-size:16px;line-height:1.6;color:#050c3a;">' + esc(message).replace(/\n/g, "<br>") + '</div></td></tr>'
+    + '<div style="margin-top:8px;padding:16px 18px;background:#f1f6ff;border-left:4px solid #3d5a8d;border-radius:8px;font-size:16px;line-height:1.6;color:#050c3a;">' + esc(message).replace(/\n/g, "<br>") + '</div></td></tr>'
     // bouton
     + '<tr><td bgcolor="#ffffff" align="left" style="background:#ffffff;padding:22px 28px 30px;border-radius:0 0 20px 20px;' + font + '">'
-    + '<a href="' + reply + '" style="display:inline-block;background:#0b3dff;color:#ffffff;font-size:15px;font-weight:700;text-decoration:none;padding:13px 26px;border-radius:999px;">Répondre à ' + esc(prenom) + '</a>'
+    + '<a href="' + reply + '" style="display:inline-block;background:#3d5a8d;color:#ffffff;font-size:15px;font-weight:700;text-decoration:none;padding:13px 26px;border-radius:999px;">Répondre à ' + esc(prenom) + '</a>'
     + '<div style="margin-top:14px;font-size:12px;color:#7a86b8;">Répondre à cet e-mail écrit directement à ' + esc(prenom) + '.</div></td></tr>'
     + '<tr><td align="center" style="padding:16px 8px 0;font-size:12px;color:#7a86b8;' + font + '">Envoyé depuis le formulaire de contact de Redianice</td></tr>'
     + '</table></td></tr></table></body></html>';

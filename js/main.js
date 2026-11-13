@@ -5,31 +5,64 @@
   var $ = function (s, c) { return (c || document).querySelector(s); };
   var $$ = function (s, c) { return Array.prototype.slice.call((c || document).querySelectorAll(s)); };
 
+
+  // Loader de marque : reste visible un court instant, puis disparaît après le chargement complet.
+  var siteLoader = $("#siteLoader");
+  if (siteLoader) {
+    var loaderStartedAt = Date.now(), loaderFinished = false;
+    var finishLoader = function () {
+      if (loaderFinished) return;
+      loaderFinished = true;
+      var delay = Math.max(0, 700 - (Date.now() - loaderStartedAt));
+      setTimeout(function () {
+        siteLoader.classList.add("is-hidden");
+        siteLoader.setAttribute("aria-hidden", "true");
+        setTimeout(function () { if (siteLoader.parentNode) siteLoader.parentNode.removeChild(siteLoader); }, 420);
+      }, delay);
+    };
+    if (document.readyState === "complete") finishLoader();
+    else window.addEventListener("load", finishLoader, { once: true });
+    setTimeout(finishLoader, 8000);
+  }
+
   var yr = $("#y"); if (yr) yr.textContent = new Date().getFullYear();
 
-  // Menu mobile : le bouton se déploie en panneau
+  // Navigation unique sur ordinateur et téléphone : le bouton « Menu » (en bas) ouvre le panneau plein écran,
+  // qui se referme avec « Fermer » (en haut à droite), Échap, un lien ou un toucher sur le fond.
   var mb = $("#menuBtn"), mp = $("#menuPanel");
   if (mb && mp) {
-    var rows = $$(".mitem", mp), foot = $$(".mfoot > *", mp), tm, isOpen = false;
-    var toggle = function (want) {
+    var closeBtn = $(".mclose", mp), tm, isOpen = false;
+    var toggle = function (want, giveFocusBack) {
       if (want === isOpen) return;
       isOpen = want; clearTimeout(tm);
+      document.body.classList.toggle("menu-open", isOpen);
+      if (window.__lenis) { if (isOpen) window.__lenis.stop(); else window.__lenis.start(); }
       mb.setAttribute("aria-expanded", String(isOpen));
       if (isOpen) {
         mp.removeAttribute("inert"); mp.classList.add("is-open");
-        rows.forEach(function (el, i) { el.style.transitionDelay = i * 0.04 + "s"; });
-        foot.forEach(function (el, i) { el.style.transitionDelay = 0.3 + i * 0.08 + "s"; });
-        tm = setTimeout(function () { mp.classList.add("is-visible"); }, 250);
+        if (closeBtn) closeBtn.focus({ preventScroll: true });
+        tm = setTimeout(function () { mp.classList.add("is-visible"); }, 120);
       } else {
-        rows.concat(foot).forEach(function (el) { el.style.transitionDelay = "0s"; });
         mp.classList.remove("is-visible");
-        tm = setTimeout(function () { mp.classList.remove("is-open"); mp.setAttribute("inert", ""); }, 300);
+        tm = setTimeout(function () { mp.classList.remove("is-open"); mp.setAttribute("inert", ""); }, 220);
+        if (giveFocusBack) mb.focus({ preventScroll: true });
       }
     };
     mb.addEventListener("click", function () { toggle(!isOpen); });
-    $$(".mlink, .mfb, .msocial a", mp).forEach(function (a) { a.addEventListener("click", function () { toggle(false); }); });
-    document.addEventListener("keydown", function (e) { if (e.key === "Escape" && isOpen) { toggle(false); mb.focus(); } });
-    window.matchMedia("(min-width:900px)").addEventListener("change", function (e) { if (e.matches) toggle(false); });
+    if (closeBtn) closeBtn.addEventListener("click", function () { toggle(false, true); });
+    mp.addEventListener("click", function (e) { if (e.target === mp) toggle(false, true); });
+    $$(".mlogo, .mlink, .msub a, .msocial a", mp).forEach(function (a) { a.addEventListener("click", function () { toggle(false); }); });
+    document.addEventListener("keydown", function (e) {
+      if (!isOpen) return;
+      if (e.key === "Escape") { toggle(false, true); return; }
+      if (e.key !== "Tab") return;
+      // le focus reste dans le panneau tant qu'il est ouvert
+      var f = $$("a[href], button", mp).filter(function (el) { return el.offsetParent !== null || el === document.activeElement; });
+      if (!f.length) return;
+      var first = f[0], last = f[f.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    });
   }
 
   // Langue : traduction du navigateur (Google Translate), chargée seulement si le visiteur la choisit.
@@ -102,15 +135,15 @@
     window.addEventListener("scroll", onSky, { passive: true }); window.addEventListener("resize", onSky); onSky();
   }
 
-  // En-tête : il s'efface quand on arrive dans le pied de page (son bord haut passe sous 70 % de la hauteur de l'écran), et revient en remontant.
-  // Il reste affiché si le menu mobile est ouvert ou si la page est encore tout en haut (pages courtes).
+  // En-tête et bouton du menu : ils disparaissent à l’approche du pied de page, puis reviennent en remontant.
+  // La navigation reste affichée tant que le panneau est ouvert.
   var footEl = $(".foot"), menuBtnEl = $("#menuBtn");
   if (navEl && footEl) {
     var awayRaf = 0;
     var navAway = function () {
       awayRaf = 0;
       var open = menuBtnEl && menuBtnEl.getAttribute("aria-expanded") === "true";
-      var hide = !open && window.scrollY > 80 && footEl.getBoundingClientRect().top <= window.innerHeight * 0.7;
+      var hide = !open && footEl.getBoundingClientRect().top <= window.innerHeight * 0.7;
       navEl.classList.toggle("is-away", hide);
     };
     var navAwaySoon = function () { if (!awayRaf) awayRaf = requestAnimationFrame(navAway); };
@@ -157,7 +190,7 @@
   }
 
   // Menu desktop : la section visible est surlignée
-  var spy = $$(".nav__links a[href^='#'], .nav-contact[href^='#']");
+  var spy = $$(".nav__links a[href^='#'], .nav-contact[href^='#'], .mnav .mlink[href^='#']");
   if (spy.length && "IntersectionObserver" in window) {
     var io = new IntersectionObserver(function (es) {
       es.forEach(function (en) { if (en.isIntersecting) spy.forEach(function (a) { a.classList.toggle("is-active", a.getAttribute("href") === "#" + en.target.id); }); });
@@ -190,6 +223,22 @@
     if (pn) pn.addEventListener("click", function () { goStop ? goStop(1) : step(1); });
     nativeState();
   }
+
+  // ---------- Produits : le visuel de la carte E-Carnet reste affiché ; au survol (souris), au toucher ou au focus, les détails passent par-dessus ----------
+  // Souris : le survol suffit (CSS). Téléphone / tablette : un toucher ouvre les détails, un autre toucher (ou un toucher ailleurs) les referme.
+  function closeProd(except) { $$(".pcard--vis.is-open").forEach(function (c) { if (c !== except) c.classList.remove("is-open"); }); }
+  $$(".pcard--vis").forEach(function (card) {
+    card.addEventListener("click", function (e) {
+      if (e.target.closest("a[href]")) return;
+      if (canHover) return;
+      var open = card.classList.contains("is-open");
+      closeProd(card); card.classList.toggle("is-open", !open);
+    });
+    card.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") { card.classList.remove("is-open"); card.blur(); }
+    });
+  });
+  document.addEventListener("click", function (e) { if (!e.target.closest(".pcard--vis")) closeProd(); });
 
   // ---------- Images de repli : un portrait manquant est remplacé par le portrait neutre ----------
   $$("img[data-fallback]").forEach(function (img) {
@@ -361,10 +410,27 @@
   var rt; refreshSoon = function () { clearTimeout(rt); rt = setTimeout(function () { ScrollTrigger.refresh(); }, 250); };
 
   function words(el, cls, inner) {
-    el.setAttribute("aria-label", el.textContent.trim());
-    el.innerHTML = el.textContent.trim().split(/\s+/).map(function (w) {
-      return inner ? '<span class="w"><span>' + w + "</span></span>" : '<span class="' + cls + '">' + w + "</span>";
-    }).join(" ");
+    el.setAttribute("aria-label", el.textContent.replace(/\s+/g, " ").trim());
+    if (inner || !el.querySelector(".hl")) {
+      el.innerHTML = el.textContent.trim().split(/\s+/).map(function (w) {
+        return inner ? '<span class="w"><span>' + w + "</span></span>" : '<span class="' + cls + '">' + w + "</span>";
+      }).join(" ");
+      return;
+    }
+    // Texte avec des mots clés entourés (<strong class="hl">, voir js/highlight.js) : chaque mot clé reste d'un seul bloc et s'allume
+    // comme un mot ; les autres balises (translate="no") sont aplaties, comme avant.
+    // « gap » garde l'espace qui sépare deux morceaux : une virgule ou un point collé au mot clé reste collé.
+    var html = "", gap = "";
+    Array.prototype.forEach.call(el.childNodes, function (n) {
+      var raw = n.textContent || "", isHl = n.nodeType === 1 && n.classList.contains("hl"), parts;
+      if (isHl) { n.classList.add(cls); parts = [n.outerHTML]; }
+      else parts = raw.trim().split(/\s+/).filter(Boolean).map(function (w) { return '<span class="' + cls + '">' + w + "</span>"; });
+      if (!parts.length) { if (raw.length) gap = " "; return; }
+      if (/^\s/.test(raw)) gap = " ";
+      parts.forEach(function (part, i) { html += (html ? (i === 0 ? gap : " ") : "") + part; });
+      gap = /\s$/.test(raw) ? " " : "";
+    });
+    el.innerHTML = html;
   }
 
   // Le moment fort : l'intro du hero. Le titre garde sa pastille-image

@@ -23,7 +23,7 @@
 
   var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var rootStyle = getComputedStyle(document.documentElement);
-  var INK = (rootStyle.getPropertyValue("--blue") || "").trim() || "#0b3dff";
+  var INK = (rootStyle.getPropertyValue("--blue") || "").trim() || "#3d5a8d";
 
   /* ------------------------------------------------------------------ réglages */
   var TEXT = stage.getAttribute("data-text") || "redianice";

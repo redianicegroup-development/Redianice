@@ -3,7 +3,7 @@
 Site vitrine de Redianice, startup indépendante qui conçoit et lance ses propres produits numériques. Le site présente l’entreprise et son premier produit, **Mon E-Carnet**.
 
 ## Aperçu
-
+- Loader GIF de marque sur toutes les pages et navigation unique plein écran sur ordinateur et mobile.
 - Site responsive en HTML, CSS et JavaScript, sans étape de compilation.
 - Animations et défilement enrichis avec GSAP, ScrollTrigger et Lenis.
 - Formulaire de contact traité par une fonction serverless dans `api/contact.js`, avec envoi via Resend.
@@ -27,9 +27,11 @@ Site vitrine de Redianice, startup indépendante qui conçoit et lance ses propr
 | `js/hero-objets.js` | Hero de l'accueil : objets 3D qui flottent et défilent selon le scroll (position, vitesse et rotation de chaque objet : attributs `style`, `data-speed`, `data-spin` dans `index.html`) |
 | `js/footer-fx.js` | Filigrane « redianice » en contour pointillé (canvas), utilisé dans le hero de l'accueil et dans le footer de toutes les pages. Footer : objets déplaçables, toujours les mêmes aux mêmes places (10 sur ordinateur, 6 sur téléphone : ceux du hero + poignée de main + argent ; `SET_DESKTOP` / `SET_PHONE` en tête de fichier) |
 | `js/trail.js` | Pages perso (`equipe/*`) : traînée d'objets du métier qui suit le curseur ou le doigt (effet de `plinch_image.html`). Objets choisis par l'attribut `data-trail` de l'en-tête de chaque fiche |
+| `js/highlight.js` | Mots clés entourés (effet 11 « spirale ovale », en bleu, déclenché au scroll) : envelopper un mot dans `<strong class="hl">` ; accueil et fiches équipe |
+| `js/souris.js` | Effets souris de `bon.html` sur toutes les pages : curseur inversé (difference) + lentille au survol, boutons magnétiques, logos en aberration chromatique (rouge/cyan) au survol, parallaxe du hero. Souris uniquement (pas sur tactile) ; réglages en tête de fichier |
 | `js/vendor/` | Bibliothèques JavaScript utilisées |
 | `api/contact.js` | API serverless du formulaire |
-| `assets/` | Images, logos et polices. `mark-fonce.png` : la marque seule (sans le nom), utilisée dans l'en-tête |
+| `assets/` | Images, logos, GIF de chargement et polices. `logo-redianice.webp` : marque affichée dans l’en-tête ; `logo-loader.gif` : animation du loader |
 | `assets/objets/` | 25 objets 3D détourés (WebP, 400 px max) utilisés par le hero et le footer |
 | `assets/captures/` | Captures réelles de Mon E-Carnet (WebP, données fictives uniquement ; nom et date de naissance masqués par des x). Chaque capture existe en taille d'origine et en version `-640` pour mobile |
 
