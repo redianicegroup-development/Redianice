@@ -639,7 +639,7 @@ html .hero .hero__lead,html .sec .statement:not(.statement--x),html .tp-hero .do
 /* ================= V28 =================
    1) « Notre méthode » et « Notre approche » sont des sections à part (même padding que les autres sections ; « Les débuts de Redianice » a été retirée en V29) :
       le zigzag de la marque s'arrête à « De l'observation à la solution. ».
-   2) Survol des cartes en grille : le dégradé bleu du fond du hero (mêmes bleus que DEFAULTS dans js/hero-bg.js).
+   2) Cartes en grille : le dégradé bleu (allumé par le défilement, V40) du fond du hero (mêmes bleus que DEFAULTS dans js/hero-bg.js).
    3) Pied de page : slogan noir, objets fusée et globe retirés, mise en forme reprise ; l'en-tête s'efface à l'arrivée du pied de page. */
 
 /* ---------- 1) Sections « solo » (reprennent le style de texte de la grande section À propos) ---------- */
@@ -654,10 +654,10 @@ html .hero .hero__lead,html .sec .statement:not(.statement--x),html .tp-hero .do
   background-image:
     radial-gradient(95% 70% at var(--gx) var(--gy),rgba(123,151,255,calc(.5*var(--hg))) 0%,rgba(123,151,255,calc(.26*var(--hg))) 48%,rgba(123,151,255,0) 100%),
     linear-gradient(180deg,rgba(246,248,255,calc(.85*var(--hg))) 0%,rgba(180,220,255,calc(.5*var(--hg))) 40%,rgba(127,211,251,calc(.32*var(--hg))) 74%,rgba(246,248,255,calc(.6*var(--hg))) 100%);
-  transition:--hg .6s var(--ease),--gx .45s var(--ease),--gy .45s var(--ease),border-color .3s,transform .4s var(--ease);
+  transition:--hg .25s linear,border-color .3s,transform .4s var(--ease);
 }
 .tp-work li,.tp-work li:hover{background-color:transparent}
-.pcard:hover,.pcard:focus-within,.flow li:hover,.deal:hover,.deal:focus-within,.steps li:hover,.tp-work li:hover{--hg:1}
+/* --hg (0 à 1) est écrit par js/main.js selon la position de la carte à l'écran : le dégradé s'allume au défilement, jamais au survol ni au toucher */
 .flow li{position:relative}
 .flow li:hover,.deal:hover,.steps li:hover,.tp-work li:hover,.pcard:hover{border-color:var(--blue)}
 .flow li:hover{z-index:1}

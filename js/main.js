@@ -177,21 +177,27 @@
     navAway();
   }
 
-  // Survol des cartes en grille : le dégradé bleu (celui du fond du hero) suit le pointeur (variables --gx / --gy, voir css/style.css).
-  if (window.matchMedia("(hover: hover)").matches && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    var gridSel = ".pcard, .flow li, .deal, .steps li, .tp-work li", gridRaf = 0, gridEv = null;
-    document.addEventListener("pointermove", function (e) {
-      var el = e.target.closest && e.target.closest(gridSel);
-      if (!el) return;
-      gridEv = { el: el, x: e.clientX, y: e.clientY };
-      if (gridRaf) return;
-      gridRaf = requestAnimationFrame(function () {
-        gridRaf = 0; var g = gridEv, r = g.el.getBoundingClientRect();
-        if (!r.width || !r.height) return;
-        g.el.style.setProperty("--gx", Math.max(0, Math.min(100, (g.x - r.left) / r.width * 100)).toFixed(1) + "%");
-        g.el.style.setProperty("--gy", Math.max(0, Math.min(100, (g.y - r.top) / r.height * 100)).toFixed(1) + "%");
+  // Cartes en grille : le dégradé bleu (celui du fond du hero) s'allume au défilement, pas au survol ni au toucher.
+  // --hg passe de 0 à 1 quand le centre de la carte approche du milieu de l'écran, puis redescend quand elle s'éloigne (voir css/style.css).
+  var gridEls = Array.prototype.slice.call(document.querySelectorAll(".pcard, .pcard--soon, .flow li, .deal, .steps li, .tp-work li")), gridRaf = 0;
+  if (gridEls.length) {
+    var lightGrid = function () {
+      gridRaf = 0;
+      var vh = window.innerHeight || 1, mid = vh * 0.5, span = vh * 0.45;
+      gridEls.forEach(function (el) {
+        var r = el.getBoundingClientRect(), v = 0;
+        if (r.height && r.bottom > 0 && r.top < vh) {
+          var t = Math.max(0, Math.min(1, (1 - Math.abs(r.top + r.height / 2 - mid) / span) / 0.6));  // 1 près du milieu, 0 vers le bord de l'écran
+          v = Math.round(t * t * (3 - 2 * t) * 100) / 100;
+        }
+        if (el.__hg !== v) { el.__hg = v; el.style.setProperty("--hg", v); }
       });
-    }, { passive: true });
+    };
+    var askGrid = function () { if (!gridRaf) gridRaf = requestAnimationFrame(lightGrid); };
+    window.addEventListener("scroll", askGrid, { passive: true });
+    window.addEventListener("resize", askGrid);
+    window.addEventListener("load", askGrid);
+    lightGrid();
   }
 
   // Hero fixe (position: sticky; top: 0). Écran plus court que le hero : il se fixe par le bas pour que tout le texte reste visible.
