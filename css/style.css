@@ -776,17 +776,18 @@ html:not(.js) .site-loader{display:none}
 .js .nav.is-away{transform:none;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .3s ease,visibility 0s .3s}
 
 /* Le même bouton de navigation est épinglé en bas, au centre, sur desktop et mobile. */
-.js .mbtn{display:grid;place-items:center;position:fixed;top:auto;right:auto;left:50%;bottom:calc(18px + env(safe-area-inset-bottom));z-index:70;transform:translateX(-50%);width:132px;height:50px;padding:0;border:1.5px solid var(--blue);border-radius:999px;overflow:hidden;background:var(--paper);color:var(--blue);box-shadow:0 0 0 1px rgba(243,239,231,.8);cursor:pointer;pointer-events:auto}
+.js .mbtn{display:block;position:fixed;top:auto;right:auto;left:50%;bottom:calc(18px + env(safe-area-inset-bottom));z-index:70;transform:translateX(-50%);width:132px;height:50px;padding:0;border:1.5px solid var(--blue);border-radius:999px;overflow:hidden;background:var(--blue);color:var(--paper);box-shadow:0 0 0 1.5px var(--paper),0 8px 22px -8px rgba(61,90,141,.55);cursor:pointer;pointer-events:auto}
+/* V39 : la glissière est positionnée (pas de grille) : les deux états « Menu » / « Fermer » occupent chacun exactement la hauteur du bouton */
 .js .mbtn__slide,.js .mbtn__state,.js .mbtn__roll{display:block}
-.js .mbtn__slide{height:200%;transition:transform .6s var(--spring)}
+.js .mbtn__slide{position:absolute;left:0;right:0;top:0;height:200%;transition:transform .6s var(--spring)}
 .js .mbtn[aria-expanded=true] .mbtn__slide{transform:translateY(-50%)}
 .js .mbtn__state{height:50%;overflow:hidden}
 .js .mbtn__roll{height:200%;transition:transform .4s var(--ease)}
 .js .mbtn:hover .mbtn__roll{transform:translateY(-50%)}
-.js .mbtn__roll span{display:flex;height:50%;align-items:center;justify-content:center;font:700 .95rem Urbanist,sans-serif}
-.js .mbtn__state--a span{background:var(--paper);color:var(--blue)}
-.js .mbtn__state--b span{background:var(--blue);color:var(--paper)}
-.js .mbtn:focus-visible{outline:3px solid var(--blue);outline-offset:4px}
+.js .mbtn__roll span{display:flex;height:50%;align-items:center;justify-content:center;font:700 .95rem Urbanist,sans-serif;letter-spacing:.01em}
+.js .mbtn__state--a span{background:var(--blue);color:var(--paper)}
+.js .mbtn__state--b span{background:var(--paper);color:var(--blue)}
+.js .mbtn:focus-visible{outline:3px solid var(--blue);outline-offset:5px}
 .js .nav.is-away .mbtn{visibility:hidden;pointer-events:none}
 
 /* Le panneau passe au-dessus de tout le contenu, sauf le loader. */
@@ -864,7 +865,7 @@ html:not(.js) .site-loader{display:none}
 
 /* le bouton « Menu » du bas s'efface tant que le panneau est ouvert (« Fermer » est en haut à droite) */
 .js .mbtn{transition:opacity .25s ease,transform .35s var(--ease)}
-.js body.menu-open .mbtn{opacity:0;visibility:hidden;pointer-events:none;transform:translateX(-50%) translateY(14px);transition:opacity .25s ease,transform .35s var(--ease),visibility 0s .25s}
+.js body.menu-open .mbtn,.js body.in-hero .mbtn{opacity:0;visibility:hidden;pointer-events:none;transform:translateX(-50%) translateY(14px);transition:opacity .25s ease,transform .35s var(--ease),visibility 0s .25s}
 
 /* tablette */
 @media(max-width:1099px){
@@ -956,4 +957,25 @@ html.lb-open.has-cursor,html.lb-open.has-cursor *{cursor:auto!important}
   .foot__up{padding:7px 14px;font-size:.9rem}
   .foot__credit{margin-top:0}
   .foot__credit .credit-reveal__link{min-height:28px}
+}
+
+/* ================= V39 : photos de section, pages légales, colonne Contact fixe ================= */
+/* Photos : 16:9 sur ordinateur et tablette, 9:16 sur téléphone (<picture> dans index.html). Même cadre que les cartes : trait bleu, angles arrondis. */
+.sec--photo{padding-block:clamp(28px,5vw,64px)}
+.photo{margin:0;border:1.5px solid var(--blue);border-radius:clamp(20px,3.2vw,40px);overflow:hidden;background:var(--tint)}
+.photo picture,.photo img{display:block;width:100%}
+.photo img{height:auto;aspect-ratio:16/9;object-fit:cover}
+.photo--in{margin-top:clamp(28px,5vw,56px)}
+@media(max-width:759px){.photo img{aspect-ratio:9/16}}
+
+/* Pages légales (mentions légales, confidentialité) : le contenu est centré, avec de l'air autour. Le haut dégage le logo ; le bas dégage le bouton Menu. */
+.sec.doc--legal{padding-top:calc(var(--logo-h) + 18px + clamp(28px,6vw,72px));padding-bottom:clamp(110px,14vw,180px);padding-inline:max(var(--pad),24px)}
+.sec.doc--legal>*{width:100%;max-width:48rem;margin-left:auto;margin-right:auto}
+.sec.doc--legal>h1{margin-bottom:clamp(28px,5vw,56px)}
+
+/* Contact : à partir de 760 px, la colonne de gauche (titre + texte) reste fixe, centrée dans l'écran, tant que le formulaire défile à côté. Téléphone : colonne simple, rien de fixe. */
+@media(min-width:760px){
+  .contact{align-items:stretch}
+  .contact__side{align-self:stretch}
+  .contact__sticky{position:sticky;top:var(--cs-top,96px)}  /* --cs-top : calculé par js/main.js pour centrer le texte dans l'écran */
 }

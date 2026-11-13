@@ -32,6 +32,8 @@ Site vitrine de Redianice, startup indépendante qui conçoit et lance ses propr
 | `js/vendor/` | Bibliothèques JavaScript utilisées |
 | `api/contact.js` | API serverless du formulaire |
 | `assets/` | Images, logos, GIF de chargement et polices. `logo-redianice.webp` : marque affichée dans l’en-tête ; `logo-loader.gif` : animation du loader |
+| `assets/photos/` | Photos de section (WebP) : « Bâtir ensemble » (Grandir à plusieurs) et « Des idées utiles / Des projets concrets » (entre Notre méthode et Notre approche), en 16:9 et 9:16 |
+| `assets/e-carnet-presentation.gif` | GIF animé affiché dans la carte Mon E-Carnet de l'accueil |
 | `assets/objets/` | 25 objets 3D détourés (WebP, 400 px max) utilisés par le hero et le footer |
 | `assets/captures/` | Captures réelles de Mon E-Carnet (WebP, données fictives uniquement ; nom et date de naissance masqués par des x). Chaque capture existe en taille d'origine et en version `-640` pour mobile |
 

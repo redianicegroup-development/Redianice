@@ -110,6 +110,15 @@
   <p class="statement statement--lead">Nous partons d’une <strong class="hl">difficulté concrète</strong>, cherchons à comprendre qui la rencontre et dans quelles circonstances. Nous étudions les besoins, les solutions déjà existantes, les usages et le potentiel économique avant d’engager le développement.</p>
 </section>
 
+<section class="sec sec--photo" aria-label="Des idées utiles, des projets concrets">
+  <figure class="photo">
+    <picture>
+      <source media="(max-width:759px)" srcset="assets/photos/projets-concrets-9x16.webp" width="1080" height="1920">
+      <img src="assets/photos/idees-utiles-16x9.webp" alt="Une équipe de Redianice autour d’une tablette dans un bureau lumineux d’Abidjan : des idées utiles, des projets concrets" width="2048" height="1152" loading="lazy" decoding="async">
+    </picture>
+  </figure>
+</section>
+
 <section class="sec about about--solo" id="approche">
   <h2 class="uses__h">Notre approche : de l'idée au produit</h2>
   <ol class="flow" aria-label="Notre approche">
@@ -125,9 +134,9 @@
   <!-- Le défilement horizontal suit le scroll de la page (js/main.js). Pour ajouter un produit : dupliquer une <article class="pcard">. -->
   <div class="pbleed"><div class="pstage" id="pstage">
     <div class="pscroll" id="ptrack" tabindex="0" role="region" aria-label="Nos produits, faire défiler horizontalement">
-      <!-- Carte E-Carnet : le visuel (assets/e-carnet-visuel.webp, remplaçable par un .gif) est toujours affiché ; au survol (souris), au toucher ou au focus, les détails du projet passent par-dessus. -->
+      <!-- Carte E-Carnet : le visuel (assets/e-carnet-presentation.gif, GIF animé) est toujours affiché ; au survol (souris), au toucher ou au focus, les détails du projet passent par-dessus. -->
       <article class="pcard pcard--vis" tabindex="0">
-        <div class="pcard__media"><img src="assets/e-carnet-visuel.webp" alt="Mon E-Carnet : aperçu de l’application, votre santé à portée de main" width="540" height="608" loading="lazy" draggable="false"></div>
+        <div class="pcard__media"><img src="assets/e-carnet-presentation.gif" alt="Mon E-Carnet : aperçu animé de l’application, votre santé à portée de main" width="540" height="608" loading="lazy" draggable="false"></div>
         <span class="pcard__hint" aria-hidden="true"><i></i>Détails</span>
         <div class="pcard__info"><img src="assets/e-carnet-logo.webp" alt="Logo de Mon E-Carnet" width="640" height="640" loading="lazy" draggable="false"><h3><span translate="no">Mon E-Carnet</span></h3><span class="status">En phase pilote</span><p>Les informations de santé peuvent être dispersées entre plusieurs carnets papier, documents et souvenirs. Mon E-Carnet explore une manière de rassembler ces informations et de mieux contrôler leur partage. C’est le premier produit développé par Redianice et il est actuellement en phase pilote.</p><a class="pill pill--off" role="link" aria-disabled="true" tabindex="-1">Voir le produit<svg class="ic" aria-hidden="true"><use href="#i-arrow-up-right"/></svg></a><p class="pcard__note">Page indisponible pour le moment : Redianice n’est pas encore constituée.</p></div>
       </article>
@@ -141,6 +150,12 @@
 <section class="sec" id="investir">
   <h2 class="h2 h2--big">Grandir à plusieurs.</h2>
   <p class="statement statement--lead"><span translate="no">Redianice</span> conçoit, teste et lance ses <strong class="hl">propres produits</strong> numériques. Pour les tester, les lancer et les déployer, nous échangeons avec des entreprises, des établissements, des institutions et des investisseurs.</p>
+  <figure class="photo photo--in">
+    <picture>
+      <source media="(max-width:759px)" srcset="assets/photos/partenariat-9x16.webp" width="1080" height="1920">
+      <img src="assets/photos/partenariat-16x9.webp" alt="Des membres de l’équipe Redianice échangent autour d’une tablette et de maquettes : bâtir ensemble" width="2048" height="1152" loading="lazy" decoding="async">
+    </picture>
+  </figure>
   <div class="deals">
     <article class="deal"><div><h3><svg class="ic" aria-hidden="true"><use href="#i-building-2"/></svg>Partenaires et clients pilotes</h3><p>Échangeons sur les besoins du terrain et la possibilité de contribuer à l’évaluation de nos projets, dans un cadre adapté à leur niveau de maturité.</p></div><a class="pill pill--sky" href="#contact" data-motif="partenariat">Proposer un pilote</a></article>
     <article class="deal"><div><h3><svg class="ic" aria-hidden="true"><use href="#i-trending-up"/></svg>Investisseurs</h3><p>Nous sommes ouverts aux échanges avec des investisseurs qui souhaitent découvrir notre démarche, nos produits et leurs perspectives de développement.</p></div><a class="pill pill--sky" href="#contact" data-motif="investissement">Demander la présentation</a></article>
@@ -180,10 +195,10 @@
 
 <section class="sec sec--contact" id="contact">
   <div class="contact">
-    <div>
+    <div class="contact__side"><div class="contact__sticky">
       <h2 class="h2 h2--big">Parlons de votre projet.</h2>
       <p class="statement statement--lead">Vous souhaitez nous présenter un problème, échanger autour d’un projet, proposer un partenariat ou découvrir Redianice ? <strong class="hl">Écrivez-nous</strong>. Nous serons heureux d’en prendre connaissance.</p>
-    </div>
+    </div></div>
     <form class="form" id="form" novalidate>
       <div class="form__row"><label>Prénom<input name="prenom" autocomplete="given-name" required maxlength="80"></label><label>Nom<input name="nom" autocomplete="family-name" required maxlength="80"></label></div>
       <label>E-mail<input name="email" type="email" autocomplete="email" required maxlength="120"></label>

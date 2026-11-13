@@ -135,6 +135,31 @@
     window.addEventListener("scroll", onSky, { passive: true }); window.addEventListener("resize", onSky); onSky();
   }
 
+  // Bouton « Menu » : masqué tant que le hero de l'accueil occupe l'écran (classe body.in-hero, voir css/style.css).
+  // Il apparaît dès que la section suivante recouvre plus de la moitié de l'écran (HERO_MENU_AT = part de la hauteur de l'écran).
+  var HERO_MENU_AT = 0.5;
+  if (heroEl && heroEl.id === "top") {
+    var afterHero = $("#apropos") || $(".hero ~ .sec");
+    if (afterHero) {
+      var onHeroMenu = function () { document.body.classList.toggle("in-hero", afterHero.getBoundingClientRect().top > window.innerHeight * HERO_MENU_AT); };
+      window.addEventListener("scroll", onHeroMenu, { passive: true }); window.addEventListener("resize", onHeroMenu); onHeroMenu();
+    }
+  }
+
+  // Contact : la colonne de gauche reste fixe (position: sticky, voir css/style.css) pendant que le formulaire défile.
+  // Ici, on calcule seulement son décalage haut (--cs-top) pour que le texte soit centré dans l'écran, au-dessus du bouton « Menu ».
+  var csEl = $(".contact__sticky");
+  if (csEl) {
+    var csTop = 24, csBottom = 90;
+    var setCs = function () {
+      var h = csEl.offsetHeight, vh = window.innerHeight, room = vh - csTop - csBottom;
+      var t = h <= room ? csTop + (room - h) / 2 : vh - h - 24;
+      csEl.style.setProperty("--cs-top", Math.round(t) + "px");
+    };
+    window.addEventListener("resize", setCs); setCs();
+    if (window.ResizeObserver) new ResizeObserver(setCs).observe(csEl);
+  }
+
   // En-tête et bouton du menu : ils disparaissent à l’approche du pied de page, puis reviennent en remontant.
   // La navigation reste affichée tant que le panneau est ouvert.
   var footEl = $(".foot"), menuBtnEl = $("#menuBtn");
