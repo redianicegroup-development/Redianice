@@ -10,7 +10,8 @@
    prefers-reduced-motion : le tracé reste simplement dessiné, sans animation (CSS, bloc V37 de css/style.css). */
 (function () {
   "use strict";
-  var els = Array.prototype.slice.call(document.querySelectorAll(".hl"));
+  /* V44 : pas de soulignage dans le hero (le mot clé y reste sans tracé) */
+  var els = Array.prototype.slice.call(document.querySelectorAll(".hl")).filter(function (el) { return !el.closest(".hero"); });
   if (!els.length) return;
 
   var NS = "http://www.w3.org/2000/svg";

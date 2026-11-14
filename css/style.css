@@ -979,3 +979,51 @@ html.lb-open.has-cursor,html.lb-open.has-cursor *{cursor:auto!important}
   .contact__side{align-self:stretch}
   .contact__sticky{position:sticky;top:var(--cs-top,96px)}  /* --cs-top : calculé par js/main.js pour centrer le texte dans l'écran */
 }
+
+/* ================= V44 : menu simplifié, logo de l'en-tête en négatif, pas de soulignage dans le hero ================= */
+/* Menu : plus de petits liens ; les réseaux prennent leur place, puis « © 2026 Redianice » tout en bas. */
+.js .mbot{flex-direction:column;align-items:flex-start;justify-content:flex-start;gap:10px}
+.js .mcopy{margin:0;color:var(--paper);font:600 .92rem Urbanist,sans-serif;opacity:.8}
+@media(min-width:760px){.js .mbot{flex-direction:row;align-items:center;justify-content:space-between}}
+
+/* En-tête : le logo est en « négatif » (mix-blend-mode: difference, comme le curseur) : sombre sur les fonds clairs, doré sur le bleu, couleurs inversées sur les photos.
+   Pour que le mélange agisse sur la page et pas seulement dans l'en-tête, l'en-tête n'est plus un bloc fixe : seul le logo l'est (le bouton Menu et le panneau le restent, avec leurs propres couches).
+   L'aberration chromatique au survol (js/souris.js) est conservée. Dans le hero de l'accueil, le logo est masqué (body.in-hero, js/main.js). */
+.js .nav{position:static!important;display:block!important;z-index:auto;height:0;overflow:visible}
+.js .nav .logo{position:fixed;top:18px;left:0;right:0;margin-inline:auto;width:max-content;z-index:997;mix-blend-mode:difference;pointer-events:auto;transition:opacity .3s ease,visibility 0s}
+.js .nav .logo img{filter:brightness(0) invert(1)}
+.js .nav .logo.is-chroma img{filter:brightness(0) invert(1) drop-shadow(calc(var(--chx,0)*-1px) calc(var(--chy,0)*-1px) 0 rgba(255,40,90,.9)) drop-shadow(calc(var(--chx,0)*1px) calc(var(--chy,0)*1px) 0 rgba(0,200,255,.9))}
+.js body.in-hero .nav .logo{opacity:0;visibility:hidden;pointer-events:none;transition:opacity .3s ease,visibility 0s .3s}
+.js .nav.is-away .logo{opacity:0;visibility:hidden;pointer-events:none}
+/* couches (le panneau reste au-dessus de tout, sauf loader, curseur et aperçus) */
+.js .mpanel{z-index:998}
+.js .mbtn{z-index:999}
+
+/* ================= V44 : pied de page en deux parties =================
+   Partie 1 (.foot__top) : colonne de gauche = logo combiné + slogan ; au milieu = les deux liens légaux ; à droite = contact (réseaux) ;
+   « Haut de page » devient un simple bouton flèche, au même niveau (à l'extrémité de la ligne).
+   Téléphone : logo à gauche et flèche à droite sur la première ligne, puis slogan, légal, contact.
+   Partie 2 : scène du mot « redianice » et des objets (js/footer-fx.js) + « © 2026 … Créé par … » : inchangées. */
+.foot__top{position:relative;flex:none;display:grid;gap:clamp(14px,2.2svh,22px);padding-bottom:clamp(16px,2.6svh,26px);border-bottom:1px solid var(--line)}
+.foot__top .foot__brand{display:block}
+.foot__top .foot__logo{display:flex;align-items:center;min-height:48px;padding-right:60px}
+.foot__top .foot__tag{margin-top:clamp(6px,1.2svh,12px);max-width:14em;font-size:clamp(1.4rem,min(7vw,4.6svh),2.2rem)}
+.foot__h{margin:0 0 10px;opacity:1;color:var(--blue);font:700 .74rem Urbanist,sans-serif;letter-spacing:.1em;text-transform:uppercase}
+.foot__legal{display:block;flex:none}
+.foot__links{display:flex;flex-wrap:wrap;gap:6px 22px}
+.foot__top .foot__social{margin-top:0;gap:10px}
+.foot__top .foot__up{position:absolute;top:0;right:0;flex:none;display:inline-flex;align-items:center;justify-content:center;gap:0;width:48px;height:48px;padding:0}
+.foot__top .foot__up .ic{width:1.25em;height:1.25em}
+@media(max-width:899px) and (max-height:700px){
+  .foot__top{gap:10px;padding-bottom:12px}
+  .foot__top .foot__logo{min-height:44px}
+  .foot__top .foot__up{width:44px;height:44px}
+}
+@media(min-width:900px){
+  .foot__top{grid-template-columns:minmax(0,1.5fr) minmax(0,.7fr) minmax(0,1.15fr) auto;column-gap:clamp(24px,4vw,72px);align-items:start}
+  .foot__top .foot__logo{padding-right:0}
+  .foot__top .foot__tag{font-size:clamp(1.5rem,2.4vw,2.8rem)}
+  .foot__top .foot__up{position:static;justify-self:end}
+  .foot__links{flex-direction:column;gap:10px}
+  .foot__col{padding-top:clamp(0px,.6vw,10px)}
+}
