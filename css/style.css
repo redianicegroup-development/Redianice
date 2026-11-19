@@ -1042,6 +1042,6 @@ html.l3d .hero~.sec,html.l3d .foot{background:transparent}
 html.l3d #apropos{z-index:auto}
 html.l3d #apropos::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--paper);border-radius:inherit;pointer-events:none}
 html.l3d .about__logo img{opacity:0}
-/* Emplacement final du logo 3D : juste sous le logo du pied de page (le slogan descend d'autant). Même proportions que le modèle (≈ 0,85). */
-.foot__mark{display:none}
-html.l3d .foot__mark{display:block;width:clamp(76px,11svh,112px);height:clamp(88px,13svh,132px);margin-top:clamp(10px,1.8svh,18px);pointer-events:none}
+/* Position finale : le logo 3D prend la place de la marque encadrée du logo combiné du pied de page (le mot « redianice » reste).
+   L'image du logo (assets/logo-fonce.png, 900 × 145) : carré de la marque = les 145 premiers px, le mot commence à 201 px. On masque donc les 19 % de gauche. */
+html.l3d .foot__logo img[data-l3d-end]{clip-path:inset(0 0 0 19%)}

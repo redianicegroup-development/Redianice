@@ -3,7 +3,7 @@
    Le modèle suit trois emplacements, calculés à chaque image à partir de la mise en page réelle :
      1. « À propos » : il remplace le logo en zigzag (il se pose sur [data-l3d-slot], le zigzag de js/main.js le déplace et le fait tourner) ;
      2. après « À propos » : il passe en arrière-plan de toute la page, grand et centré, et tourne sur lui-même avec le défilement ;
-     3. fin de page : il glisse sous le logo du pied de page et s'arrête de face sur [data-l3d-end].
+     3. fin de page : il glisse à la place de la marque encadrée du logo combiné du pied de page (le mot « redianice » reste) et s'arrête de face.
    Sans WebGL ou si le fichier ne se charge pas : rien ne change, le logo image reste en place (la classe html.l3d n'est jamais ajoutée).
    Réglages : objet CFG ci-dessous. */
 (function () {
@@ -16,14 +16,15 @@
     tilt: 0.2,         // inclinaison vers l'avant (radians), pour qu'il garde du volume de profil
     persp: 5,          // distance de la caméra, en hauteurs de modèle (plus petit = perspective plus marquée)
     aboutOut: [1.15, 0.25], // passage « À propos » → fond : bas de la section entre ces deux hauteurs d'écran
-    footIn: [1.0, 0.15]     // passage fond → pied de page : haut du pied de page entre ces deux hauteurs d'écran
+    footIn: [1.0, 0.15],    // passage fond → pied de page : haut du pied de page entre ces deux hauteurs d'écran
+    footMark: 1            // hauteur finale : part de la hauteur du logo combiné (1 = comme le carré de la marque)
   };
 
   var canvas = document.getElementById("l3d");
   var slot = document.querySelector("[data-l3d-slot]");
   var about = document.getElementById("apropos");
   var foot = document.querySelector(".foot");
-  var mark = document.querySelector("[data-l3d-end]");
+  var mark = document.querySelector("[data-l3d-end]"); // image du logo combiné du pied de page
   if (!canvas || !slot || !about || !foot || !mark) return;
 
   var root = document.documentElement;
@@ -252,7 +253,8 @@
 
     var hA = Math.min(sr.height, sr.width / geo.aspect), xA = sr.left + sr.width / 2, yA = sr.top + sr.height / 2;
     var hB = Math.min(vh * CFG.bgHeight, vw * 0.95 / geo.aspect), xB = vw / 2, yB = vh / 2;
-    var hC = mr.height || hB, xC = mr.height ? mr.left + mr.width / 2 : xB, yC = mr.height ? mr.top + mr.height / 2 : yB;
+    // Logo combiné : la marque est un carré de la hauteur de l'image, à gauche ; son monogramme est centré à 49,5 % de cette hauteur.
+    var hC = mr.height ? mr.height * CFG.footMark : hB, xC = mr.height ? mr.left + mr.height * 0.495 : xB, yC = mr.height ? mr.top + mr.height / 2 : yB;
 
     // Rotation : zigzag de « À propos » (js/main.js), puis tours avec le défilement jusqu'au pied de page, où il se range de face.
     var aboutEnd = ab.bottom + y - vh * CFG.aboutOut[1], footStart = ft.top + y - vh * CFG.footIn[1];
