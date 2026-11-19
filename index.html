@@ -76,10 +76,13 @@
   <span class="hobj hobj--d" data-speed="0.4" data-spin="-12" style="--x:64%;--y:9%;--mx:58%;--my:12%;--k:0.85;--r:8deg;--dur:6.2s;--del:-0.3s"><span class="hobj__v"><img src="assets/objets/mallette.webp" alt="" width="400" height="361" decoding="async"></span></span>
 </div>
 
+<!-- Logo 3D (js/logo3d.js) : un seul canvas fixe, derrière le contenu. Il se pose sur le logo de « À propos », passe en arrière-plan, puis se range sous le logo du pied de page. -->
+<canvas class="l3d-canvas" id="l3d" aria-hidden="true"></canvas>
+
 <section class="sec about" id="apropos">
   <div class="about__grid">
     <div class="about__side" aria-hidden="true">
-      <div class="about__logo"><img src="assets/logo-redianice.webp" alt="" width="147" height="147"></div>
+      <div class="about__logo" data-l3d-slot><img src="assets/logo-redianice.webp" alt="" width="147" height="147"></div>
     </div>
     <div class="about__body">
       <div class="about__head" data-side="l">
@@ -219,6 +222,7 @@
   <div class="foot__top">
     <div class="foot__brand">
       <a class="foot__logo" href="/" aria-label="Redianice, accueil"><img src="/assets/logo-fonce.png" alt="Redianice" width="900" height="145" loading="lazy"></a>
+      <span class="foot__mark" data-l3d-end aria-hidden="true"></span>
       <p class="foot__tag">Des problèmes réels. Des solutions pensées pour demain.</p>
     </div>
     <nav class="foot__col foot__legal" aria-label="Informations légales"><p class="foot__h">Légal</p><div class="foot__links"><a href="/mentions-legales/">Mentions légales</a><a href="/confidentialite/">Confidentialité</a></div></nav>
@@ -246,5 +250,6 @@
 <script src="js/credit-reveal.js" defer></script>
 <script src="js/hero-bg.js" defer></script>
 <script src="js/hero-objets.js" defer></script>
+<script src="js/logo3d.js" defer></script>
 </body>
 </html>

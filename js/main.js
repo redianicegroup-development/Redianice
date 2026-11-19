@@ -489,10 +489,11 @@
     gsap.to($$(".sw", st), { opacity: 1, ease: "none", stagger: 0.1, scrollTrigger: { trigger: st, start: "top 80%", end: "bottom 50%", scrub: true } });
   });
 
-  // À propos, ordinateur : zigzag. Chaque sous-section se place d'un côté (data-side) et la marque, épinglée à l'écran,
-  // passe du côté opposé en roulant, au moment où la sous-section arrive (ScrollTrigger, branché sur Lenis plus haut).
-  // Téléphone : la marque est au-dessus du titre et pivote doucement pendant le défilement.
+  // À propos, ordinateur : zigzag. Chaque sous-section se place d'un côté (data-side) et la marque (le logo 3D, js/logo3d.js, posé sur
+  // l'emplacement .about__logo), épinglée à l'écran, passe du côté opposé en faisant un tour sur elle-même, au moment où la sous-section arrive
+  // (ScrollTrigger, branché sur Lenis plus haut). Téléphone : la marque est au-dessus du titre et pivote doucement pendant le défilement.
   var about = $("#apropos"), aboutLogo = about && $(".about__logo", about), aboutSide = about && $(".about__side", about);
+  var l3d = (window.__l3d = window.__l3d || {}); // l3d.spin : rotation (degrés) du logo 3D, lue par js/logo3d.js
   if (about && aboutLogo && aboutSide && !reduced) {
     var amm = gsap.matchMedia();
     amm.add("(min-width: 900px)", function () {
@@ -513,6 +514,7 @@
           segs.push({ s: top - vh * 0.68, e: top - vh * 0.32, a: at, b: to, r0: r0, r1: rot });
           at = to;
         });
+        l3d.spinEnd = rot; // angle final du zigzag : le logo 3D repart de là pour tourner en arrière-plan
       };
       var apply = function () {
         var y = window.scrollY, cur = start, r = 0;
@@ -521,16 +523,17 @@
           if (y <= g.s) break;
           if (y >= g.e) { cur = g.b; r = g.r1; continue; }
           var t = ease((y - g.s) / (g.e - g.s)), xa = xAt(g.a), xb = xAt(g.b);
-          gsap.set(aboutLogo, { x: xa + (xb - xa) * t, rotation: g.r0 + (g.r1 - g.r0) * t });
+          gsap.set(aboutLogo, { x: xa + (xb - xa) * t }); l3d.spin = g.r0 + (g.r1 - g.r0) * t;
           return;
         }
-        gsap.set(aboutLogo, { x: xAt(cur), rotation: r });
+        gsap.set(aboutLogo, { x: xAt(cur) }); l3d.spin = r;
       };
       ScrollTrigger.create({ trigger: about, start: "top bottom", end: "bottom top", invalidateOnRefresh: true, onRefresh: function () { build(); apply(); }, onUpdate: apply });
-      return function () { about.classList.remove("about--zig"); gsap.set(aboutLogo, { clearProps: "transform" }); };
+      return function () { about.classList.remove("about--zig"); gsap.set(aboutLogo, { clearProps: "transform" }); l3d.spin = 0; };
     });
     amm.add("(max-width: 899px)", function () {
-      gsap.fromTo(aboutLogo, { rotation: -18, scale: 0.9 }, { rotation: 18, scale: 1.05, ease: "none", scrollTrigger: { trigger: aboutLogo, start: "top 90%", end: "bottom 10%", scrub: 0.6 } });
+      var pivot = { v: -35 }; l3d.spin = pivot.v; l3d.spinEnd = 35;
+      gsap.to(pivot, { v: 35, ease: "none", onUpdate: function () { l3d.spin = pivot.v; }, scrollTrigger: { trigger: aboutLogo, start: "top 90%", end: "bottom 10%", scrub: 0.6 } });
     });
   }
 
