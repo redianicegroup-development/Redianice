@@ -1,16 +1,16 @@
-/* Logo 3D Redianice (assets/redianice_official_no_frame.glb) : accueil uniquement.
+/* Logo 3D Redianice (assets/redianice_official_no_frame.glb) : toutes les pages.
    Un seul canvas fixe (#l3d) dessine le modèle, sans bibliothèque (chargeur GLB et rendu WebGL maison).
-   Le modèle suit trois emplacements, calculés à chaque image à partir de la mise en page réelle :
-     1. « À propos » : il remplace le logo en zigzag (il se pose sur [data-l3d-slot], le zigzag de js/main.js le déplace et le fait tourner) ;
-     2. après « À propos » : il passe en arrière-plan de toute la page, grand et centré, et tourne sur lui-même avec le défilement ;
-     3. fin de page : il glisse à la place de la marque encadrée du logo combiné du pied de page (le mot « redianice » reste) et s'arrête de face.
+   Le modèle suit des emplacements calculés à chaque image à partir de la mise en page réelle :
+     - accueil, « À propos » : il remplace le logo en zigzag (il se pose sur [data-l3d-slot], le zigzag de js/main.js le déplace et le fait tourner) ;
+     - ensuite (et dès le haut de page sur toutes les autres pages) : il est en arrière-plan de toute la page, grand et centré, et tourne sur lui-même avec le défilement ;
+     - fin de page : il glisse à la place de la marque encadrée du logo combiné du pied de page ([data-l3d-end], le mot « redianice » reste) et s'arrête de face.
    Sans WebGL ou si le fichier ne se charge pas : rien ne change, le logo image reste en place (la classe html.l3d n'est jamais ajoutée).
    Réglages : objet CFG ci-dessous. */
 (function () {
   "use strict";
 
   var CFG = {
-    turns: 3,          // tours complets sur lui-même, de la fin de « À propos » jusqu'au pied de page
+    vhPerTurn: 3.7,    // un tour complet sur lui-même tous les N hauteurs d'écran de défilement (au moins 1 tour par page)
     bgOpacity: 0.45,   // opacité en arrière-plan (1 = plein)
     bgHeight: 0.8,     // hauteur en arrière-plan : part de la hauteur de l'écran (plafonnée par la largeur)
     tilt: 0.2,         // inclinaison vers l'avant (radians), pour qu'il garde du volume de profil
@@ -21,11 +21,12 @@
   };
 
   var canvas = document.getElementById("l3d");
-  var slot = document.querySelector("[data-l3d-slot]");
-  var about = document.getElementById("apropos");
+  var slot = document.querySelector("[data-l3d-slot]");  // accueil seulement : emplacement du logo en zigzag
+  var about = document.getElementById("apropos");        // accueil seulement
   var foot = document.querySelector(".foot");
   var mark = document.querySelector("[data-l3d-end]"); // image du logo combiné du pied de page
-  if (!canvas || !slot || !about || !foot || !mark) return;
+  if (!canvas || !foot || !mark) return;
+  var home = !!(slot && about); // accueil : « À propos » puis fond ; autres pages : fond dès le haut de page
 
   var root = document.documentElement;
   var reduced = !!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
@@ -229,44 +230,55 @@
 
   var ease = function (t) { t = Math.max(0, Math.min(1, t)); return t * t * (3 - 2 * t); };
   var lerp = function (a, b, t) { return a + (b - a) * t; };
-  var pastHero = false;
+  var pastHero = false, born = 0;
 
   function tick() {
     if (!ready || !sizeCanvas()) return;
-    var vw = cw, vh = ch, ab = about.getBoundingClientRect();
+    var vw = cw, vh = ch, y = window.pageYOffset, ab = null;
 
-    // Le hero est fixe derrière la page : une fois « À propos » arrivé en haut, il est entièrement recouvert, on le masque
-    // (les sections sont alors transparentes pour laisser voir le logo 3D, voir css/style.css bloc V45).
-    var past = ab.top <= 0;
-    if (past !== pastHero) { pastHero = past; root.classList.toggle("l3d-past-hero", past); }
-
-    if (ab.top >= vh) { // « À propos » pas encore à l'écran : rien à dessiner
-      if (!cleared) { gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT); cleared = true; last = ""; }
-      return;
+    if (home) {
+      ab = about.getBoundingClientRect();
+      // Le hero est fixe derrière la page : une fois « À propos » arrivé en haut, il est entièrement recouvert, on le masque
+      // (les sections sont alors transparentes pour laisser voir le logo 3D, voir css/style.css bloc V45).
+      var past = ab.top <= 0;
+      if (past !== pastHero) { pastHero = past; root.classList.toggle("l3d-past-hero", past); }
+      if (ab.top >= vh) { // « À propos » pas encore à l'écran : rien à dessiner
+        if (!cleared) { gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT); cleared = true; last = ""; }
+        return;
+      }
     }
 
-    var ft = foot.getBoundingClientRect(), sr = slot.getBoundingClientRect(), mr = mark.getBoundingClientRect(), y = window.pageYOffset;
+    var ft = foot.getBoundingClientRect(), mr = mark.getBoundingClientRect();
 
-    // 1 → 2 : de « À propos » vers l'arrière-plan ; 2 → 3 : de l'arrière-plan vers le logo du pied de page
-    var t1 = ease((vh * CFG.aboutOut[0] - ab.bottom) / (vh * (CFG.aboutOut[0] - CFG.aboutOut[1])));
-    var t2 = ease((vh * CFG.footIn[0] - ft.top) / (vh * (CFG.footIn[0] - CFG.footIn[1])));
+    // Arrivée au pied de page : défilement de s0 (le pied de page entre à l'écran) à s1 (le haut de page + le pied de page atteint, ou le bas de page).
+    var footAbs = ft.top + y, maxY = Math.max(0, root.scrollHeight - vh);
+    var s0 = Math.max(0, footAbs - vh * CFG.footIn[0]), s1 = Math.min(footAbs - vh * CFG.footIn[1], maxY);
+    var t2 = s1 > s0 + 1 ? ease((y - s0) / (s1 - s0)) : (y >= s1 - 1 ? 1 : 0);
 
-    var hA = Math.min(sr.height, sr.width / geo.aspect), xA = sr.left + sr.width / 2, yA = sr.top + sr.height / 2;
-    var hB = Math.min(vh * CFG.bgHeight, vw * 0.95 / geo.aspect), xB = vw / 2, yB = vh / 2;
+    // Accueil : de « À propos » vers l'arrière-plan. Autres pages : déjà en arrière-plan.
+    var t1 = 1, hB = Math.min(vh * CFG.bgHeight, vw * 0.95 / geo.aspect), xB = vw / 2, yB = vh / 2;
+    var hA = hB, xA = xB, yA = yB, aboutEnd = 0, spinA = 0;
+    if (home) {
+      var sr = slot.getBoundingClientRect();
+      t1 = ease((vh * CFG.aboutOut[0] - ab.bottom) / (vh * (CFG.aboutOut[0] - CFG.aboutOut[1])));
+      hA = Math.min(sr.height, sr.width / geo.aspect); xA = sr.left + sr.width / 2; yA = sr.top + sr.height / 2;
+      aboutEnd = ab.bottom + y - vh * CFG.aboutOut[1];
+      spinA = reduced ? 0 : (shared.spin || 0) * Math.PI / 180;
+    }
     // Logo combiné : la marque est un carré de la hauteur de l'image, à gauche ; son monogramme est centré à 49,5 % de cette hauteur.
     var hC = mr.height ? mr.height * CFG.footMark : hB, xC = mr.height ? mr.left + mr.height * 0.495 : xB, yC = mr.height ? mr.top + mr.height / 2 : yB;
 
-    // Rotation : zigzag de « À propos » (js/main.js), puis tours avec le défilement jusqu'au pied de page, où il se range de face.
-    var aboutEnd = ab.bottom + y - vh * CFG.aboutOut[1], footStart = ft.top + y - vh * CFG.footIn[1];
-    var prog = Math.max(0, Math.min(1, (y - aboutEnd) / Math.max(1, footStart - aboutEnd)));
-    var spinA = reduced ? 0 : (shared.spin || 0) * Math.PI / 180;
-    var spinB = reduced ? 0 : ((shared.spinEnd || 0) + CFG.turns * 360 * prog) * Math.PI / 180;
+    // Rotation : zigzag de « À propos » (accueil), puis tours avec le défilement jusqu'au pied de page, où il se range de face.
+    var prog = Math.max(0, Math.min(1, (y - aboutEnd) / Math.max(1, s1 - aboutEnd)));
+    var turns = Math.max(1, Math.round((s1 - aboutEnd) / (CFG.vhPerTurn * vh)));
+    var spinB = reduced ? 0 : (((home && shared.spinEnd) || 0) + turns * 360 * prog) * Math.PI / 180;
     var snap = Math.round(spinB / (2 * Math.PI)) * 2 * Math.PI;
     var yaw = lerp(lerp(spinA, spinB, t1), snap, t2);
     var pitch = lerp(0.1, CFG.tilt, t1) * (1 - t2) + (reduced ? 0 : 0.05 * Math.sin(prog * 18.85) * t1 * (1 - t2));
 
     var X = lerp(lerp(xA, xB, t1), xC, t2), Y = lerp(lerp(yA, yB, t1), yC, t2), H = lerp(lerp(hA, hB, t1), hC, t2);
     var alpha = lerp(lerp(1, CFG.bgOpacity, t1), 1, t2);
+    if (!home && !reduced) alpha *= ease((performance.now() - born - 700) / 900); // autres pages : apparition en fondu au chargement
 
     var sig = [X, Y, H, yaw, pitch, alpha].map(function (v) { return Math.round(v * 100); }).join();
     if (sig === last) return;
@@ -279,7 +291,7 @@
   function start() {
     if (started) return; started = true;
     initGL();
-    ready = true;
+    ready = true; born = performance.now();
     root.classList.add("l3d");
     if (window.gsap && window.gsap.ticker) window.gsap.ticker.add(tick);
     else (function loop() { tick(); requestAnimationFrame(loop); })();

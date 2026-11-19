@@ -1028,9 +1028,10 @@ html.lb-open.has-cursor,html.lb-open.has-cursor *{cursor:auto!important}
   .foot__col{padding-top:clamp(0px,.6vw,10px)}
 }
 
-/* ---------- V45 : logo 3D (GLB) sur l'accueil (js/logo3d.js) ----------
+/* ---------- V45 : logo 3D (GLB) sur toutes les pages (js/logo3d.js) ----------
    Le script ajoute html.l3d une fois le modèle chargé ; sans cela rien ne change (le logo image reste affiché).
-   Couches, du fond vers l'avant : hero (-2) → objets du hero (-1) → fond de « À propos » (-1, le rideau qui recouvre le hero) → canvas (0) → contenu.
+   Autres pages que l'accueil : pas de hero ni de rideau, les sections et le pied de page sont simplement transparents devant le canvas (z-index 0).
+   Accueil, couches du fond vers l'avant : hero (-2) → objets du hero (-1) → fond de « À propos » (-1, le rideau qui recouvre le hero) → canvas (0) → contenu.
    Les sections suivantes et le pied de page deviennent transparents pour laisser voir le logo 3D ; le hero, resté fixe derrière, est masqué
    (html.l3d-past-hero) dès que « À propos » arrive en haut de l'écran, quand il est entièrement recouvert. */
 .l3d-canvas{display:none}
@@ -1038,7 +1039,7 @@ html.l3d .l3d-canvas{display:block;position:fixed;left:0;top:0;width:100%;height
 html.l3d .hero{z-index:-2}
 html.l3d .hero-objs{z-index:-1}
 html.l3d.l3d-past-hero .hero{visibility:hidden}
-html.l3d .hero~.sec,html.l3d .foot{background:transparent}
+html.l3d main>.sec,html.l3d .foot{background:transparent}
 html.l3d #apropos{z-index:auto}
 html.l3d #apropos::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--paper);border-radius:inherit;pointer-events:none}
 html.l3d .about__logo img{opacity:0}
